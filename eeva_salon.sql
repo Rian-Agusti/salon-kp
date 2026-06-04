@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jun 04, 2026 at 04:13 AM
+-- Generation Time: Jun 04, 2026 at 05:33 AM
 -- Server version: 9.7.0
 -- PHP Version: 8.5.6
 
@@ -50,6 +50,13 @@ CREATE TABLE `migrations` (
   `batch` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `migrations`
+--
+
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
+(1, '2026_06_04_041745_remove_stock_from_products_table', 1);
+
 -- --------------------------------------------------------
 
 --
@@ -62,7 +69,6 @@ CREATE TABLE `products` (
   `slug` varchar(170) COLLATE utf8mb4_unicode_ci NOT NULL,
   `description` text COLLATE utf8mb4_unicode_ci,
   `price` decimal(12,2) NOT NULL DEFAULT '0.00',
-  `stock` smallint UNSIGNED NOT NULL DEFAULT '0',
   `image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `is_active` tinyint(1) NOT NULL DEFAULT '1',
   `created_at` timestamp NULL DEFAULT NULL,
@@ -74,10 +80,10 @@ CREATE TABLE `products` (
 -- Dumping data for table `products`
 --
 
-INSERT INTO `products` (`id`, `name`, `slug`, `description`, `price`, `stock`, `image`, `is_active`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'Pikaru Keratin Anti Frizz', 'pikaru-keratin-anti-frizz', 'Perawatan keratin rambut anti frizz asal Korea', 280000.00, 20, NULL, 1, '2026-06-04 03:32:33', '2026-06-04 03:32:33', NULL),
-(2, 'Pikaru Keratin Treatment', 'pikaru-keratin-treatment', 'Treatment keratin intensif Pikaru', 350000.00, 15, NULL, 1, '2026-06-04 03:32:33', '2026-06-04 03:32:33', NULL),
-(3, 'Pikaru Hair Serum', 'pikaru-hair-serum', 'Serum rambut Pikaru untuk rambut berkilau', 150000.00, 30, NULL, 1, '2026-06-04 03:32:33', '2026-06-04 03:32:33', NULL);
+INSERT INTO `products` (`id`, `name`, `slug`, `description`, `price`, `image`, `is_active`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 'Pikaru Keratin Anti Frizz', 'pikaru-keratin-anti-frizz', 'Perawatan keratin rambut anti frizz asal Korea', 280000.00, NULL, 1, '2026-06-04 03:32:33', '2026-06-04 03:32:33', NULL),
+(2, 'Pikaru Keratin Treatment', 'pikaru-keratin-treatment', 'Treatment keratin intensif Pikaru', 350000.00, NULL, 1, '2026-06-04 03:32:33', '2026-06-04 03:32:33', NULL),
+(3, 'Pikaru Hair Serum', 'pikaru-hair-serum', 'Serum rambut Pikaru untuk rambut berkilau', 150000.00, NULL, 1, '2026-06-04 03:32:33', '2026-06-04 03:32:33', NULL);
 
 -- --------------------------------------------------------
 
@@ -311,7 +317,7 @@ ALTER TABLE `galleries`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `products`
