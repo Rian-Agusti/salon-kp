@@ -18,6 +18,9 @@ class RegistrationTest extends TestCase
 
     public function test_new_users_can_register(): void
     {
+        // Must seed roles and permissions before trying to register
+        $this->seed(\Database\Seeders\RoleAndPermissionSeeder::class);
+
         $response = $this->post('/register', [
             'name' => 'Test User',
             'email' => 'test@example.com',
@@ -26,6 +29,6 @@ class RegistrationTest extends TestCase
         ]);
 
         $this->assertAuthenticated();
-        $response->assertRedirect(route('dashboard', absolute: false));
+        $response->assertRedirect(route('customer.dashboard', absolute: false));
     }
 }
