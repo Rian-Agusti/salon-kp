@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Enums\ReservationStatusEnum;
 
 class Reservation extends Model
@@ -19,20 +21,17 @@ class Reservation extends Model
         'customer_phone',
     ];
 
-    protected function casts(): array
-    {
-        return [
-            'booking_date' => 'date',
-            'status' => ReservationStatusEnum::class,
-        ];
-    }
+    protected $casts = [
+        'booking_date' => 'date',
+        'status' => ReservationStatusEnum::class,
+    ];
 
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
-    public function reservationItems()
+    public function reservationItems(): HasMany
     {
         return $this->hasMany(ReservationItem::class);
     }

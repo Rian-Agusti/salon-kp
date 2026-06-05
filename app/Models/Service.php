@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Service extends Model
 {
@@ -19,16 +20,13 @@ class Service extends Model
         'is_active',
     ];
 
-    protected function casts(): array
-    {
-        return [
-            'price' => 'decimal:2',
-            'duration_minutes' => 'integer',
-            'is_active' => 'boolean',
-        ];
-    }
+    protected $casts = [
+        'price' => 'decimal:2',
+        'duration_minutes' => 'integer',
+        'is_active' => 'boolean',
+    ];
 
-    public function reservationItems()
+    public function reservationItems(): HasMany
     {
         return $this->hasMany(ReservationItem::class);
     }

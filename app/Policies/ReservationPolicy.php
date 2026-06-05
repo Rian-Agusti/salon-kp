@@ -4,7 +4,6 @@ namespace App\Policies;
 
 use App\Models\Reservation;
 use App\Models\User;
-use Illuminate\Auth\Access\Response;
 
 class ReservationPolicy
 {
@@ -13,7 +12,7 @@ class ReservationPolicy
      */
     public function viewAny(User $user): bool
     {
-        return false;
+        return true; // The controller will filter query based on role.
     }
 
     /**
@@ -21,7 +20,11 @@ class ReservationPolicy
      */
     public function view(User $user, Reservation $reservation): bool
     {
-        return false;
+        if ($user->hasRole('Admin')) {
+            return true;
+        }
+
+        return $user->id === $reservation->user_id;
     }
 
     /**
@@ -29,37 +32,22 @@ class ReservationPolicy
      */
     public function create(User $user): bool
     {
-        return false;
+        // Any authenticated user can create a reservation.
+        return true;
     }
 
     /**
-     * Determine whether the user can update the model.
+     * Determine whether the user can update the model (status).
      */
     public function update(User $user, Reservation $reservation): bool
     {
-        return false;
+        return $user->hasRole('Admin');
     }
 
     /**
      * Determine whether the user can delete the model.
      */
     public function delete(User $user, Reservation $reservation): bool
-    {
-        return false;
-    }
-
-    /**
-     * Determine whether the user can restore the model.
-     */
-    public function restore(User $user, Reservation $reservation): bool
-    {
-        return false;
-    }
-
-    /**
-     * Determine whether the user can permanently delete the model.
-     */
-    public function forceDelete(User $user, Reservation $reservation): bool
     {
         return false;
     }

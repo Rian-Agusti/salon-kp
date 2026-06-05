@@ -18,11 +18,8 @@ class Product extends Model
         'is_active',
     ];
 
-    protected function casts(): array
-    {
-        return [
-            'price' => 'decimal:2',
-            'is_active' => 'boolean',
-        ];
-    }
+    protected $casts = [
+        'price' => 'decimal:2',
+        'is_active' => 'boolean',
+    ];
 }

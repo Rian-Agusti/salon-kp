@@ -3,22 +3,35 @@
 namespace App\Actions\Reservation;
 
 use App\Models\Reservation;
-use Carbon\Carbon;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Str;
 
 class GenerateReservationCode
 {
-    public static function generate(): string
+    /**
+     * Generate a unique reservation code with format EEV-YYYYMMDD-XXX
+     */
+    public function execute(): string
     {
-        $today = Carbon::today();
-        $dateString = $today->format('Ymd');
+        $date = Carbon::now();
+        $datePrefix = 'EEV-' . $date->format('Ymd') . '-';
 
-        $lastReservation = Reservation::whereDate('booking_date', $today)->orderBy('id', 'desc')->first();
+        // Find the latest reservation code for today
+        $latestReservation = Reservation::where('reservation_code', 'like', $datePrefix . '%')
+            ->orderBy('reservation_code', 'desc')
+            ->first();
 
-        $counter = 1;
-        if ($lastReservation && preg_match('/EEV-\d{8}-(\d{3})/', $lastReservation->reservation_code, $matches)) {
-            $counter = intval($matches[1]) + 1;
+        if (!$latestReservation) {
+            $counter = 1;
+        } else {
+            // Extract the counter part (XXX) from the latest code
+            $lastCode = $latestReservation->reservation_code;
+            $counter = (int) Str::afterLast($lastCode, '-') + 1;
         }
 
-        return sprintf('EEV-%s-%03d', $dateString, $counter);
+        // Format the counter with leading zeros up to 3 digits
+        $formattedCounter = str_pad((string)$counter, 3, '0', STR_PAD_LEFT);
+
+        return $datePrefix . $formattedCounter;
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class ReservationItem extends Model
 {
@@ -14,21 +15,18 @@ class ReservationItem extends Model
         'service_duration',
     ];
 
-    protected function casts(): array
-    {
-        return [
-            'service_price' => 'decimal:2',
-            'service_duration' => 'integer',
-        ];
-    }
+    protected $casts = [
+        'service_price' => 'decimal:2',
+        'service_duration' => 'integer',
+    ];
 
-    public function reservation()
+    public function reservation(): BelongsTo
     {
         return $this->belongsTo(Reservation::class);
     }
 
-    public function service()
+    public function service(): BelongsTo
     {
-        return $this->belongsTo(Service::class)->withTrashed();
+        return $this->belongsTo(Service::class);
     }
 }
