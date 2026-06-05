@@ -164,14 +164,14 @@
                                                         'completed' => 'bg-green-100 text-green-800',
                                                         'cancelled' => 'bg-gray-100 text-gray-800',
                                                     ];
-                                                    $colorClass = $statusColors[$res->status] ?? 'bg-gray-100 text-gray-800';
+                                                    $colorClass = $statusColors[$res->status->value] ?? 'bg-gray-100 text-gray-800';
                                                 @endphp
                                                 <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full {{ $colorClass }}">
-                                                    {{ ucfirst(str_replace('_', ' ', $res->status)) }}
+                                                    {{ ucfirst(str_replace('_', ' ', $res->status->value)) }}
                                                 </span>
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                                @if(in_array($res->status, ['pending', 'confirmed']))
+                                                @if(in_array($res->status->value, ['pending', 'confirmed']))
                                                     <form action="{{ url('/reservations/'.$res->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to cancel this reservation?');">
                                                         @csrf
                                                         @method('DELETE')

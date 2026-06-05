@@ -39,6 +39,7 @@ class ReservationController extends Controller
     public function create()
     {
         $services = Service::where('is_active', true)->get();
+
         return view('customer.reservations.create', compact('services'));
     }
 
@@ -84,6 +85,7 @@ class ReservationController extends Controller
             abort(403);
         }
         $reservation->load('reservationItems');
+
         return view('customer.reservations.show', compact('reservation'));
     }
 
@@ -94,6 +96,7 @@ class ReservationController extends Controller
         }
         $reservation->load('reservationItems');
         $setting = Setting::first();
+
         return view('customer.reservations.success', compact('reservation', 'setting'));
     }
 }

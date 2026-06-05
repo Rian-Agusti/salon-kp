@@ -34,8 +34,8 @@
                             'cancelled' => 'bg-red-100 text-red-800',
                         ];
                     @endphp
-                    <span class="px-3 py-1 inline-flex text-sm font-semibold rounded-full uppercase {{ $statusColors[$reservation->status] }}">
-                        {{ $reservation->status }}
+                    <span class="px-3 py-1 inline-flex text-sm font-semibold rounded-full uppercase {{ $statusColors[$reservation->status->value] ?? 'bg-gray-100 text-gray-800' }}">
+                        {{ $reservation->status->value }}
                     </span>
                 </div>
             </div>
@@ -100,10 +100,10 @@
                 @method('PATCH')
                 <div class="mb-4">
                     <select name="status" class="w-full rounded-md border-gray-300 shadow-sm focus:border-rose-500 focus:ring focus:ring-rose-200" required>
-                        <option value="pending" {{ $reservation->status == 'pending' ? 'selected' : '' }}>Pending</option>
-                        <option value="confirmed" {{ $reservation->status == 'confirmed' ? 'selected' : '' }}>Confirmed</option>
-                        <option value="completed" {{ $reservation->status == 'completed' ? 'selected' : '' }}>Completed</option>
-                        <option value="cancelled" {{ $reservation->status == 'cancelled' ? 'selected' : '' }}>Cancelled</option>
+                        <option value="pending" {{ $reservation->status->value == 'pending' ? 'selected' : '' }}>Pending</option>
+                        <option value="confirmed" {{ $reservation->status->value == 'confirmed' ? 'selected' : '' }}>Confirmed</option>
+                        <option value="completed" {{ $reservation->status->value == 'completed' ? 'selected' : '' }}>Completed</option>
+                        <option value="cancelled" {{ $reservation->status->value == 'cancelled' ? 'selected' : '' }}>Cancelled</option>
                     </select>
                 </div>
                 <button type="submit" class="w-full bg-rose-500 hover:bg-rose-600 text-white font-medium py-2 px-4 rounded shadow-sm">

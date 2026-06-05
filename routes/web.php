@@ -1,9 +1,9 @@
 <?php
 
+use App\Http\Controllers\Admin;
+use App\Http\Controllers\Customer;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PublicController;
-use App\Http\Controllers\Customer;
-use App\Http\Controllers\Admin;
 use Illuminate\Support\Facades\Route;
 
 // Public routes
@@ -47,4 +47,6 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
 });
 
 require __DIR__.'/auth.php';
-Route::get('/dashboard', function () { return redirect('/customer/dashboard'); })->middleware(['auth'])->name('dashboard');
+Route::get('/dashboard', function () {
+    return redirect('/customer/dashboard');
+})->middleware(['auth'])->name('dashboard');
