@@ -1,0 +1,86 @@
+[
+  {
+    "key": "laravel-cache-rriantaris865@gmail.com|127.0.0.1",
+    "value": "'i:1"
+  },
+  {
+    "key": 1,
+    "value": "2026_06_04_041745_remove_stock_from_products_table",
+    "expiration": 1
+  },
+  {
+    "key": 2,
+    "value": "2026_06_04_061418_add_foreign_keys_and_indexes_to_salon_tables",
+    "expiration": 1
+  },
+  {
+    "key": 3,
+    "value": "2026_06_04_134654_create_products_table",
+    "expiration": 1
+  },
+  {
+    "key": 4,
+    "value": "2026_06_04_134654_create_services_table",
+    "expiration": 1
+  },
+  {
+    "key": 5,
+    "value": "2026_06_04_134654_create_users_table",
+    "expiration": 1
+  },
+  {
+    "key": 6,
+    "value": "2026_06_04_134655_create_galleries_table",
+    "expiration": 1
+  },
+  {
+    "key": 7,
+    "value": "2026_06_04_134655_create_promotions_table",
+    "expiration": 1
+  },
+  {
+    "key": 8,
+    "value": "2026_06_04_134655_create_settings_table",
+    "expiration": 1
+  },
+  {
+    "key": 9,
+    "value": "2026_06_04_134656_create_reservation_items_table",
+    "expiration": 1
+  },
+  {
+    "key": 10,
+    "value": "2026_06_04_134656_create_reservations_table",
+    "expiration": 1
+  },
+  {
+    "key": 11,
+    "value": "2026_06_04_135400_create_cache_table",
+    "expiration": 1
+  },
+  {
+    "key": 12,
+    "value": "2026_06_04_135424_create_permission_tables",
+    "expiration": 1
+  },
+  {
+    "key": 13,
+    "value": "2026_06_04_140809_create_password_reset_tokens_table",
+    "expiration": 1
+  },
+  {
+    "key": 14,
+    "value": "2026_06_04_141715_create_sessions_table",
+    "expiration": 1
+  },
+  {
+    "key": 1,
+    "value": "Test User",
+    "expiration": "test@example.com"
+  },
+  {
+    "key": 2,
+    "value": "Rian",
+    "expiration": "riantaris865@gmail.com"
+  }
+]
