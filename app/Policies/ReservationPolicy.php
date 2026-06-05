@@ -20,7 +20,7 @@ class ReservationPolicy
      */
     public function view(User $user, Reservation $reservation): bool
     {
-        if ($user->hasRole('Admin')) {
+        if ($user->hasRole('admin')) {
             return true;
         }
 
@@ -41,7 +41,7 @@ class ReservationPolicy
      */
     public function update(User $user, Reservation $reservation): bool
     {
-        return $user->hasRole('Admin');
+        return $user->hasRole('admin');
     }
 
     /**

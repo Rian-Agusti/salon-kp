@@ -7,6 +7,8 @@ use App\Http\Requests\UpdateReservationStatusRequest;
 use App\Models\Reservation;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
+use app\Actions\Reservation\GenerateReservationCode;
+
 
 class ReservationController extends Controller
 {

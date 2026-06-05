@@ -11,7 +11,7 @@ class GenerateReservationCode
     /**
      * Generate a unique reservation code with format EEV-YYYYMMDD-XXX
      */
-    public function execute(): string
+    public static function generate(): string
     {
         $date = Carbon::now();
         $datePrefix = 'EEV-' . $date->format('Ymd') . '-';
