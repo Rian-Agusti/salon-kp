@@ -13,6 +13,7 @@ class PromotionController extends Controller
     public function index()
     {
         $promotions = Promotion::latest()->paginate(10);
+
         return view('admin.promotions.index', compact('promotions'));
     }
 
@@ -60,6 +61,7 @@ class PromotionController extends Controller
     public function destroy(Promotion $promotion)
     {
         $promotion->delete();
+
         return redirect()->route('admin.promotions.index')->with('success', 'Promotion deleted successfully.');
     }
 }

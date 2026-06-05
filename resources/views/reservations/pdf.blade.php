@@ -46,7 +46,7 @@
             <strong>Code:</strong> {{ $reservation->reservation_code }}<br>
             <strong>Date:</strong> {{ $reservation->booking_date->format('l, F j, Y') }}<br>
             <strong>Time:</strong> {{ \Carbon\Carbon::parse($reservation->booking_time)->format('H:i') }}<br>
-            <strong>Status:</strong> <span class="badge {{ $reservation->status }}">{{ $reservation->status }}</span>
+            <strong>Status:</strong> <span class="badge {{ $reservation->status->value }}">{{ ucfirst($reservation->status->value) }}</span>
         </div>
     </div>
 

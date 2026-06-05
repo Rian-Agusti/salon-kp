@@ -13,6 +13,7 @@ class GalleryController extends Controller
     public function index()
     {
         $galleries = Gallery::latest()->paginate(10);
+
         return view('admin.galleries.index', compact('galleries'));
     }
 
@@ -58,6 +59,7 @@ class GalleryController extends Controller
     public function destroy(Gallery $gallery)
     {
         $gallery->delete();
+
         return redirect()->route('admin.galleries.index')->with('success', 'Gallery item deleted successfully.');
     }
 }

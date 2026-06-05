@@ -14,6 +14,7 @@ class ServiceController extends Controller
     public function index()
     {
         $services = Service::latest()->paginate(10);
+
         return view('admin.services.index', compact('services'));
     }
 
@@ -63,6 +64,7 @@ class ServiceController extends Controller
     public function destroy(Service $service)
     {
         $service->delete();
+
         return redirect()->route('admin.services.index')->with('success', 'Service deleted successfully.');
     }
 }

@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use App\Enums\ReservationStatusEnum;
+use Illuminate\Database\Eloquent\Model;
 
 class Reservation extends Model
 {

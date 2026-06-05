@@ -19,7 +19,7 @@ class DashboardController extends Controller
         $todaysReservations = Reservation::whereDate('booking_date', Carbon::today())->count();
 
         $popularServices = ReservationItem::select('service_name', DB::raw('count(*) as count'))
-            ->whereHas('reservation', function($q) {
+            ->whereHas('reservation', function ($q) {
                 $q->whereIn('status', ['confirmed', 'completed']);
             })
             ->groupBy('service_name')

@@ -15,11 +15,11 @@
             </div>
             <div>
                 <span class="inline-flex px-3 py-1 rounded-full text-sm font-semibold uppercase tracking-wider
-                    @if($reservation->status == 'pending') bg-yellow-100 text-yellow-800
-                    @elseif($reservation->status == 'confirmed') bg-blue-100 text-blue-800
-                    @elseif($reservation->status == 'completed') bg-green-100 text-green-800
+                    @if($reservation->status->value == 'pending') bg-yellow-100 text-yellow-800
+                    @elseif($reservation->status->value == 'confirmed') bg-blue-100 text-blue-800
+                    @elseif($reservation->status->value == 'completed') bg-green-100 text-green-800
                     @else bg-red-100 text-red-800 @endif">
-                    {{ $reservation->status }}
+                    {{ $reservation->status->value }}
                 </span>
             </div>
         </div>
