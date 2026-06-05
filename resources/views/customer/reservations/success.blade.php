@@ -58,9 +58,26 @@
                 </div>
 
                 @php
-                    $cleanPhone = preg_replace('/[^0-9]/', '', $setting->phone ?? '');
-                    $message = urlencode("Halo Admin Eeva Salon, Saya sudah melakukan reservasi melalui website dengan kode booking [{$reservation->reservation_code}].");
-                    $waUrl = "https://wa.me/qr/QIJJ3YQWIQ6KA1?text={$message}";
+                    // 1. Ambil input nomor HP dari database atau gunakan default jika kosong
+                    $phoneInput = $setting->phone ?? '0877-8391-5874';
+
+                    // 2. Bersihkan semua karakter selain angka (spasi, strip, dll)
+                    $cleanPhone = preg_replace('/[^0-9]/', '', $phoneInput);
+
+                    // 3. Konversi angka '0' di awal nomor menjadi kode negara '62' secara aman
+                    if (strpos($cleanPhone, '0') === 0) {
+                        $cleanPhone = '62' . substr($cleanPhone, 1);
+                    }
+
+                    // 4. Ambil kode booking secara aman (beri fallback 'DRAFT' jika null)
+                    $bookingCode = $reservation->reservation_code ?? 'DRAFT';
+
+                    // 5. Buat template teks dan encode agar aman dibaca oleh browser URL
+                    $textMessage = "Halo Admin Eeva Salon, Saya sudah melakukan reservasi melalui website dengan kode booking [{$bookingCode}].";
+                    $message = urlencode($textMessage);
+
+                    // 6. Gabungkan menjadi link wa.me yang valid (sudah ditambahkan tanda / setelah wa.me)
+                    $waUrl = "https://wa.me/{$cleanPhone}?text={$message}";
                 @endphp
 
                 <div class="mt-8 space-y-4">
