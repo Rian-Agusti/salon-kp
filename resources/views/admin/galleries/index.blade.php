@@ -5,7 +5,7 @@
 @section('content')
 <div class="mb-6 flex justify-between items-center">
     <div></div>
-    <a href="{{ route('admin.galleries.create') }}" class="bg-rose-500 hover:bg-rose-600 text-white font-medium py-2 px-4 rounded shadow-sm inline-flex items-center">
+    <a href="{{ route('admin.galleries.create') }}" class="bg-salon-gold hover:bg-salon-goldHover text-white font-medium py-2 px-4 rounded shadow-sm inline-flex items-center">
         <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
         Add New Gallery Item
     </a>
@@ -30,7 +30,7 @@
                                 <img class="h-16 w-24 rounded object-cover" src="{{ Storage::url($gallery->image) }}" alt="{{ $gallery->title }}">
                             </div>
                         </td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-medium">
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-salon-text font-medium">
                             {{ $gallery->title }}
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap">

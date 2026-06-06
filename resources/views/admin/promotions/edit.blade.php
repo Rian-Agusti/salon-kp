@@ -12,7 +12,7 @@
             <div>
                 <label for="title" class="block text-sm font-medium text-gray-700 mb-1">Promotion Title *</label>
                 <input type="text" name="title" id="title" value="{{ old('title', $promotion->title) }}" required
-                       class="w-full rounded-md border-gray-300 shadow-sm focus:border-rose-500 focus:ring focus:ring-rose-200 focus:ring-opacity-50">
+                       class="w-full rounded-md border-gray-300 shadow-sm focus:border-salon-gold focus:ring focus:ring-salon-beige focus:ring-opacity-50">
                 @error('title') <span class="text-red-500 text-xs mt-1">{{ $message }}</span> @enderror
             </div>
 
@@ -24,21 +24,21 @@
                     </div>
                 @endif
                 <input type="file" name="image" id="image" accept="image/jpeg,image/png,image/webp"
-                       class="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-rose-50 file:text-rose-700 hover:file:bg-rose-100">
+                       class="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-salon-cream file:text-salon-goldHover hover:file:bg-salon-beige">
                 @error('image') <span class="text-red-500 text-xs mt-1">{{ $message }}</span> @enderror
             </div>
 
             <div>
                 <label for="start_date" class="block text-sm font-medium text-gray-700 mb-1">Start Date *</label>
                 <input type="date" name="start_date" id="start_date" value="{{ old('start_date', $promotion->start_date) }}" required
-                       class="w-full rounded-md border-gray-300 shadow-sm focus:border-rose-500 focus:ring focus:ring-rose-200 focus:ring-opacity-50">
+                       class="w-full rounded-md border-gray-300 shadow-sm focus:border-salon-gold focus:ring focus:ring-salon-beige focus:ring-opacity-50">
                 @error('start_date') <span class="text-red-500 text-xs mt-1">{{ $message }}</span> @enderror
             </div>
 
             <div>
                 <label for="end_date" class="block text-sm font-medium text-gray-700 mb-1">End Date *</label>
                 <input type="date" name="end_date" id="end_date" value="{{ old('end_date', $promotion->end_date) }}" required
-                       class="w-full rounded-md border-gray-300 shadow-sm focus:border-rose-500 focus:ring focus:ring-rose-200 focus:ring-opacity-50">
+                       class="w-full rounded-md border-gray-300 shadow-sm focus:border-salon-gold focus:ring focus:ring-salon-beige focus:ring-opacity-50">
                 @error('end_date') <span class="text-red-500 text-xs mt-1">{{ $message }}</span> @enderror
             </div>
         </div>
@@ -46,21 +46,21 @@
         <div class="mb-6">
             <label for="description" class="block text-sm font-medium text-gray-700 mb-1">Description</label>
             <textarea name="description" id="description" rows="4"
-                      class="w-full rounded-md border-gray-300 shadow-sm focus:border-rose-500 focus:ring focus:ring-rose-200 focus:ring-opacity-50">{{ old('description', $promotion->description) }}</textarea>
+                      class="w-full rounded-md border-gray-300 shadow-sm focus:border-salon-gold focus:ring focus:ring-salon-beige focus:ring-opacity-50">{{ old('description', $promotion->description) }}</textarea>
             @error('description') <span class="text-red-500 text-xs mt-1">{{ $message }}</span> @enderror
         </div>
 
         <div class="mb-6">
             <label class="inline-flex items-center">
                 <input type="checkbox" name="is_active" value="1" {{ old('is_active', $promotion->is_active) ? 'checked' : '' }}
-                       class="rounded border-gray-300 text-rose-600 shadow-sm focus:border-rose-300 focus:ring focus:ring-offset-0 focus:ring-rose-200 focus:ring-opacity-50">
+                       class="rounded border-gray-300 text-salon-goldHover shadow-sm focus:border-salon-beige focus:ring focus:ring-offset-0 focus:ring-salon-beige focus:ring-opacity-50">
                 <span class="ml-2 text-sm text-gray-700">Active (Visible to customers)</span>
             </label>
         </div>
 
         <div class="flex justify-end pt-4 border-t border-gray-200">
             <a href="{{ route('admin.promotions.index') }}" class="bg-white border border-gray-300 text-gray-700 font-medium py-2 px-4 rounded shadow-sm hover:bg-gray-50 mr-3">Cancel</a>
-            <button type="submit" class="bg-rose-500 hover:bg-rose-600 text-white font-medium py-2 px-4 rounded shadow-sm">Update Promotion</button>
+            <button type="submit" class="bg-salon-gold hover:bg-salon-goldHover text-white font-medium py-2 px-4 rounded shadow-sm">Update Promotion</button>
         </div>
     </form>
 </div>

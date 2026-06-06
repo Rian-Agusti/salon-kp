@@ -5,7 +5,7 @@
 @section('content')
 <div class="mb-6 flex justify-between items-center">
     <div></div>
-    <a href="{{ route('admin.products.create') }}" class="bg-rose-500 hover:bg-rose-600 text-white font-medium py-2 px-4 rounded shadow-sm inline-flex items-center">
+    <a href="{{ route('admin.products.create') }}" class="bg-salon-gold hover:bg-salon-goldHover text-white font-medium py-2 px-4 rounded shadow-sm inline-flex items-center">
         <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
         Add New Product
     </a>
@@ -37,11 +37,11 @@
                                     @endif
                                 </div>
                                 <div class="ml-4">
-                                    <div class="text-sm font-medium text-gray-900">{{ $product->name }}</div>
+                                    <div class="text-sm font-medium text-salon-text">{{ $product->name }}</div>
                                 </div>
                             </div>
                         </td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-salon-text">
                             Rp {{ number_format($product->price, 0, ',', '.') }}
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap">
