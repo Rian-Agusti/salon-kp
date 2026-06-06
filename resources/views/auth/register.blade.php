@@ -1,52 +1,65 @@
 <x-guest-layout>
+    <div class="text-center mb-8">
+        <h2 class="text-2xl font-serif font-bold text-gray-900">Buat Akun Baru</h2>
+        <p class="text-sm text-gray-600 mt-2">Daftar untuk mulai reservasi layanan kami</p>
+    </div>
+
     <form method="POST" action="{{ route('register') }}">
         @csrf
 
         <!-- Name -->
         <div>
-            <x-input-label for="name" :value="__('Name')" />
-            <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
+            <x-input-label for="name" value="Nama Lengkap" />
+            <x-text-input id="name" class="block mt-1 w-full focus:border-rose-500 focus:ring-rose-500" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" placeholder="Masukkan nama lengkap" />
             <x-input-error :messages="$errors->get('name')" class="mt-2" />
         </div>
 
         <!-- Email Address -->
         <div class="mt-4">
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
+            <x-input-label for="email" value="Email" />
+            <x-text-input id="email" class="block mt-1 w-full focus:border-rose-500 focus:ring-rose-500" type="email" name="email" :value="old('email')" required autocomplete="username" placeholder="Masukkan email Anda" />
             <x-input-error :messages="$errors->get('email')" class="mt-2" />
+        </div>
+
+        <!-- Phone -->
+        <div class="mt-4">
+            <x-input-label for="phone" value="Nomor Telepon" />
+            <x-text-input id="phone" class="block mt-1 w-full focus:border-rose-500 focus:ring-rose-500" type="text" name="phone" :value="old('phone')" autocomplete="tel" placeholder="Contoh: 08123456789" />
+            <x-input-error :messages="$errors->get('phone')" class="mt-2" />
         </div>
 
         <!-- Password -->
         <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
+            <x-input-label for="password" value="Kata Sandi" />
 
-            <x-text-input id="password" class="block mt-1 w-full"
+            <x-text-input id="password" class="block mt-1 w-full focus:border-rose-500 focus:ring-rose-500"
                             type="password"
                             name="password"
-                            required autocomplete="new-password" />
+                            required autocomplete="new-password" placeholder="Minimal 8 karakter" />
 
             <x-input-error :messages="$errors->get('password')" class="mt-2" />
         </div>
 
         <!-- Confirm Password -->
         <div class="mt-4">
-            <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
+            <x-input-label for="password_confirmation" value="Konfirmasi Kata Sandi" />
 
-            <x-text-input id="password_confirmation" class="block mt-1 w-full"
+            <x-text-input id="password_confirmation" class="block mt-1 w-full focus:border-rose-500 focus:ring-rose-500"
                             type="password"
-                            name="password_confirmation" required autocomplete="new-password" />
+                            name="password_confirmation" required autocomplete="new-password" placeholder="Ulangi kata sandi" />
 
             <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
         </div>
 
-        <div class="flex items-center justify-end mt-4">
-            <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login') }}">
-                {{ __('Already registered?') }}
-            </a>
-
-            <x-primary-button class="ms-4">
-                {{ __('Register') }}
+        <div class="mt-6">
+            <x-primary-button class="w-full justify-center bg-rose-500 hover:bg-rose-600 focus:ring-rose-500">
+                Daftar
             </x-primary-button>
+        </div>
+
+        <div class="mt-6 text-center text-sm text-gray-600">
+            Sudah punya akun?
+            <a href="{{ route('login') }}" class="font-medium text-rose-500 hover:text-rose-600 transition">Masuk di sini</a>
         </div>
     </form>
 </x-guest-layout>
