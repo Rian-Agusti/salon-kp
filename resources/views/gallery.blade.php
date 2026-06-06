@@ -1,39 +1,49 @@
 @extends('layouts.public')
 
 @section('content')
-<div class="py-12 bg-stone-50" x-data="{ filter: 'all' }">
+<div class="bg-stone-50 py-16 sm:py-24" x-data="{ filter: 'all' }">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-10">
-            <h1 class="text-4xl font-extrabold text-gray-900">Our Gallery</h1>
-            <p class="mt-4 text-xl text-gray-500">Explore our portfolio of beautiful transformations.</p>
+        <div class="text-center mb-16">
+            <span class="text-rose-500 font-semibold tracking-wider uppercase text-sm">Portofolio</span>
+            <h1 class="mt-2 text-4xl font-serif font-bold text-gray-900 sm:text-5xl">Galeri Kami</h1>
+            <p class="mt-4 max-w-2xl text-lg text-gray-600 mx-auto">Lihatlah hasil karya terbaru dan suasana salon kami.</p>
         </div>
 
-        <div class="flex justify-center space-x-2 sm:space-x-4 mb-10 flex-wrap">
-            <button @click="filter = 'all'" :class="{ 'bg-rose-500 text-white': filter === 'all', 'bg-white text-gray-700 hover:bg-gray-50': filter !== 'all' }" class="px-4 py-2 rounded-full text-sm font-medium shadow-sm mb-2 transition-colors">All</button>
-            <button @click="filter = 'hair'" :class="{ 'bg-rose-500 text-white': filter === 'hair', 'bg-white text-gray-700 hover:bg-gray-50': filter !== 'hair' }" class="px-4 py-2 rounded-full text-sm font-medium shadow-sm mb-2 transition-colors">Hair</button>
-            <button @click="filter = 'facial'" :class="{ 'bg-rose-500 text-white': filter === 'facial', 'bg-white text-gray-700 hover:bg-gray-50': filter !== 'facial' }" class="px-4 py-2 rounded-full text-sm font-medium shadow-sm mb-2 transition-colors">Facial</button>
-            <button @click="filter = 'coloring'" :class="{ 'bg-rose-500 text-white': filter === 'coloring', 'bg-white text-gray-700 hover:bg-gray-50': filter !== 'coloring' }" class="px-4 py-2 rounded-full text-sm font-medium shadow-sm mb-2 transition-colors">Coloring</button>
-            <button @click="filter = 'other'" :class="{ 'bg-rose-500 text-white': filter === 'other', 'bg-white text-gray-700 hover:bg-gray-50': filter !== 'other' }" class="px-4 py-2 rounded-full text-sm font-medium shadow-sm mb-2 transition-colors">Other</button>
+        <div class="flex flex-wrap justify-center gap-2 mb-12">
+            <button @click="filter = 'all'" :class="{ 'bg-rose-500 text-white border-transparent': filter === 'all', 'bg-white text-gray-600 border-gray-200 hover:border-rose-300 hover:text-rose-500': filter !== 'all' }" class="px-6 py-2.5 rounded-full shadow-sm text-sm font-medium border transition duration-300 focus:outline-none">Semua</button>
+            <button @click="filter = 'hair'" :class="{ 'bg-rose-500 text-white border-transparent': filter === 'hair', 'bg-white text-gray-600 border-gray-200 hover:border-rose-300 hover:text-rose-500': filter !== 'hair' }" class="px-6 py-2.5 rounded-full shadow-sm text-sm font-medium border transition duration-300 focus:outline-none">Rambut</button>
+            <button @click="filter = 'facial'" :class="{ 'bg-rose-500 text-white border-transparent': filter === 'facial', 'bg-white text-gray-600 border-gray-200 hover:border-rose-300 hover:text-rose-500': filter !== 'facial' }" class="px-6 py-2.5 rounded-full shadow-sm text-sm font-medium border transition duration-300 focus:outline-none">Wajah</button>
+            <button @click="filter = 'coloring'" :class="{ 'bg-rose-500 text-white border-transparent': filter === 'coloring', 'bg-white text-gray-600 border-gray-200 hover:border-rose-300 hover:text-rose-500': filter !== 'coloring' }" class="px-6 py-2.5 rounded-full shadow-sm text-sm font-medium border transition duration-300 focus:outline-none">Pewarnaan</button>
+            <button @click="filter = 'other'" :class="{ 'bg-rose-500 text-white border-transparent': filter === 'other', 'bg-white text-gray-600 border-gray-200 hover:border-rose-300 hover:text-rose-500': filter !== 'other' }" class="px-6 py-2.5 rounded-full shadow-sm text-sm font-medium border transition duration-300 focus:outline-none">Lainnya</button>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             @forelse($galleries as $item)
-                <div x-show="filter === 'all' || filter === '{{ $item->category }}'" class="group relative overflow-hidden rounded-lg shadow-sm" style="display: none;" x-transition>
-                    <img src="{{ Storage::url($item->image) }}" alt="{{ $item->title }}" class="w-full h-64 object-cover transform group-hover:scale-105 transition-transform duration-500">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
-                        <span class="text-rose-300 text-xs font-semibold uppercase tracking-wider mb-1">{{ $item->category }}</span>
-                        <h3 class="text-white text-lg font-bold">{{ $item->title }}</h3>
+                <div x-show="filter === 'all' || filter === '{{ $item->category }}'" class="group relative overflow-hidden rounded-2xl shadow-sm border border-gray-100 cursor-pointer" style="display: none;" x-transition>
+                    <img src="{{ Storage::url($item->image) }}" alt="{{ $item->title }}" class="w-full h-72 object-cover transform group-hover:scale-110 transition duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-gray-900/90 via-gray-900/40 to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex flex-col justify-end p-6">
+                        <h3 class="text-white font-serif font-bold text-lg mb-2 translate-y-4 group-hover:translate-y-0 transition duration-300">{{ $item->title }}</h3>
                         @if($item->description)
-                            <p class="text-gray-300 text-sm mt-2 line-clamp-2">{{ $item->description }}</p>
+                            <p class="text-gray-200 text-sm mb-3 line-clamp-2 translate-y-4 group-hover:translate-y-0 transition duration-300 delay-75">{{ $item->description }}</p>
                         @endif
+                        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-rose-500 text-white w-fit translate-y-4 group-hover:translate-y-0 transition duration-300 delay-100">
+                            {{ $item->category == 'hair' ? 'Rambut' : ($item->category == 'facial' ? 'Wajah' : ($item->category == 'coloring' ? 'Pewarnaan' : 'Lainnya')) }}
+                        </span>
                     </div>
                 </div>
             @empty
-                <div class="col-span-full text-center py-12 text-gray-500">
-                    No gallery images available at the moment.
+                <div class="col-span-full text-center py-20 bg-white rounded-2xl border border-gray-100 shadow-sm">
+                    <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                    <p class="mt-4 text-gray-500 text-lg font-medium">Belum ada gambar di galeri saat ini.</p>
                 </div>
             @endforelse
         </div>
+
+        @if(method_exists($galleries, 'links'))
+        <div class="mt-12">
+            {{ $galleries->links() }}
+        </div>
+        @endif
     </div>
 </div>
 @endsection
