@@ -4,58 +4,63 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Admin - {{ config('app.name', 'Eeva Salon') }}</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="font-sans text-gray-800 antialiased bg-gray-100 flex h-screen overflow-hidden">
+<body class="font-sans text-gray-800 antialiased bg-gray-50 flex h-screen overflow-hidden selection:bg-rose-500 selection:text-white">
 
     <!-- Sidebar -->
-    <div class="w-64 bg-stone-900 text-white flex flex-col">
-        <div class="h-16 flex items-center justify-center border-b border-stone-800">
-            <a href="{{ route('admin.dashboard') }}" class="text-xl font-bold text-rose-500">Eeva Admin</a>
+    <div class="w-64 bg-white text-gray-800 flex flex-col shadow-lg border-r border-gray-100 z-10">
+        <div class="h-20 flex items-center justify-center border-b border-gray-100 gap-3 px-4">
+            <img src="{{ asset('images/logo.png') }}" alt="Logo" class="h-10 w-auto object-contain">
+            <a href="{{ route('admin.dashboard') }}" class="text-xl font-serif font-bold text-rose-500 tracking-tight">Admin</a>
         </div>
-        <nav class="flex-1 overflow-y-auto py-4 space-y-1">
-            <a href="{{ route('admin.dashboard') }}" class="{{ request()->routeIs('admin.dashboard') ? 'bg-stone-800 text-white' : 'text-stone-300 hover:bg-stone-800 hover:text-white' }} group flex items-center px-4 py-2 text-sm font-medium">
-                Dashboard
+        <nav class="flex-1 overflow-y-auto py-4 space-y-1 px-3">
+            <a href="{{ route('admin.dashboard') }}" class="{{ request()->routeIs('admin.dashboard') ? 'bg-rose-50 text-rose-600' : 'text-gray-600 hover:bg-gray-50 hover:text-rose-500' }} group flex items-center px-3 py-2.5 rounded-lg text-sm font-medium transition">
+                Dasbor
             </a>
-            <a href="{{ route('admin.reservations.index') }}" class="{{ request()->routeIs('admin.reservations.*') ? 'bg-stone-800 text-white' : 'text-stone-300 hover:bg-stone-800 hover:text-white' }} group flex items-center px-4 py-2 text-sm font-medium">
-                Reservations
+            <a href="{{ route('admin.reservations.index') }}" class="{{ request()->routeIs('admin.reservations.*') ? 'bg-rose-50 text-rose-600' : 'text-gray-600 hover:bg-gray-50 hover:text-rose-500' }} group flex items-center px-3 py-2.5 rounded-lg text-sm font-medium transition">
+                Reservasi
             </a>
-            <a href="{{ route('admin.services.index') }}" class="{{ request()->routeIs('admin.services.*') ? 'bg-stone-800 text-white' : 'text-stone-300 hover:bg-stone-800 hover:text-white' }} group flex items-center px-4 py-2 text-sm font-medium">
-                Services
+            <a href="{{ route('admin.services.index') }}" class="{{ request()->routeIs('admin.services.*') ? 'bg-rose-50 text-rose-600' : 'text-gray-600 hover:bg-gray-50 hover:text-rose-500' }} group flex items-center px-3 py-2.5 rounded-lg text-sm font-medium transition">
+                Layanan
             </a>
-            <a href="{{ route('admin.products.index') }}" class="{{ request()->routeIs('admin.products.*') ? 'bg-stone-800 text-white' : 'text-stone-300 hover:bg-stone-800 hover:text-white' }} group flex items-center px-4 py-2 text-sm font-medium">
-                Products
+            <a href="{{ route('admin.products.index') }}" class="{{ request()->routeIs('admin.products.*') ? 'bg-rose-50 text-rose-600' : 'text-gray-600 hover:bg-gray-50 hover:text-rose-500' }} group flex items-center px-3 py-2.5 rounded-lg text-sm font-medium transition">
+                Produk
             </a>
-            <a href="{{ route('admin.promotions.index') }}" class="{{ request()->routeIs('admin.promotions.*') ? 'bg-stone-800 text-white' : 'text-stone-300 hover:bg-stone-800 hover:text-white' }} group flex items-center px-4 py-2 text-sm font-medium">
-                Promotions
+            <a href="{{ route('admin.promotions.index') }}" class="{{ request()->routeIs('admin.promotions.*') ? 'bg-rose-50 text-rose-600' : 'text-gray-600 hover:bg-gray-50 hover:text-rose-500' }} group flex items-center px-3 py-2.5 rounded-lg text-sm font-medium transition">
+                Promo
             </a>
-            <a href="{{ route('admin.galleries.index') }}" class="{{ request()->routeIs('admin.galleries.*') ? 'bg-stone-800 text-white' : 'text-stone-300 hover:bg-stone-800 hover:text-white' }} group flex items-center px-4 py-2 text-sm font-medium">
-                Gallery
+            <a href="{{ route('admin.galleries.index') }}" class="{{ request()->routeIs('admin.galleries.*') ? 'bg-rose-50 text-rose-600' : 'text-gray-600 hover:bg-gray-50 hover:text-rose-500' }} group flex items-center px-3 py-2.5 rounded-lg text-sm font-medium transition">
+                Galeri
             </a>
-            <a href="{{ route('admin.customers.index') }}" class="{{ request()->routeIs('admin.customers.*') ? 'bg-stone-800 text-white' : 'text-stone-300 hover:bg-stone-800 hover:text-white' }} group flex items-center px-4 py-2 text-sm font-medium">
-                Customers
+            <a href="{{ route('admin.customers.index') }}" class="{{ request()->routeIs('admin.customers.*') ? 'bg-rose-50 text-rose-600' : 'text-gray-600 hover:bg-gray-50 hover:text-rose-500' }} group flex items-center px-3 py-2.5 rounded-lg text-sm font-medium transition">
+                Pelanggan
             </a>
-            <a href="{{ route('admin.settings.edit') }}" class="{{ request()->routeIs('admin.settings.*') ? 'bg-stone-800 text-white' : 'text-stone-300 hover:bg-stone-800 hover:text-white' }} group flex items-center px-4 py-2 text-sm font-medium">
-                Settings
+            <a href="{{ route('admin.settings.edit') }}" class="{{ request()->routeIs('admin.settings.*') ? 'bg-rose-50 text-rose-600' : 'text-gray-600 hover:bg-gray-50 hover:text-rose-500' }} group flex items-center px-3 py-2.5 rounded-lg text-sm font-medium transition">
+                Pengaturan
             </a>
         </nav>
-        <div class="p-4 border-t border-stone-800">
+        <div class="p-4 border-t border-gray-100">
             <form method="POST" action="{{ route('logout') }}">
                 @csrf
-                <button type="submit" class="w-full text-left text-stone-300 hover:text-white text-sm font-medium">
-                    Logout ({{ Auth::user()->name }})
+                <button type="submit" class="w-full flex items-center px-3 py-2.5 rounded-lg text-sm font-medium text-gray-600 hover:bg-red-50 hover:text-red-600 transition">
+                    Keluar ({{ Auth::user()->name }})
                 </button>
             </form>
         </div>
     </div>
 
     <!-- Main Content -->
-    <div class="flex-1 flex flex-col overflow-hidden">
-        <header class="bg-white shadow h-16 flex items-center justify-between px-6">
-            <h2 class="font-semibold text-xl text-gray-800">
-                @yield('header', 'Admin Panel')
+    <div class="flex-1 flex flex-col overflow-hidden bg-gray-50">
+        <header class="bg-white shadow-sm border-b border-gray-100 h-20 flex items-center justify-between px-8 z-0">
+            <h2 class="font-serif font-bold text-2xl text-gray-800">
+                @yield('header', 'Panel Admin')
             </h2>
-            <a href="{{ route('home') }}" target="_blank" class="text-sm text-rose-500 hover:underline">View Site</a>
+            <a href="{{ route('home') }}" target="_blank" class="text-sm font-medium text-rose-500 hover:text-rose-600 transition hover:underline">Lihat Situs</a>
         </header>
 
         <main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-100 p-6">

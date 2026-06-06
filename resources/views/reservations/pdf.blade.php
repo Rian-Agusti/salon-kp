@@ -2,11 +2,11 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Reservation - {{ $reservation->reservation_code }}</title>
+    <title>Reservasi - {{ $reservation->reservation_code }}</title>
     <style>
         body { font-family: Helvetica, Arial, sans-serif; font-size: 14px; color: #333; line-height: 1.5; margin: 0; padding: 20px; }
-        .header { text-align: center; border-bottom: 2px solid #e11d48; padding-bottom: 20px; margin-bottom: 30px; }
-        .logo { font-size: 24px; font-weight: bold; color: #e11d48; margin: 0; }
+        .header { text-align: center; border-bottom: 2px solid #f43f5e; padding-bottom: 20px; margin-bottom: 30px; }
+        .logo { font-size: 24px; font-weight: bold; color: #f43f5e; margin: 0; }
         .title { font-size: 18px; margin: 5px 0 0; color: #666; }
         .row { width: 100%; margin-bottom: 20px; clear: both; overflow: hidden; }
         .col-half { width: 48%; float: left; }
@@ -18,7 +18,7 @@
         .text-right { text-align: right; }
         .text-center { text-align: center; }
         .total-row { font-weight: bold; background-color: #f9fafb; }
-        .total-price { color: #e11d48; font-size: 16px; }
+        .total-price { color: #f43f5e; font-size: 16px; }
         .footer { margin-top: 50px; text-align: center; font-size: 12px; color: #9ca3af; border-top: 1px solid #eee; padding-top: 20px; }
         .badge { display: inline-block; padding: 4px 8px; border-radius: 4px; font-size: 12px; font-weight: bold; text-transform: uppercase; }
         .badge.confirmed { background-color: #dbeafe; color: #1e40af; border: 1px solid #bfdbfe; }
@@ -31,32 +31,34 @@
 <body>
     <div class="header">
         <h1 class="logo">{{ \App\Models\Setting::first()->salon_name ?? 'Eeva Hair & Beauty Salon' }}</h1>
-        <p class="title">Reservation Details</p>
+        <p class="title">Detail Reservasi</p>
     </div>
 
     <div class="row">
         <div class="col-half">
-            <h3>Customer Info</h3>
-            <strong>Name:</strong> {{ $reservation->customer_name }}<br>
+            <h3>Info Pelanggan</h3>
+            <strong>Nama:</strong> {{ $reservation->customer_name }}<br>
             <strong>Email:</strong> {{ $reservation->customer_email }}<br>
-            <strong>Phone:</strong> {{ $reservation->customer_phone ?? 'N/A' }}
+            <strong>Telepon:</strong> {{ $reservation->customer_phone ?? 'Tidak ada' }}
         </div>
         <div class="col-half right">
-            <h3>Booking Details</h3>
-            <strong>Code:</strong> {{ $reservation->reservation_code }}<br>
-            <strong>Date:</strong> {{ $reservation->booking_date->format('l, F j, Y') }}<br>
-            <strong>Time:</strong> {{ \Carbon\Carbon::parse($reservation->booking_time)->format('H:i') }}<br>
-            <strong>Status:</strong> <span class="badge {{ $reservation->status }}">{{ $reservation->status }}</span>
+            <h3>Info Jadwal</h3>
+            <strong>Kode Booking:</strong> {{ $reservation->reservation_code }}<br>
+            <strong>Tanggal:</strong> {{ $reservation->booking_date->translatedFormat('l, d F Y') }}<br>
+            <strong>Waktu:</strong> {{ \Carbon\Carbon::parse($reservation->booking_time)->format('H:i') }} WIB<br>
+            <strong>Status:</strong> <span class="badge {{ $reservation->status->value ?? $reservation->status }}">
+                {{ ($reservation->status->value ?? $reservation->status) === 'pending' ? 'Menunggu' : (($reservation->status->value ?? $reservation->status) === 'confirmed' ? 'Dikonfirmasi' : (($reservation->status->value ?? $reservation->status) === 'completed' ? 'Selesai' : 'Dibatalkan')) }}
+            </span>
         </div>
     </div>
 
-    <h3>Services</h3>
+    <h3>Layanan yang Dipesan</h3>
     <table>
         <thead>
             <tr>
-                <th>Service Name</th>
-                <th class="text-center">Duration</th>
-                <th class="text-right">Price</th>
+                <th>Nama Layanan</th>
+                <th class="text-center">Durasi</th>
+                <th class="text-right">Harga</th>
             </tr>
         </thead>
         <tbody>
@@ -71,7 +73,7 @@
                 @endphp
                 <tr>
                     <td>{{ $item->service_name }}</td>
-                    <td class="text-center">{{ $item->service_duration }} mins</td>
+                    <td class="text-center">{{ $item->service_duration }} menit</td>
                     <td class="text-right">Rp {{ number_format($item->service_price, 0, ',', '.') }}</td>
                 </tr>
             @endforeach
@@ -79,7 +81,7 @@
         <tfoot>
             <tr class="total-row">
                 <td class="text-right"><strong>Total</strong></td>
-                <td class="text-center">{{ $totalDuration }} mins</td>
+                <td class="text-center">{{ $totalDuration }} menit</td>
                 <td class="text-right total-price">Rp {{ number_format($totalPrice, 0, ',', '.') }}</td>
             </tr>
         </tfoot>
@@ -87,14 +89,14 @@
 
     @if($reservation->notes)
         <div class="notes-box">
-            <strong>Customer Notes:</strong><br>
+            <strong>Catatan:</strong><br>
             {{ $reservation->notes }}
         </div>
     @endif
 
     <div class="footer">
-        <p>This document is computer-generated and serves as proof of reservation.</p>
-        <p>Generated on {{ now()->format('Y-m-d H:i:s') }}</p>
+        <p>Dokumen ini dihasilkan oleh sistem dan berfungsi sebagai bukti reservasi yang sah.</p>
+        <p>Dibuat pada {{ now()->translatedFormat('d F Y H:i:s') }}</p>
     </div>
 </body>
 </html>
