@@ -42,12 +42,12 @@
                     @forelse($reservations as $reservation)
                         <tr class="hover:bg-gray-50">
                             <td class="px-6 py-4 whitespace-nowrap">
-                                <div class="text-sm font-bold text-rose-500">{{ $reservation->reservation_code }}</div>
+                                <div class="text-sm font-bold text-salon-gold">{{ $reservation->reservation_code }}</div>
                                 <div class="text-sm text-gray-500">{{ $reservation->booking_date->format('d M Y') }} at
                                     {{ \Carbon\Carbon::parse($reservation->booking_time)->format('H:i') }}</div>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
-                                <div class="text-sm font-medium text-gray-900">{{ $reservation->customer_name }}</div>
+                                <div class="text-sm font-medium text-salon-text">{{ $reservation->customer_name }}</div>
                                 <div class="text-sm text-gray-500">
                                     {{ $reservation->customer_phone ?? $reservation->customer_email }}</div>
                             </td>

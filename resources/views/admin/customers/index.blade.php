@@ -19,16 +19,16 @@
                     <tr class="hover:bg-gray-50">
                         <td class="px-6 py-4 whitespace-nowrap">
                             <div class="flex items-center">
-                                <div class="flex-shrink-0 h-10 w-10 bg-rose-100 rounded-full flex items-center justify-center text-rose-500 font-bold text-lg">
+                                <div class="flex-shrink-0 h-10 w-10 bg-salon-beige rounded-full flex items-center justify-center text-salon-gold font-bold text-lg">
                                     {{ substr($customer->name, 0, 1) }}
                                 </div>
                                 <div class="ml-4">
-                                    <div class="text-sm font-medium text-gray-900">{{ $customer->name }}</div>
+                                    <div class="text-sm font-medium text-salon-text">{{ $customer->name }}</div>
                                 </div>
                             </div>
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap">
-                            <div class="text-sm text-gray-900">{{ $customer->email }}</div>
+                            <div class="text-sm text-salon-text">{{ $customer->email }}</div>
                             <div class="text-sm text-gray-500">{{ $customer->phone ?? '-' }}</div>
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">

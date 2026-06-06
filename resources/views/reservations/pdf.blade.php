@@ -5,8 +5,8 @@
     <title>Reservasi - {{ $reservation->reservation_code }}</title>
     <style>
         body { font-family: Helvetica, Arial, sans-serif; font-size: 14px; color: #333; line-height: 1.5; margin: 0; padding: 20px; }
-        .header { text-align: center; border-bottom: 2px solid #f43f5e; padding-bottom: 20px; margin-bottom: 30px; }
-        .logo { font-size: 24px; font-weight: bold; color: #f43f5e; margin: 0; }
+        .header { text-align: center; border-bottom: 2px solid #C8A97E; padding-bottom: 20px; margin-bottom: 30px; }
+        .logo { font-size: 24px; font-weight: bold; color: #C8A97E; margin: 0; }
         .title { font-size: 18px; margin: 5px 0 0; color: #666; }
         .row { width: 100%; margin-bottom: 20px; clear: both; overflow: hidden; }
         .col-half { width: 48%; float: left; }
@@ -18,7 +18,7 @@
         .text-right { text-align: right; }
         .text-center { text-align: center; }
         .total-row { font-weight: bold; background-color: #f9fafb; }
-        .total-price { color: #f43f5e; font-size: 16px; }
+        .total-price { color: #C8A97E; font-size: 16px; }
         .footer { margin-top: 50px; text-align: center; font-size: 12px; color: #9ca3af; border-top: 1px solid #eee; padding-top: 20px; }
         .badge { display: inline-block; padding: 4px 8px; border-radius: 4px; font-size: 12px; font-weight: bold; text-transform: uppercase; }
         .badge.confirmed { background-color: #dbeafe; color: #1e40af; border: 1px solid #bfdbfe; }

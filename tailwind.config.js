@@ -16,6 +16,16 @@ export default {
                 serif: ['Playfair Display', ...defaultTheme.fontFamily.serif],
             },
             colors: {
+                // Luxury Palette
+                salon: {
+                    bg: '#FAF7F2',
+                    cream: '#F5F0E6',
+                    beige: '#E8DCCB',
+                    gold: '#C8A97E',
+                    goldHover: '#B5966B',
+                    text: '#3D352F',
+                    textLight: '#6B6056',
+                },
                 rose: {
                     50: '#fff1f2',
                     100: '#ffe4e6',

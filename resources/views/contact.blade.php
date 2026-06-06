@@ -1,37 +1,37 @@
 @extends('layouts.public')
 
 @section('content')
-<div class="bg-stone-50 py-16 sm:py-24">
+<div class="bg-salon-bg py-16 sm:py-24">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-16">
-            <span class="text-rose-500 font-semibold tracking-wider uppercase text-sm">Hubungi Kami</span>
-            <h1 class="mt-2 text-4xl font-serif font-bold text-gray-900 sm:text-5xl">Informasi Kontak</h1>
-            <p class="mt-4 max-w-2xl text-lg text-gray-600 mx-auto">Kami senang mendengar dari Anda. Hubungi kami untuk informasi lebih lanjut atau pemesanan.</p>
+            <span class="text-salon-gold font-semibold tracking-wider uppercase text-sm">Hubungi Kami</span>
+            <h1 class="mt-2 text-4xl font-serif font-bold text-salon-text sm:text-5xl">Informasi Kontak</h1>
+            <p class="mt-4 max-w-2xl text-lg text-salon-textLight mx-auto">Kami senang mendengar dari Anda. Hubungi kami untuk informasi lebih lanjut atau pemesanan.</p>
         </div>
 
-        <div class="bg-white rounded-3xl shadow-sm hover:shadow-md transition duration-300 overflow-hidden border border-gray-100">
+        <div class="bg-white rounded-3xl shadow-sm hover:shadow-md transition duration-300 overflow-hidden border border-salon-beige">
             <div class="grid grid-cols-1 md:grid-cols-2">
-                <div class="p-8 md:p-12 lg:p-16 bg-rose-50">
-                    <h3 class="text-2xl font-serif font-bold text-gray-900 mb-8">Informasi Salon</h3>
+                <div class="p-8 md:p-12 lg:p-16 bg-salon-cream">
+                    <h3 class="text-2xl font-serif font-bold text-salon-text mb-8">Informasi Salon</h3>
 
                     <div class="space-y-8">
                         <div class="flex items-start group">
-                            <div class="flex-shrink-0 text-rose-500 bg-white p-3 rounded-full group-hover:bg-rose-500 group-hover:text-white transition duration-300 shadow-sm">
+                            <div class="flex-shrink-0 text-salon-gold bg-white p-3 rounded-full group-hover:bg-salon-gold group-hover:text-white transition duration-300 shadow-sm">
                                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
                             </div>
                             <div class="ml-5">
-                                <h4 class="font-bold text-gray-900">Alamat</h4>
-                                <p class="text-gray-600 mt-2 leading-relaxed">{{ $setting->address ?? 'Belum diatur' }}</p>
+                                <h4 class="font-bold text-salon-text">Alamat</h4>
+                                <p class="text-salon-textLight mt-2 leading-relaxed">{{ $setting->address ?? 'Belum diatur' }}</p>
                             </div>
                         </div>
 
                         <div class="flex items-start group">
-                            <div class="flex-shrink-0 text-rose-500 bg-white p-3 rounded-full group-hover:bg-rose-500 group-hover:text-white transition duration-300 shadow-sm">
+                            <div class="flex-shrink-0 text-salon-gold bg-white p-3 rounded-full group-hover:bg-salon-gold group-hover:text-white transition duration-300 shadow-sm">
                                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
                             </div>
                             <div class="ml-5">
-                                <h4 class="font-bold text-gray-900">Telepon</h4>
-                                <p class="text-gray-600 mt-2">{{ $setting->phone ?? 'Belum diatur' }}</p>
+                                <h4 class="font-bold text-salon-text">Telepon</h4>
+                                <p class="text-salon-textLight mt-2">{{ $setting->phone ?? 'Belum diatur' }}</p>
                                 @if($setting->phone)
                                     @php
                                         // Clean phone number for whatsapp link
@@ -52,37 +52,37 @@
                         </div>
 
                         <div class="flex items-start group">
-                            <div class="flex-shrink-0 text-rose-500 bg-white p-3 rounded-full group-hover:bg-rose-500 group-hover:text-white transition duration-300 shadow-sm">
+                            <div class="flex-shrink-0 text-salon-gold bg-white p-3 rounded-full group-hover:bg-salon-gold group-hover:text-white transition duration-300 shadow-sm">
                                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
                             </div>
                             <div class="ml-5">
-                                <h4 class="font-bold text-gray-900">Email</h4>
-                                <p class="text-gray-600 mt-2">{{ $setting->email ?? 'Belum diatur' }}</p>
+                                <h4 class="font-bold text-salon-text">Email</h4>
+                                <p class="text-salon-textLight mt-2">{{ $setting->email ?? 'Belum diatur' }}</p>
                             </div>
                         </div>
 
                         <div class="flex items-start group">
-                            <div class="flex-shrink-0 text-rose-500 bg-white p-3 rounded-full group-hover:bg-rose-500 group-hover:text-white transition duration-300 shadow-sm">
+                            <div class="flex-shrink-0 text-salon-gold bg-white p-3 rounded-full group-hover:bg-salon-gold group-hover:text-white transition duration-300 shadow-sm">
                                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                             </div>
                             <div class="ml-5">
-                                <h4 class="font-bold text-gray-900">Jam Operasional</h4>
-                                <p class="text-gray-600 mt-2">Senin - Minggu: {{ \Carbon\Carbon::parse($setting->opening_hour ?? '09:00')->format('H:i') }} - {{ \Carbon\Carbon::parse($setting->closing_hour ?? '19:00')->format('H:i') }}</p>
+                                <h4 class="font-bold text-salon-text">Jam Operasional</h4>
+                                <p class="text-salon-textLight mt-2">Senin - Minggu: {{ \Carbon\Carbon::parse($setting->opening_hour ?? '09:00')->format('H:i') }} - {{ \Carbon\Carbon::parse($setting->closing_hour ?? '19:00')->format('H:i') }}</p>
                             </div>
                         </div>
                     </div>
 
-                    <div class="mt-10 pt-8 border-t border-rose-200/60">
-                        <h4 class="font-bold text-gray-900 mb-4">Ikuti Kami</h4>
+                    <div class="mt-10 pt-8 border-t border-salon-beige/60">
+                        <h4 class="font-bold text-salon-text mb-4">Ikuti Kami</h4>
                         <div class="flex space-x-4">
                             @if(!empty($setting->instagram))
-                                <a href="{{ $setting->instagram }}" target="_blank" class="text-rose-500 hover:text-rose-600 font-medium hover:underline transition">Instagram</a>
+                                <a href="{{ $setting->instagram }}" target="_blank" class="text-salon-gold hover:text-salon-goldHover font-medium hover:underline transition">Instagram</a>
                             @endif
                             @if(!empty($setting->facebook))
-                                <a href="{{ $setting->facebook }}" target="_blank" class="text-rose-500 hover:text-rose-600 font-medium hover:underline transition">Facebook</a>
+                                <a href="{{ $setting->facebook }}" target="_blank" class="text-salon-gold hover:text-salon-goldHover font-medium hover:underline transition">Facebook</a>
                             @endif
                             @if(!empty($setting->tiktok))
-                                <a href="{{ $setting->tiktok }}" target="_blank" class="text-rose-500 hover:text-rose-600 font-medium hover:underline transition">TikTok</a>
+                                <a href="{{ $setting->tiktok }}" target="_blank" class="text-salon-gold hover:text-salon-goldHover font-medium hover:underline transition">TikTok</a>
                             @endif
                         </div>
                     </div>

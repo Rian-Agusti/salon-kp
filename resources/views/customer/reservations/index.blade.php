@@ -5,22 +5,22 @@
 @section('content')
     <div class="mb-12">
         <div class="flex justify-between items-center mb-6">
-            <h3 class="text-2xl font-serif font-bold text-gray-900">Reservasi Aktif</h3>
+            <h3 class="text-2xl font-serif font-bold text-salon-text">Reservasi Aktif</h3>
             <a href="{{ route('customer.reservations.create') }}"
-                class="inline-flex items-center px-4 py-2 bg-rose-500 border border-transparent rounded-lg font-medium text-sm text-white shadow-sm hover:bg-rose-600 focus:outline-none focus:ring-2 focus:ring-rose-500 focus:ring-offset-2 transition ease-in-out duration-300">
+                class="inline-flex items-center px-4 py-2 bg-salon-gold border border-transparent rounded-lg font-medium text-sm text-white shadow-sm hover:bg-salon-goldHover focus:outline-none focus:ring-2 focus:ring-salon-gold focus:ring-offset-2 transition ease-in-out duration-300">
                 Buat Reservasi
             </a>
         </div>
 
         @if($activeReservations->count() > 0)
-            <div class="bg-white shadow-sm border border-gray-100 rounded-2xl overflow-hidden">
+            <div class="bg-white shadow-sm border border-salon-beige rounded-2xl overflow-hidden">
                 <ul class="divide-y divide-gray-100">
                     @foreach($activeReservations as $reservation)
                         <li class="hover:bg-gray-50/50 transition">
                             <a href="{{ route('customer.reservations.show', $reservation) }}" class="block">
                                 <div class="px-6 py-6 sm:px-8">
                                     <div class="flex items-center justify-between">
-                                        <p class="text-sm font-bold text-rose-500 truncate">
+                                        <p class="text-sm font-bold text-salon-gold truncate">
                                             {{ $reservation->reservation_code }}
                                         </p>
                                         <div class="ml-2 flex-shrink-0 flex">
@@ -31,7 +31,7 @@
                                     </div>
                                     <div class="mt-3 sm:flex sm:justify-between">
                                         <div class="sm:flex gap-6">
-                                            <p class="flex items-center text-sm text-gray-600">
+                                            <p class="flex items-center text-sm text-salon-textLight">
                                                 <svg class="flex-shrink-0 mr-2 h-5 w-5 text-gray-400" fill="none"
                                                     stroke="currentColor" viewBox="0 0 24 24">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -40,7 +40,7 @@
                                                 </svg>
                                                 {{ $reservation->booking_date->translatedFormat('d F Y') }}
                                             </p>
-                                            <p class="mt-2 flex items-center text-sm text-gray-600 sm:mt-0">
+                                            <p class="mt-2 flex items-center text-sm text-salon-textLight sm:mt-0">
                                                 <svg class="flex-shrink-0 mr-2 h-5 w-5 text-gray-400" fill="none"
                                                     stroke="currentColor" viewBox="0 0 24 24">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -60,7 +60,7 @@
                 </ul>
             </div>
         @else
-            <div class="bg-white border border-gray-100 rounded-2xl p-12 text-center shadow-sm">
+            <div class="bg-white border border-salon-beige rounded-2xl p-12 text-center shadow-sm">
                 <svg class="mx-auto h-12 w-12 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
                 <p class="mt-4 text-gray-500 font-medium">Anda belum memiliki reservasi aktif saat ini.</p>
             </div>
@@ -68,16 +68,16 @@
     </div>
 
     <div>
-        <h3 class="text-2xl font-serif font-bold text-gray-900 mb-6">Riwayat Selesai</h3>
+        <h3 class="text-2xl font-serif font-bold text-salon-text mb-6">Riwayat Selesai</h3>
         @if($completedReservations->count() > 0)
-            <div class="bg-white shadow-sm border border-gray-100 rounded-2xl overflow-hidden opacity-80 hover:opacity-100 transition duration-300">
+            <div class="bg-white shadow-sm border border-salon-beige rounded-2xl overflow-hidden opacity-80 hover:opacity-100 transition duration-300">
                 <ul class="divide-y divide-gray-100">
                     @foreach($completedReservations as $reservation)
                         <li class="hover:bg-gray-50/50 transition">
                             <a href="{{ route('customer.reservations.show', $reservation) }}" class="block">
                                 <div class="px-6 py-5 sm:px-8">
                                     <div class="flex items-center justify-between">
-                                        <p class="text-sm font-bold text-gray-600 truncate">
+                                        <p class="text-sm font-bold text-salon-textLight truncate">
                                             {{ $reservation->reservation_code }}
                                         </p>
                                         <div class="ml-2 flex-shrink-0 flex">
@@ -101,7 +101,7 @@
                 </ul>
             </div>
         @else
-            <div class="bg-white border border-gray-100 rounded-2xl p-10 text-center shadow-sm">
+            <div class="bg-white border border-salon-beige rounded-2xl p-10 text-center shadow-sm">
                 <p class="text-gray-500 font-medium">Belum ada riwayat reservasi yang selesai.</p>
             </div>
         @endif
