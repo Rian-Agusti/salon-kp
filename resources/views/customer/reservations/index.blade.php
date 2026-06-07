@@ -4,10 +4,10 @@
 
 @section('content')
     <div class="mb-12">
-        <div class="flex justify-between items-center mb-6">
+        <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-6 gap-4">
             <h3 class="text-2xl font-serif font-bold text-salon-text">Reservasi Aktif</h3>
             <a href="{{ route('customer.reservations.create') }}"
-                class="inline-flex items-center px-4 py-2 bg-salon-gold border border-transparent rounded-lg font-medium text-sm text-white shadow-sm hover:bg-salon-goldHover focus:outline-none focus:ring-2 focus:ring-salon-gold focus:ring-offset-2 transition ease-in-out duration-300">
+                class="inline-flex justify-center items-center px-4 py-2.5 sm:py-2 bg-salon-gold border border-transparent rounded-lg font-medium text-sm text-white shadow-sm hover:bg-salon-goldHover focus:outline-none focus:ring-2 focus:ring-salon-gold focus:ring-offset-2 transition ease-in-out duration-300 w-full sm:w-auto">
                 Buat Reservasi
             </a>
         </div>

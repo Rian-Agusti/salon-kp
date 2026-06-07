@@ -24,15 +24,18 @@
                 </div>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 mb-8">
                 <div>
                     <h4 class="text-sm font-bold text-salon-text uppercase tracking-wider mb-4">Info Jadwal</h4>
                     <div class="bg-gray-50 p-5 rounded-xl border border-salon-beige">
-                        <p class="mb-3 flex items-center"><span class="text-gray-500 w-24 inline-block font-medium">Tanggal:</span> <span
-                                class="font-bold text-salon-text">{{ $reservation->booking_date->translatedFormat('l, d F Y') }}</span></p>
-                        <p class="flex items-center"><span class="text-gray-500 w-24 inline-block font-medium">Waktu:</span> <span
-                                class="font-bold text-salon-text">{{ \Carbon\Carbon::parse($reservation->booking_time)->format('H:i') }} WIB</span>
-                        </p>
+                        <div class="mb-3 flex flex-col sm:flex-row sm:items-center">
+                            <span class="text-gray-500 w-full sm:w-24 inline-block font-medium text-xs sm:text-base uppercase sm:normal-case tracking-wider sm:tracking-normal mb-1 sm:mb-0">Tanggal</span>
+                            <span class="font-bold text-salon-text text-base">{{ $reservation->booking_date->translatedFormat('l, d F Y') }}</span>
+                        </div>
+                        <div class="flex flex-col sm:flex-row sm:items-center">
+                            <span class="text-gray-500 w-full sm:w-24 inline-block font-medium text-xs sm:text-base uppercase sm:normal-case tracking-wider sm:tracking-normal mb-1 sm:mb-0">Waktu</span>
+                            <span class="font-bold text-salon-text text-base">{{ \Carbon\Carbon::parse($reservation->booking_time)->format('H:i') }} WIB</span>
+                        </div>
                     </div>
 
                     @if($reservation->notes)
@@ -46,19 +49,32 @@
                 <div>
                     <h4 class="text-sm font-bold text-salon-text uppercase tracking-wider mb-4">Data Diri Anda</h4>
                     <div class="bg-gray-50 p-5 rounded-xl border border-salon-beige">
-                        <p class="mb-3 flex items-center"><span class="text-gray-500 w-24 inline-block font-medium">Nama:</span> <span
-                                class="font-bold text-salon-text">{{ $reservation->customer_name }}</span></p>
-                        <p class="mb-3 flex items-center"><span class="text-gray-500 w-24 inline-block font-medium">Email:</span> <span
-                                class="font-bold text-salon-text">{{ $reservation->customer_email }}</span></p>
-                        <p class="flex items-center"><span class="text-gray-500 w-24 inline-block font-medium">Telepon:</span> <span
-                                class="font-bold text-salon-text">{{ $reservation->customer_phone ?? 'Tidak diisi' }}</span></p>
+                        <div class="mb-3 flex flex-col sm:flex-row sm:items-center">
+                            <span class="text-gray-500 w-full sm:w-24 inline-block font-medium text-xs sm:text-base uppercase sm:normal-case tracking-wider sm:tracking-normal mb-1 sm:mb-0">Nama</span>
+                            <span class="font-bold text-salon-text text-base">{{ $reservation->customer_name }}</span>
+                        </div>
+                        <div class="mb-3 flex flex-col sm:flex-row sm:items-center overflow-hidden">
+                            <span class="text-gray-500 w-full sm:w-24 inline-block font-medium text-xs sm:text-base uppercase sm:normal-case tracking-wider sm:tracking-normal mb-1 sm:mb-0">Email</span>
+                            <span class="font-bold text-salon-text text-base break-words w-full">{{ $reservation->customer_email }}</span>
+                        </div>
+                        <div class="flex flex-col sm:flex-row sm:items-center">
+                            <span class="text-gray-500 w-full sm:w-24 inline-block font-medium text-xs sm:text-base uppercase sm:normal-case tracking-wider sm:tracking-normal mb-1 sm:mb-0">Telepon</span>
+                            <span class="font-bold text-salon-text text-base">{{ $reservation->customer_phone ?? 'Tidak diisi' }}</span>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <div>
                 <h4 class="text-sm font-bold text-salon-text uppercase tracking-wider mb-4">Layanan & Produk yang Dipilih</h4>
-                <div class="border border-salon-beige rounded-xl overflow-hidden shadow-sm">
+
+                @php
+                    $totalPrice = 0;
+                    $totalDuration = 0;
+                @endphp
+
+                <!-- Desktop Table View -->
+                <div class="hidden sm:block border border-salon-beige rounded-xl overflow-hidden shadow-sm">
                     <table class="min-w-full divide-y divide-gray-100">
                         <thead class="bg-gray-50">
                             <tr>
@@ -74,10 +90,6 @@
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-100">
-                            @php
-                                $totalPrice = 0;
-                                $totalDuration = 0;
-                            @endphp
                             @foreach($reservation->reservationItems as $item)
                                 @php
                                     $totalPrice += $item->service_price;
@@ -109,11 +121,41 @@
                         </tfoot>
                     </table>
                 </div>
+
+                <!-- Mobile Card View -->
+                <div class="sm:hidden space-y-4">
+                    @foreach($reservation->reservationItems as $item)
+                        <div class="bg-white p-4 rounded-xl border border-salon-beige shadow-sm">
+                            <h5 class="font-bold text-salon-text text-base mb-2">{{ $item->service_name }}</h5>
+                            <div class="flex justify-between items-center mt-2">
+                                <span class="text-sm text-gray-500 font-medium flex items-center gap-1">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                    {{ $item->service_duration }} Menit
+                                </span>
+                                <span class="text-salon-text font-bold">
+                                    Rp {{ number_format($item->service_price, 0, ',', '.') }}
+                                </span>
+                            </div>
+                        </div>
+                    @endforeach
+
+                    <!-- Mobile Total Card -->
+                    <div class="bg-salon-cream p-4 rounded-xl border border-salon-gold/30 shadow-sm mt-4">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-sm font-bold text-salon-text">Total Durasi</span>
+                            <span class="text-sm font-bold text-salon-gold">{{ $totalDuration }} Menit</span>
+                        </div>
+                        <div class="flex justify-between items-center pt-2 border-t border-salon-beige/50">
+                            <span class="text-base font-bold text-salon-text">Total Pembayaran</span>
+                            <span class="text-lg font-bold text-salon-goldHover">Rp {{ number_format($totalPrice, 0, ',', '.') }}</span>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div class="mt-10 pt-6 border-t border-salon-beige flex flex-col sm:flex-row justify-between items-center gap-4">
                 <a href="{{ route('customer.dashboard') }}"
-                    class="order-2 sm:order-1 text-sm font-medium text-salon-textLight hover:text-salon-goldHover transition flex items-center gap-2">
+                    class="order-2 sm:order-1 w-full sm:w-auto text-sm font-medium text-salon-textLight hover:text-salon-goldHover transition flex justify-center items-center py-2.5 sm:py-0 border sm:border-transparent border-gray-300 rounded-lg sm:rounded-none bg-white sm:bg-transparent hover:bg-gray-50 sm:hover:bg-transparent shadow-sm sm:shadow-none gap-2">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
                     Kembali ke Dasbor
                 </a>

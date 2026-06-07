@@ -2,14 +2,14 @@
     <div class="bg-rose-50 py-12 min-h-screen">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-            <div class="mb-8 flex justify-between items-end">
+            <div class="mb-8 flex flex-col sm:flex-row sm:justify-between sm:items-end gap-4">
                 <div>
                     <h1 class="text-3xl font-bold text-gray-900">User Dashboard</h1>
                     <p class="mt-2 text-sm text-gray-600">Welcome back, manage your profile and reservations here.</p>
                 </div>
                 <form action="{{ url('/logout') }}" method="POST">
                     @csrf
-                    <button type="submit" class="text-sm font-medium text-rose-600 hover:text-rose-800">Log out</button>
+                    <button type="submit" class="w-full sm:w-auto text-sm font-medium text-white bg-rose-600 hover:bg-rose-700 px-4 py-2 rounded-md sm:bg-transparent sm:text-rose-600 sm:hover:text-rose-800 sm:px-0 sm:py-0 sm:rounded-none">Log out</button>
                 </form>
             </div>
 
@@ -42,7 +42,7 @@
                             </dl>
                         </div>
                         <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
-                            <button type="button" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-rose-600 hover:bg-rose-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-rose-500">
+                            <button type="button" class="w-full sm:w-auto inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-rose-600 hover:bg-rose-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-rose-500">
                                 Edit Profile
                             </button>
                         </div>
@@ -52,7 +52,7 @@
                 <!-- My Reservations Table -->
                 <div class="lg:col-span-2">
                     <div class="bg-white shadow rounded-lg overflow-hidden border border-rose-100">
-                        <div class="px-4 py-5 sm:px-6 flex justify-between items-center bg-rose-600">
+                        <div class="px-4 py-5 sm:px-6 flex flex-row justify-between items-center bg-rose-600 gap-2">
                             <h3 class="text-lg leading-6 font-medium text-white">My Reservations</h3>
                             <a href="{{ url('/packages') }}" class="text-sm text-rose-100 hover:text-white font-medium underline">Book New</a>
                         </div>

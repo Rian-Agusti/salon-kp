@@ -3,9 +3,10 @@
 @section('header', 'Reservations')
 
 @section('content')
-    <div class="mb-6 flex justify-between items-center bg-white p-4 rounded-lg shadow-sm">
-        <div class="flex items-center space-x-4">
-            <span class="text-sm font-medium text-gray-700">Filter by Status:</span>
+    <div class="mb-6 bg-white p-4 rounded-lg shadow-sm">
+        <div class="flex flex-col sm:flex-row sm:items-center space-y-2 sm:space-y-0 sm:space-x-4">
+            <span class="text-sm font-medium text-gray-700 block mb-2 sm:mb-0">Filter by Status:</span>
+            <div class="flex flex-wrap gap-2">
             <a href="{{ route('admin.reservations.index') }}"
                 class="px-3 py-1 text-sm rounded-full {{ request('status') == '' ? 'bg-gray-800 text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200' }}">All</a>
             <a href="{{ route('admin.reservations.index', ['status' => 'pending']) }}"
@@ -16,6 +17,7 @@
                 class="px-3 py-1 text-sm rounded-full {{ request('status') == 'completed' ? 'bg-green-500 text-white' : 'bg-green-100 text-green-800 hover:bg-green-200' }}">Completed</a>
             <a href="{{ route('admin.reservations.index', ['status' => 'cancelled']) }}"
                 class="px-3 py-1 text-sm rounded-full {{ request('status') == 'cancelled' ? 'bg-red-500 text-white' : 'bg-red-100 text-red-800 hover:bg-red-200' }}">Cancelled</a>
+            </div>
         </div>
     </div>
 

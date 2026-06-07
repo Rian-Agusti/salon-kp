@@ -36,7 +36,7 @@
                             </div>
                         @endif
                         <div class="mt-8">
-                            <a href="{{ route('customer.reservations.create') }}" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-lg shadow-sm text-white bg-salon-gold hover:bg-salon-goldHover transition duration-300">
+                            <a href="{{ route('customer.reservations.create') }}" class="inline-flex justify-center w-full sm:w-auto items-center px-6 py-3 border border-transparent text-base font-medium rounded-lg shadow-sm text-white bg-salon-gold hover:bg-salon-goldHover transition duration-300">
                                 Pesan Sekarang
                             </a>
                         </div>

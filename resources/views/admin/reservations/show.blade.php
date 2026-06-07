@@ -42,7 +42,7 @@
 
             <div class="border-t border-salon-beige pt-6">
                 <h3 class="text-lg font-bold text-salon-text mb-4">Services Booked</h3>
-                <div class="border border-gray-200 rounded-md overflow-hidden">
+                <div class="border border-gray-200 rounded-md overflow-x-auto">
                     <table class="min-w-full divide-y divide-gray-200">
                         <thead class="bg-gray-50">
                             <tr>
