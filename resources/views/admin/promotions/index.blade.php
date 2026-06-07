@@ -3,9 +3,9 @@
 @section('header', 'Promotions Management')
 
 @section('content')
-<div class="mb-6 flex justify-between items-center">
-    <div></div>
-    <a href="{{ route('admin.promotions.create') }}" class="bg-salon-gold hover:bg-salon-goldHover text-white font-medium py-2 px-4 rounded shadow-sm inline-flex items-center">
+<div class="mb-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+    <h3 class="text-xl font-serif font-bold text-salon-text">Daftar Promo</h3>
+    <a href="{{ route('admin.promotions.create') }}" class="w-full sm:w-auto bg-salon-gold hover:bg-salon-goldHover text-white font-medium py-2.5 sm:py-2 px-4 rounded shadow-sm inline-flex justify-center items-center transition">
         <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
         Add New Promotion
     </a>
