@@ -58,7 +58,7 @@
         <div class="px-6 py-5 border-b border-salon-beige bg-gray-50/50">
             <h3 class="text-lg font-serif font-bold text-salon-text">Layanan Terpopuler</h3>
         </div>
-        @if($popularServices->count() > 0)
+        @if(count($popularServices) > 0)
             <div class="overflow-x-auto">
                 <table class="min-w-full divide-y divide-gray-100">
                     <thead class="bg-white">
@@ -72,10 +72,10 @@
                             <tr class="hover:bg-gray-50/50 transition">
                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-salon-text flex items-center gap-3">
                                     <span class="w-6 h-6 rounded-full bg-salon-cream text-salon-gold flex items-center justify-center text-xs border border-rose-100">{{ $loop->iteration }}</span>
-                                    {{ $stat->service_name }}
+                                    {{ $stat['service_name'] }}
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-right font-medium">
-                                    <span class="bg-gray-100 px-3 py-1 rounded-lg text-gray-700">{{ $stat->count }}</span>
+                                    <span class="bg-gray-100 px-3 py-1 rounded-lg text-gray-700">{{ $stat['count'] }}</span>
                                 </td>
                             </tr>
                         @endforeach

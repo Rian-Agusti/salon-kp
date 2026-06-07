@@ -41,7 +41,8 @@ class DashboardController extends Controller
                 ->groupBy('service_name')
                 ->orderBy('count', 'desc')
                 ->take(5)
-                ->get();
+                ->get()
+                ->toArray();
         });
 
         return view('admin.dashboard', compact(
