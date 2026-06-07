@@ -22,8 +22,8 @@ class UpdateSettingRequest extends FormRequest
             'facebook' => ['nullable', 'string', 'max:100'],
             'tiktok' => ['nullable', 'string', 'max:100'],
             'google_maps' => ['nullable', 'string'],
-            'opening_hour' => ['required', 'date_format:H:i:s'],
-            'closing_hour' => ['required', 'date_format:H:i:s'],
+            'opening_hour' => ['required', 'date_format:H:i'],
+            'closing_hour' => ['required', 'date_format:H:i'],
         ];
     }
 }

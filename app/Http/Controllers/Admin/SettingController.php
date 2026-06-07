@@ -18,7 +18,12 @@ class SettingController extends Controller
     public function update(UpdateSettingRequest $request)
     {
         $setting = Setting::firstOrCreate(['id' => 1]);
-        $setting->update($request->validated());
+
+        $data = $request->validated();
+        $data['opening_hour'] = $request->opening_hour . ':00';
+        $data['closing_hour'] = $request->closing_hour . ':00';
+
+        $setting->update($data);
 
         return redirect()->route('admin.settings.edit')->with('success', 'Settings updated successfully.');
     }
