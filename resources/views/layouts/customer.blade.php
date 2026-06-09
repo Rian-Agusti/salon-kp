@@ -76,9 +76,9 @@
                                     <a href="{{ route('customer.dashboard') }}"
                                         class="{{ request()->routeIs('customer.dashboard') ? 'bg-salon-gold text-white shadow-sm' : 'text-salon-textLight hover:bg-salon-bg hover:text-salon-text' }} block rounded-xl px-4 py-3 text-base font-medium transition">Dasboard
                                         Saya</a>
-                                    <a href="{{ route('customer.reservations.index') }}"
+                                    {{-- <a href="{{ route('customer.reservations.index') }}"
                                         class="{{ request()->routeIs('customer.reservations.*') ? 'bg-salon-gold text-white shadow-sm' : 'text-salon-textLight hover:bg-salon-bg hover:text-salon-text' }} block rounded-xl px-4 py-3 text-base font-medium transition">Riwayat
-                                        Reservasi</a>
+                                        Reservasi</a> --}}
                                     <a href="{{ route('profile.edit') }}"
                                         class="{{ request()->routeIs('profile.edit') ? 'bg-salon-gold text-white shadow-sm' : 'text-salon-textLight hover:bg-salon-bg hover:text-salon-text' }} block rounded-xl px-4 py-3 text-base font-medium transition">Pengaturan
                                         Profil</a>
