@@ -18,7 +18,13 @@
                 {{ substr($customer->name, 0, 1) }}
             </div>
             <h2 class="text-xl font-bold text-salon-text">{{ $customer->name }}</h2>
-            <p class="text-sm text-gray-500 mb-6">Customer since {{ $customer->created_at->format('M Y') }}</p>
+            <p class="text-sm text-gray-500 mb-4">Customer since {{ $customer->created_at->format('M Y') }}</p>
+
+            <div class="mb-6">
+                <a href="{{ route('admin.customers.edit', $customer) }}" class="inline-flex justify-center items-center px-4 py-2 bg-salon-gold border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-opacity-90 focus:bg-opacity-90 active:bg-opacity-100 focus:outline-none focus:ring-2 focus:ring-salon-gold focus:ring-offset-2 transition ease-in-out duration-150">
+                    Edit
+                </a>
+            </div>
 
             <div class="text-left space-y-3 border-t border-salon-beige pt-4">
                 <div>

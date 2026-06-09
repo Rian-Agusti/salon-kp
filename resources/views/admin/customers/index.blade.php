@@ -34,8 +34,9 @@
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                             {{ $customer->created_at->format('M d, Y') }}
                         </td>
-                        <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                        <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium space-x-2">
                             <a href="{{ route('admin.customers.show', $customer) }}" class="text-indigo-600 hover:text-indigo-900 bg-indigo-50 px-3 py-1 rounded">View History</a>
+                            <a href="{{ route('admin.customers.edit', $customer) }}" class="text-salon-gold hover:text-yellow-700 bg-yellow-50 px-3 py-1 rounded">Edit</a>
                         </td>
                     </tr>
                 @empty
