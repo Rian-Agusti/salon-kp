@@ -10,6 +10,7 @@ use App\Models\Service;
 use App\Models\Setting;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class ReservationController extends Controller
 {
@@ -49,19 +50,37 @@ class ReservationController extends Controller
         $reservationCode = GenerateReservationCode::generate();
 
         $reservation = DB::transaction(function () use ($request, $user, $reservationCode) {
+            $services = Service::whereIn('id', $request->services)->get();
+            $totalPrice = $services->sum('price');
+
+            if ($totalPrice >= 100000) {
+                $user->member_until = now()->addYear();
+                $user->save();
+            }
+
+            $user->refresh();
+            $discountAmount = 0;
+
+            if ($user->member_until && $user->member_until->gte(today())) {
+                if ($user->birth_date && Carbon::parse($user->birth_date)->isBirthday()) {
+                    $discountAmount = $totalPrice * 0.5;
+                } else {
+                    $discountAmount = $totalPrice * 0.05;
+                }
+            }
+
             $reservation = Reservation::create([
                 'user_id' => $user->id,
                 'reservation_code' => $reservationCode,
                 'booking_date' => $request->booking_date,
                 'booking_time' => $request->booking_time,
                 'status' => 'pending',
+                'discount_amount' => $discountAmount,
                 'notes' => $request->notes,
                 'customer_name' => $user->name,
                 'customer_email' => $user->email,
                 'customer_phone' => $user->phone,
             ]);
-
-            $services = Service::whereIn('id', $request->services)->get();
 
             foreach ($services as $service) {
                 $reservation->reservationItems()->create([

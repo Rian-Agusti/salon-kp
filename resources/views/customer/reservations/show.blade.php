@@ -128,14 +128,32 @@
                             <tfoot class="bg-gray-50 border-t border-salon-beige">
                                 <tr>
                                     <th scope="row"
-                                        class="px-6 py-5 whitespace-nowrap text-sm font-bold text-salon-text text-right">Total
-                                        Keseluruhan
+                                        class="px-6 py-3 whitespace-nowrap text-sm font-bold text-salon-text text-right">Subtotal
                                     </th>
-                                    <td class="px-6 py-5 whitespace-nowrap text-sm font-bold text-salon-gold text-center">
+                                    <td class="px-6 py-3 whitespace-nowrap text-sm font-bold text-salon-gold text-center">
                                         {{ $totalDuration }} menit
                                     </td>
-                                    <td class="px-6 py-5 whitespace-nowrap text-lg font-bold text-salon-goldHover text-right">Rp
+                                    <td class="px-6 py-3 whitespace-nowrap text-md font-bold text-salon-text text-right">Rp
                                         {{ number_format($totalPrice, 0, ',', '.') }}
+                                    </td>
+                                </tr>
+                                @if($reservation->discount_amount > 0)
+                                <tr class="bg-green-50 text-green-700">
+                                    <th scope="row" colspan="2"
+                                        class="px-6 py-3 whitespace-nowrap text-sm font-bold text-right">Diskon Member
+                                    </th>
+                                    <td class="px-6 py-3 whitespace-nowrap text-md font-bold text-right">- Rp
+                                        {{ number_format($reservation->discount_amount, 0, ',', '.') }}
+                                    </td>
+                                </tr>
+                                @endif
+                                <tr>
+                                    <th scope="row" colspan="2"
+                                        class="px-6 py-5 whitespace-nowrap text-sm font-bold text-salon-text text-right border-t border-gray-200">Total
+                                        Keseluruhan
+                                    </th>
+                                    <td class="px-6 py-5 whitespace-nowrap text-lg font-bold text-salon-goldHover text-right border-t border-gray-200">Rp
+                                        {{ number_format($totalPrice - $reservation->discount_amount, 0, ',', '.') }}
                                     </td>
                                 </tr>
                             </tfoot>
@@ -168,10 +186,20 @@
                                 <span class="text-sm font-bold text-salon-text">Total Durasi</span>
                                 <span class="text-sm font-bold text-salon-gold">{{ $totalDuration }} Menit</span>
                             </div>
-                            <div class="flex justify-between items-center pt-2 border-t border-salon-beige/50">
+                            <div class="flex justify-between items-center pt-2 mt-2 border-t border-salon-beige/50">
+                                <span class="text-base font-bold text-salon-text">Subtotal</span>
+                                <span class="text-md font-bold text-salon-text">Rp {{ number_format($totalPrice, 0, ',', '.') }}</span>
+                            </div>
+                            @if($reservation->discount_amount > 0)
+                            <div class="flex justify-between items-center pt-2 mt-2 text-green-700">
+                                <span class="text-base font-bold">Diskon Member</span>
+                                <span class="text-md font-bold">- Rp {{ number_format($reservation->discount_amount, 0, ',', '.') }}</span>
+                            </div>
+                            @endif
+                            <div class="flex justify-between items-center pt-2 mt-2 border-t border-salon-beige/50">
                                 <span class="text-base font-bold text-salon-text">Total Pembayaran</span>
                                 <span class="text-lg font-bold text-salon-goldHover">Rp
-                                    {{ number_format($totalPrice, 0, ',', '.') }}</span>
+                                    {{ number_format($totalPrice - $reservation->discount_amount, 0, ',', '.') }}</span>
                             </div>
                         </div>
                     </div>

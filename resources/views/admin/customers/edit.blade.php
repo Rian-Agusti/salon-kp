@@ -48,6 +48,25 @@
                 <label for="password_confirmation" class="block text-sm font-medium text-salon-text">Konfirmasi Password Baru</label>
                 <input type="password" name="password_confirmation" id="password_confirmation" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-salon-gold focus:ring focus:ring-salon-gold focus:ring-opacity-50">
             </div>
+
+            <!-- Birth Date -->
+            <div>
+                <label for="birth_date" class="block text-sm font-medium text-salon-text">Tanggal Lahir</label>
+                <input type="date" name="birth_date" id="birth_date" value="{{ old('birth_date', $customer->birth_date ? $customer->birth_date->format('Y-m-d') : '') }}" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-salon-gold focus:ring focus:ring-salon-gold focus:ring-opacity-50">
+                @error('birth_date')
+                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                @enderror
+            </div>
+
+            <!-- Member Until -->
+            <div>
+                <label for="member_until" class="block text-sm font-medium text-salon-text">Masa Berlaku Member (Kosongkan jika bukan member)</label>
+                <input type="date" name="member_until" id="member_until" value="{{ old('member_until', $customer->member_until ? $customer->member_until->format('Y-m-d') : '') }}" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-salon-gold focus:ring focus:ring-salon-gold focus:ring-opacity-50">
+                @error('member_until')
+                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                @enderror
+                <p class="mt-1 text-xs text-gray-500">Isi tanggal untuk mengaktifkan member secara manual, atau kosongkan untuk mencabut status member.</p>
+            </div>
         </div>
 
         <div class="mt-6 flex flex-col sm:flex-row sm:items-center sm:justify-end gap-3">

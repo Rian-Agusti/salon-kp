@@ -28,12 +28,29 @@
 
             <div class="text-left space-y-3 border-t border-salon-beige pt-4">
                 <div>
+                    <span class="text-xs text-gray-500 uppercase tracking-wider block">Status Member</span>
+                    @if($customer->member_until && $customer->member_until->gte(today()))
+                        <span class="inline-flex mt-1 items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-green-100 text-green-800">
+                            Member
+                        </span>
+                        <div class="text-xs text-gray-500 mt-1">Sampai: {{ $customer->member_until->format('d M Y') }}</div>
+                    @else
+                        <span class="inline-flex mt-1 items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-gray-100 text-gray-800">
+                            Bukan Member
+                        </span>
+                    @endif
+                </div>
+                <div>
                     <span class="text-xs text-gray-500 uppercase tracking-wider block">Email</span>
                     <a href="mailto:{{ $customer->email }}" class="text-sm font-medium text-blue-600 hover:underline">{{ $customer->email }}</a>
                 </div>
                 <div>
                     <span class="text-xs text-gray-500 uppercase tracking-wider block">Phone</span>
                     <span class="text-sm font-medium text-salon-text">{{ $customer->phone ?? 'Not provided' }}</span>
+                </div>
+                <div>
+                    <span class="text-xs text-gray-500 uppercase tracking-wider block">Tanggal Lahir</span>
+                    <span class="text-sm font-medium text-salon-text">{{ $customer->birth_date ? $customer->birth_date->format('d M Y') : 'Belum diatur' }}</span>
                 </div>
                 <div>
                     <span class="text-xs text-gray-500 uppercase tracking-wider block">Total Bookings</span>

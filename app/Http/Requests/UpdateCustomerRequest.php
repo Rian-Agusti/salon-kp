@@ -26,6 +26,8 @@ class UpdateCustomerRequest extends FormRequest
             'name' => ['required', 'string', 'max:255'],
             'phone' => ['required', 'string', 'max:20'],
             'password' => ['nullable', 'string', 'min:8', 'confirmed'],
+            'birth_date' => ['nullable', 'date'],
+            'member_until' => ['nullable', 'date'],
         ];
     }
 }

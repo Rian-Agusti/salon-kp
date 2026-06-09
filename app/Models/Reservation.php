@@ -13,6 +13,7 @@ class Reservation extends Model
         'booking_date',
         'booking_time',
         'status',
+        'discount_amount',
         'notes',
         'customer_name',
         'customer_email',
@@ -24,6 +25,7 @@ class Reservation extends Model
         return [
             'booking_date' => 'date',
             'status' => ReservationStatusEnum::class,
+            'discount_amount' => 'decimal:2',
         ];
     }
 

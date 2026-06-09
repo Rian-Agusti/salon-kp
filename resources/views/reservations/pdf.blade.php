@@ -80,9 +80,19 @@
         </tbody>
         <tfoot>
             <tr class="total-row">
-                <td class="text-right"><strong>Total</strong></td>
+                <td class="text-right"><strong>Subtotal</strong></td>
                 <td class="text-center">{{ $totalDuration }} menit</td>
-                <td class="text-right total-price">Rp {{ number_format($totalPrice, 0, ',', '.') }}</td>
+                <td class="text-right">Rp {{ number_format($totalPrice, 0, ',', '.') }}</td>
+            </tr>
+            @if($reservation->discount_amount > 0)
+            <tr>
+                <td colspan="2" class="text-right" style="color: #065f46;"><strong>Diskon Member</strong></td>
+                <td class="text-right" style="color: #065f46;">- Rp {{ number_format($reservation->discount_amount, 0, ',', '.') }}</td>
+            </tr>
+            @endif
+            <tr class="total-row">
+                <td colspan="2" class="text-right"><strong>Total Keseluruhan</strong></td>
+                <td class="text-right total-price">Rp {{ number_format($totalPrice - $reservation->discount_amount, 0, ',', '.') }}</td>
             </tr>
         </tfoot>
     </table>

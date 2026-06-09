@@ -112,11 +112,24 @@
                         @endphp
                         <!-- Total Section -->
                         <div
-                            class="mt-6 sm:mt-4 pt-4 border-t-2 border-dashed border-salon-beige flex flex-col sm:flex-row justify-between items-start sm:items-center bg-salon-cream sm:bg-transparent p-4 sm:p-0 rounded-xl sm:rounded-none">
-                            <span class="font-bold text-salon-text text-base sm:text-lg mb-1 sm:mb-0">Total
-                                Pembayaran</span>
-                            <span class="font-bold text-salon-goldHover text-xl sm:text-2xl self-end sm:self-auto">Rp
-                                {{ number_format($calculatedTotal, 0, ',', '.') }}</span>
+                            class="mt-6 sm:mt-4 pt-4 border-t-2 border-dashed border-salon-beige flex flex-col justify-between items-start bg-salon-cream sm:bg-transparent p-4 sm:p-0 rounded-xl sm:rounded-none space-y-2">
+
+                            <div class="flex justify-between items-center w-full">
+                                <span class="font-bold text-salon-text text-base">Subtotal</span>
+                                <span class="font-bold text-salon-text text-lg">Rp {{ number_format($calculatedTotal, 0, ',', '.') }}</span>
+                            </div>
+
+                            @if($reservation->discount_amount > 0)
+                            <div class="flex justify-between items-center w-full text-green-700">
+                                <span class="font-bold text-base">Diskon Member</span>
+                                <span class="font-bold text-lg">- Rp {{ number_format($reservation->discount_amount, 0, ',', '.') }}</span>
+                            </div>
+                            @endif
+
+                            <div class="flex justify-between items-center w-full pt-2 border-t border-salon-beige/50">
+                                <span class="font-bold text-salon-text text-lg sm:text-xl">Total Pembayaran</span>
+                                <span class="font-bold text-salon-goldHover text-xl sm:text-2xl">Rp {{ number_format($calculatedTotal - $reservation->discount_amount, 0, ',', '.') }}</span>
+                            </div>
                         </div>
                     </div>
 
