@@ -82,8 +82,10 @@
                                 @foreach($reservation->reservationItems as $item)
                                     @php $totalPrice += $item->service_price; @endphp
                                     <li class="py-3 flex justify-between items-center group">
-                                        <span class="text-salon-textLight font-medium group-hover:text-salon-goldHover transition">{{ $item->service_name }}</span>
-                                        <span class="font-bold text-salon-text">Rp {{ number_format($item->service_price, 0, ',', '.') }}</span>
+                                        <span
+                                            class="text-salon-textLight font-medium group-hover:text-salon-goldHover transition">{{ $item->service_name }}</span>
+                                        <span class="font-bold text-salon-text">Rp
+                                            {{ number_format($item->service_price, 0, ',', '.') }}</span>
                                     </li>
                                 @endforeach
                             </ul>
@@ -95,28 +97,32 @@
                                 <!-- we have to recount totalPrice since we are looping twice, but we already added in the first loop so let's reset it before the loop if needed? No, wait, if we only render one view based on CSS, we shouldn't recount. Let's just recount and store in variable outside. -->
                                 <div class="bg-gray-50 border border-salon-beige rounded-xl p-4 shadow-sm">
                                     <p class="font-bold text-salon-text text-base mb-2">{{ $item->service_name }}</p>
-                                    <p class="text-salon-gold font-bold text-right">Rp {{ number_format($item->service_price, 0, ',', '.') }}</p>
+                                    <p class="text-salon-gold font-bold text-right">Rp
+                                        {{ number_format($item->service_price, 0, ',', '.') }}</p>
                                 </div>
                             @endforeach
                         </div>
 
-                    @php
-                        // Calculate total price accurately without double counting
-                        $calculatedTotal = 0;
-                        foreach($reservation->reservationItems as $item) {
-                            $calculatedTotal += $item->service_price;
-                        }
-                    @endphp
+                        @php
+                            // Calculate total price accurately without double counting
+                            $calculatedTotal = 0;
+                            foreach ($reservation->reservationItems as $item) {
+                                $calculatedTotal += $item->service_price;
+                            }
+                        @endphp
                         <!-- Total Section -->
-                        <div class="mt-6 sm:mt-4 pt-4 border-t-2 border-dashed border-salon-beige flex flex-col sm:flex-row justify-between items-start sm:items-center bg-salon-cream sm:bg-transparent p-4 sm:p-0 rounded-xl sm:rounded-none">
-                            <span class="font-bold text-salon-text text-base sm:text-lg mb-1 sm:mb-0">Total Pembayaran</span>
-                            <span class="font-bold text-salon-goldHover text-xl sm:text-2xl self-end sm:self-auto">Rp {{ number_format($calculatedTotal, 0, ',', '.') }}</span>
+                        <div
+                            class="mt-6 sm:mt-4 pt-4 border-t-2 border-dashed border-salon-beige flex flex-col sm:flex-row justify-between items-start sm:items-center bg-salon-cream sm:bg-transparent p-4 sm:p-0 rounded-xl sm:rounded-none">
+                            <span class="font-bold text-salon-text text-base sm:text-lg mb-1 sm:mb-0">Total
+                                Pembayaran</span>
+                            <span class="font-bold text-salon-goldHover text-xl sm:text-2xl self-end sm:self-auto">Rp
+                                {{ number_format($calculatedTotal, 0, ',', '.') }}</span>
                         </div>
                     </div>
 
                     @php
                         // 1. Ambil input nomor HP dari database atau gunakan default jika kosong
-                        $phoneInput = $setting->phone ?? '0877-8391-5874';
+                        $phoneInput = '0877-8391-5874';
 
                         // 2. Bersihkan semua karakter selain angka (spasi, strip, dll)
                         $cleanPhone = preg_replace('/[^0-9]/', '', $phoneInput);
