@@ -37,7 +37,7 @@
             <!-- New Password -->
             <div>
                 <label for="password" class="block text-sm font-medium text-salon-text">Password Baru (kosongkan jika tidak ingin mengubah)</label>
-                <input type="password" name="password" id="password" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-salon-gold focus:ring focus:ring-salon-gold focus:ring-opacity-50">
+                <input type="text" name="password" id="password" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-salon-gold focus:ring focus:ring-salon-gold focus:ring-opacity-50">
                 @error('password')
                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                 @enderror
@@ -46,7 +46,7 @@
             <!-- Confirm New Password -->
             <div>
                 <label for="password_confirmation" class="block text-sm font-medium text-salon-text">Konfirmasi Password Baru</label>
-                <input type="password" name="password_confirmation" id="password_confirmation" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-salon-gold focus:ring focus:ring-salon-gold focus:ring-opacity-50">
+                <input type="text" name="password_confirmation" id="password_confirmation" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-salon-gold focus:ring focus:ring-salon-gold focus:ring-opacity-50">
             </div>
         </div>
 
