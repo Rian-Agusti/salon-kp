@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('header')
-    <h2 class="font-semibold text-xl text-gray-800 leading-tight">Tambah Pelanggan Walk-in</h2>
+    <h2 class="font-semibold text-xl text-gray-800 leading-tight">Tambah Member / Pelanggan</h2>
 @endsection
 
 @section('content')
@@ -38,14 +38,12 @@
                     @enderror
                 </div>
 
-                <!-- Member Until -->
-                <div>
-                    <label for="member_until" class="block font-medium text-sm text-gray-700">Masa Berlaku Member (Kosongkan jika bukan member)</label>
-                    <input id="member_until" class="block mt-1 w-full border-gray-300 focus:border-salon-gold focus:ring-salon-gold rounded-md shadow-sm" type="date" name="member_until" value="{{ old('member_until') }}" />
-                    <p class="mt-1 text-xs text-gray-500">Isi tanggal untuk mengaktifkan member secara manual.</p>
-                    @error('member_until')
-                        <p class="text-sm text-red-600 mt-2">{{ $message }}</p>
-                    @enderror
+                <!-- Is Member Checkbox -->
+                <div class="flex items-center mt-6">
+                    <input id="is_member" type="checkbox" name="is_member" value="1" class="rounded border-gray-300 text-salon-gold shadow-sm focus:ring-salon-gold" {{ old('is_member') ? 'checked' : '' }}>
+                    <label for="is_member" class="ml-2 block font-medium text-sm text-gray-700">
+                        Jadikan Member
+                    </label>
                 </div>
 
                 <!-- Address -->
@@ -72,7 +70,7 @@
                     Batal
                 </a>
                 <button type="submit" class="inline-flex items-center px-4 py-2 bg-salon-gold border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-yellow-600 focus:bg-yellow-600 active:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2 transition ease-in-out duration-150">
-                    Simpan Pelanggan Walk-in
+                    Simpan
                 </button>
             </div>
         </form>
