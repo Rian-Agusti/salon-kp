@@ -105,7 +105,6 @@ class ReservationController extends Controller
 
             foreach ($services as $service) {
                 $reservation->reservationItems()->create([
-                    'type' => 'service',
                     'service_id' => $service->id,
                     'service_name' => $service->name,
                     'service_price' => $service->price,
@@ -116,7 +115,6 @@ class ReservationController extends Controller
             foreach ($products as $product) {
                 $qty = $productsInput->firstWhere('id', $product->id)['quantity'] ?? 1;
                 $reservation->reservationItems()->create([
-                    'type' => 'product',
                     'product_id' => $product->id,
                     'product_name' => $product->name,
                     'product_quantity' => $qty,
@@ -127,7 +125,6 @@ class ReservationController extends Controller
 
             foreach ($promotions as $promo) {
                 $reservation->reservationItems()->create([
-                    'type' => 'promotion',
                     'promotion_id' => $promo->id,
                     'promotion_name' => $promo->title,
                     'service_price' => 0, // Assuming promo has no direct price add, but could be adjusted

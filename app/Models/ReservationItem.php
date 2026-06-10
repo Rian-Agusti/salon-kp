@@ -9,7 +9,6 @@ class ReservationItem extends Model
 {
     protected $fillable = [
         'reservation_id',
-        'type',
         'service_id',
         'service_name',
         'service_price',
