@@ -6,11 +6,11 @@
     <div class="mb-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <h3 class="text-xl font-serif font-bold text-salon-text">Daftar Galeri</h3>
         <a href="{{ route('admin.galleries.create') }}"
-            class="w-full sm:w-auto bg-salon-gold hover:bg-salon-goldHover text-white font-medium py-2.5 sm:py-2 px-4 rounded shadow-sm inline-flex justify-center items-center transition">
+            class="inline-flex justify-center items-center px-4 py-2.5 sm:py-2 bg-salon-gold border border-transparent rounded-lg font-bold text-sm text-white hover:bg-salon-goldHover transition w-full sm:w-auto">
             <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
             </svg>
-            Add New Gallery Item
+            Tambah Galeri Baru
         </a>
     </div>
 
