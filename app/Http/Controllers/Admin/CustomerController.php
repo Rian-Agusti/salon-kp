@@ -53,10 +53,12 @@ class CustomerController extends Controller
             'address' => ['nullable', 'string'],
             'notes' => ['nullable', 'string'],
             'birth_date' => ['nullable', 'date'],
-            'member_until' => ['nullable', 'date'],
+            'is_member' => ['nullable', 'boolean'],
         ]);
 
         $email = $validated['email'] ?? 'walkin_' . Str::random(8) . '@example.com';
+
+        $memberUntil = !empty($validated['is_member']) ? now()->addYear() : null;
 
         $customer = User::create([
             'name' => $validated['name'],
@@ -67,7 +69,7 @@ class CustomerController extends Controller
             'address' => $validated['address'] ?? null,
             'notes' => $validated['notes'] ?? null,
             'birth_date' => $validated['birth_date'] ?? null,
-            'member_until' => $validated['member_until'] ?? null,
+            'member_until' => $memberUntil,
             'is_active' => true,
         ]);
 
