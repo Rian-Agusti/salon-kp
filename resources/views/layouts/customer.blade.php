@@ -121,9 +121,9 @@
                     <div class="hidden lg:ml-10 lg:flex lg:space-x-8">
                         <a href="{{ route('customer.dashboard') }}"
                             class="inline-flex items-center px-1 pt-1 border-b-2 {{ request()->routeIs('customer.dashboard') ? 'border-salon-gold text-salon-gold' : 'border-transparent text-salon-textLight hover:text-salon-gold hover:border-salon-beige' }} text-sm font-medium leading-5 transition">Dasboard</a>
-                        <a href="{{ route('customer.reservations.index') }}"
+                        {{-- <a href="{{ route('customer.reservations.index') }}"
                             class="inline-flex items-center px-1 pt-1 border-b-2 {{ request()->routeIs('customer.reservations.*') ? 'border-salon-gold text-salon-gold' : 'border-transparent text-salon-textLight hover:text-salon-gold hover:border-salon-beige' }} text-sm font-medium leading-5 transition">Reservasi
-                            Saya</a>
+                            Saya</a> --}}
                         <a href="{{ route('profile.edit') }}"
                             class="inline-flex items-center px-1 pt-1 border-b-2 {{ request()->routeIs('profile.edit') ? 'border-salon-gold text-salon-gold' : 'border-transparent text-salon-textLight hover:text-salon-gold hover:border-salon-beige' }} text-sm font-medium leading-5 transition">Profil</a>
                     </div>
@@ -169,7 +169,7 @@
     <header class="bg-white shadow-sm border-b border-salon-beige">
         <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 flex justify-between items-center">
             <h2 class="font-serif font-bold text-2xl text-salon-text leading-tight">
-                @yield('header', 'Dasbor Pelanggan')
+                @yield('header', 'Dasboard Pelanggan')
             </h2>
             <a href="{{ route('home') }}"
                 class="hidden sm:inline-flex text-sm font-medium text-salon-textLight hover:text-salon-gold transition items-center gap-1">
