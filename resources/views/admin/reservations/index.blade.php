@@ -1,22 +1,41 @@
 @extends('layouts.admin')
 
-@section('header', 'Reservations')
+@section('header')
+    <div class="flex justify-between items-center w-full">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">Daftar Reservasi</h2>
+        <a href="{{ route('admin.reservations.create') }}" class="inline-flex items-center px-4 py-2 bg-salon-gold border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-yellow-600 focus:bg-yellow-600 active:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2 transition ease-in-out duration-150">
+            Buat Transaksi Offline
+        </a>
+    </div>
+@endsection
 
 @section('content')
-    <div class="mb-6 bg-white p-4 rounded-lg shadow-sm">
+    <div class="mb-6 bg-white p-4 rounded-lg shadow-sm space-y-4">
         <div class="flex flex-col sm:flex-row sm:items-center space-y-2 sm:space-y-0 sm:space-x-4">
-            <span class="text-sm font-medium text-gray-700 block mb-2 sm:mb-0">Filter by Status:</span>
+            <span class="text-sm font-medium text-gray-700 block mb-2 sm:mb-0 w-24">Status:</span>
             <div class="flex flex-wrap gap-2">
-            <a href="{{ route('admin.reservations.index') }}"
-                class="px-3 py-1 text-sm rounded-full {{ request('status') == '' ? 'bg-gray-800 text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200' }}">All</a>
-            <a href="{{ route('admin.reservations.index', ['status' => 'pending']) }}"
+            <a href="{{ request()->fullUrlWithQuery(['status' => null]) }}"
+                class="px-3 py-1 text-sm rounded-full {{ request('status') == '' ? 'bg-gray-800 text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200' }}">Semua</a>
+            <a href="{{ request()->fullUrlWithQuery(['status' => 'pending']) }}"
                 class="px-3 py-1 text-sm rounded-full {{ request('status') == 'pending' ? 'bg-yellow-500 text-white' : 'bg-yellow-100 text-yellow-800 hover:bg-yellow-200' }}">Pending</a>
-            <a href="{{ route('admin.reservations.index', ['status' => 'confirmed']) }}"
+            <a href="{{ request()->fullUrlWithQuery(['status' => 'confirmed']) }}"
                 class="px-3 py-1 text-sm rounded-full {{ request('status') == 'confirmed' ? 'bg-blue-500 text-white' : 'bg-blue-100 text-blue-800 hover:bg-blue-200' }}">Confirmed</a>
-            <a href="{{ route('admin.reservations.index', ['status' => 'completed']) }}"
+            <a href="{{ request()->fullUrlWithQuery(['status' => 'completed']) }}"
                 class="px-3 py-1 text-sm rounded-full {{ request('status') == 'completed' ? 'bg-green-500 text-white' : 'bg-green-100 text-green-800 hover:bg-green-200' }}">Completed</a>
-            <a href="{{ route('admin.reservations.index', ['status' => 'cancelled']) }}"
+            <a href="{{ request()->fullUrlWithQuery(['status' => 'cancelled']) }}"
                 class="px-3 py-1 text-sm rounded-full {{ request('status') == 'cancelled' ? 'bg-red-500 text-white' : 'bg-red-100 text-red-800 hover:bg-red-200' }}">Cancelled</a>
+            </div>
+        </div>
+
+        <div class="flex flex-col sm:flex-row sm:items-center space-y-2 sm:space-y-0 sm:space-x-4">
+            <span class="text-sm font-medium text-gray-700 block mb-2 sm:mb-0 w-24">Sumber:</span>
+            <div class="flex flex-wrap gap-2">
+            <a href="{{ request()->fullUrlWithQuery(['source' => null]) }}"
+                class="px-3 py-1 text-sm rounded-full {{ request('source') == '' ? 'bg-gray-800 text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200' }}">Semua</a>
+            <a href="{{ request()->fullUrlWithQuery(['source' => 'online']) }}"
+                class="px-3 py-1 text-sm rounded-full {{ request('source') == 'online' ? 'bg-blue-500 text-white' : 'bg-blue-100 text-blue-800 hover:bg-blue-200' }}">Online</a>
+            <a href="{{ request()->fullUrlWithQuery(['source' => 'offline']) }}"
+                class="px-3 py-1 text-sm rounded-full {{ request('source') == 'offline' ? 'bg-purple-500 text-white' : 'bg-purple-100 text-purple-800 hover:bg-purple-200' }}">Offline</a>
             </div>
         </div>
     </div>
@@ -27,17 +46,13 @@
                 <thead class="bg-gray-50">
                     <tr>
                         <th scope="col"
-                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Code /
-                            Date</th>
+                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Kode / Tanggal</th>
                         <th scope="col"
-                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Customer
-                        </th>
+                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Pelanggan</th>
                         <th scope="col"
-                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status
-                        </th>
+                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status / Sumber</th>
                         <th scope="col"
-                            class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Actions
-                        </th>
+                            class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Aksi</th>
                     </tr>
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200">
@@ -66,16 +81,23 @@
                                     class="badge {{ $statusColors[$reservation->status->value] ?? 'bg-gray-100 text-gray-800' }}">
                                     {{ ucfirst($reservation->status->value) }}
                                 </span>
+                                <div class="mt-1">
+                                    @if($reservation->source == 'online')
+                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-50 text-blue-600">Online</span>
+                                    @else
+                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-purple-50 text-purple-600">Offline</span>
+                                    @endif
+                                </div>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                 <a href="{{ route('admin.reservations.show', $reservation) }}"
-                                    class="text-indigo-600 hover:text-indigo-900 bg-indigo-50 px-3 py-1 rounded">View Detail</a>
+                                    class="text-indigo-600 hover:text-indigo-900 bg-indigo-50 px-3 py-1 rounded">Detail</a>
                             </td>
                         </tr>
                     @empty
                         <tr>
                             <td colspan="4" class="px-6 py-8 text-center text-gray-500">
-                                No reservations found.
+                                Belum ada reservasi.
                             </td>
                         </tr>
                     @endforelse

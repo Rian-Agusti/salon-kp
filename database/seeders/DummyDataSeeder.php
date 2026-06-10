@@ -7,8 +7,12 @@ use App\Models\Service;
 use App\Models\Product;
 use App\Models\Promotion;
 use App\Models\Gallery;
+use App\Models\User;
+use App\Models\Reservation;
+use App\Actions\Reservation\GenerateReservationCode;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Hash;
 
 class DummyDataSeeder extends Seeder
 {
@@ -96,6 +100,59 @@ class DummyDataSeeder extends Seeder
                     'image' => $gal['image'],
                 ]
             );
+        }
+
+        // Offline Customers
+        $offlineCustomers = [
+            ['name' => 'Budi Santoso', 'phone' => '081234567890', 'address' => 'Jl. Merdeka No. 1'],
+            ['name' => 'Siti Aminah', 'phone' => '089876543210', 'address' => 'Jl. Sudirman No. 2'],
+        ];
+
+        foreach ($offlineCustomers as $index => $customerData) {
+            $user = User::firstOrCreate(
+                ['email' => 'walkin_'.($index + 1).'@example.com'],
+                [
+                    'name' => $customerData['name'],
+                    'phone' => $customerData['phone'],
+                    'password' => Hash::make(Str::random(20)),
+                    'type' => 'offline',
+                    'address' => $customerData['address'],
+                    'is_active' => true,
+                ]
+            );
+
+            if (!$user->hasRole('customer')) {
+                $user->assignRole('customer');
+            }
+
+            // Create Offline Reservation
+            $service = Service::first();
+            $reservationCode = GenerateReservationCode::generate();
+
+            $reservation = Reservation::firstOrCreate(
+                ['user_id' => $user->id],
+                [
+                    'reservation_code' => $reservationCode,
+                    'booking_date' => Carbon::now()->addDays($index + 1)->toDateString(),
+                    'booking_time' => '10:00:00',
+                    'status' => 'completed',
+                    'source' => 'offline',
+                    'payment_status' => 'paid',
+                    'discount_amount' => 0,
+                    'customer_name' => $user->name,
+                    'customer_email' => $user->email,
+                    'customer_phone' => $user->phone,
+                ]
+            );
+
+            if ($reservation->wasRecentlyCreated) {
+                $reservation->reservationItems()->create([
+                    'service_id' => $service->id,
+                    'service_name' => $service->name,
+                    'service_price' => $service->price,
+                    'service_duration' => $service->duration_minutes,
+                ]);
+            }
         }
     }
 }

@@ -36,11 +36,11 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::resource('promotions', Admin\PromotionController::class);
     Route::resource('galleries', Admin\GalleryController::class);
 
-    Route::resource('reservations', Admin\ReservationController::class)->only(['index', 'show']);
+    Route::resource('reservations', Admin\ReservationController::class)->except(['edit', 'update']);
     Route::patch('reservations/{reservation}/status', [Admin\ReservationController::class, 'updateStatus'])->name('reservations.updateStatus');
     Route::get('reservations/{reservation}/pdf', [Admin\ReservationController::class, 'pdf'])->name('reservations.pdf');
 
-    Route::resource('customers', Admin\CustomerController::class)->only(['index', 'show', 'edit', 'update']);
+    Route::resource('customers', Admin\CustomerController::class)->except(['destroy']);
 
     Route::get('settings', [Admin\SettingController::class, 'edit'])->name('settings.edit');
     Route::put('settings', [Admin\SettingController::class, 'update'])->name('settings.update');

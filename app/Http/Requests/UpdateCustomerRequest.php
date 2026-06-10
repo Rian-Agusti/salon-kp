@@ -28,6 +28,10 @@ class UpdateCustomerRequest extends FormRequest
             'password' => ['nullable', 'string', 'min:8', 'confirmed'],
             'birth_date' => ['nullable', 'date'],
             'member_until' => ['nullable', 'date'],
+            'address' => ['nullable', 'string'],
+            'notes' => ['nullable', 'string'],
+            'type' => ['required', 'in:online,offline'],
+            // is_active will be handled directly in the controller via has() since it's a checkbox
         ];
     }
 }

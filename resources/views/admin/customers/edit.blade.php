@@ -67,6 +67,44 @@
                 @enderror
                 <p class="mt-1 text-xs text-gray-500">Isi tanggal untuk mengaktifkan member secara manual, atau kosongkan untuk mencabut status member.</p>
             </div>
+
+            <!-- Tipe Customer -->
+            <div>
+                <label for="type" class="block text-sm font-medium text-salon-text">Tipe Pelanggan</label>
+                <select id="type" name="type" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-salon-gold focus:ring focus:ring-salon-gold focus:ring-opacity-50" required>
+                    <option value="online" {{ old('type', $customer->type) == 'online' ? 'selected' : '' }}>Online</option>
+                    <option value="offline" {{ old('type', $customer->type) == 'offline' ? 'selected' : '' }}>Walk-in</option>
+                </select>
+                @error('type')
+                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                @enderror
+            </div>
+
+            <!-- Status Aktif -->
+            <div class="flex items-center">
+                <input id="is_active" type="checkbox" name="is_active" value="1" class="rounded border-gray-300 text-salon-gold shadow-sm focus:border-salon-gold focus:ring focus:ring-salon-gold focus:ring-opacity-50" {{ old('is_active', $customer->is_active) ? 'checked' : '' }}>
+                <label for="is_active" class="ml-2 block text-sm text-gray-900">
+                    Akun Aktif
+                </label>
+            </div>
+
+            <!-- Address -->
+            <div>
+                <label for="address" class="block text-sm font-medium text-salon-text">Alamat</label>
+                <textarea id="address" name="address" rows="2" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-salon-gold focus:ring focus:ring-salon-gold focus:ring-opacity-50">{{ old('address', $customer->address) }}</textarea>
+                @error('address')
+                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                @enderror
+            </div>
+
+            <!-- Notes -->
+            <div>
+                <label for="notes" class="block text-sm font-medium text-salon-text">Catatan Internal</label>
+                <textarea id="notes" name="notes" rows="2" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-salon-gold focus:ring focus:ring-salon-gold focus:ring-opacity-50">{{ old('notes', $customer->notes) }}</textarea>
+                @error('notes')
+                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                @enderror
+            </div>
         </div>
 
         <div class="mt-6 flex flex-col sm:flex-row sm:items-center sm:justify-end gap-3">

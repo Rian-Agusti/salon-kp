@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Customer;
 
+use App\Actions\Reservation\CalculateDiscount;
 use App\Actions\Reservation\GenerateReservationCode;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreReservationRequest;
@@ -10,7 +11,6 @@ use App\Models\Service;
 use App\Models\Setting;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Carbon\Carbon;
 
 class ReservationController extends Controller
 {
@@ -44,12 +44,12 @@ class ReservationController extends Controller
         return view('customer.reservations.create', compact('services'));
     }
 
-    public function store(StoreReservationRequest $request)
+    public function store(StoreReservationRequest $request, CalculateDiscount $calculateDiscount)
     {
         $user = Auth::user();
         $reservationCode = GenerateReservationCode::generate();
 
-        $reservation = DB::transaction(function () use ($request, $user, $reservationCode) {
+        $reservation = DB::transaction(function () use ($request, $user, $reservationCode, $calculateDiscount) {
             $services = Service::whereIn('id', $request->services)->get();
             $totalPrice = $services->sum('price');
 
@@ -59,15 +59,7 @@ class ReservationController extends Controller
             }
 
             $user->refresh();
-            $discountAmount = 0;
-
-            if ($user->member_until && $user->member_until->gte(today())) {
-                if ($user->birth_date && Carbon::parse($user->birth_date)->isBirthday()) {
-                    $discountAmount = $totalPrice * 0.5;
-                } else {
-                    $discountAmount = $totalPrice * 0.05;
-                }
-            }
+            $discountAmount = $calculateDiscount->execute($user, $totalPrice);
 
             $reservation = Reservation::create([
                 'user_id' => $user->id,
