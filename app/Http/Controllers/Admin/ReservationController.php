@@ -105,30 +105,35 @@ class ReservationController extends Controller
 
             foreach ($services as $service) {
                 $reservation->reservationItems()->create([
+                    'item_type' => 'service',
                     'service_id' => $service->id,
                     'service_name' => $service->name,
                     'service_price' => $service->price,
                     'service_duration' => $service->duration_minutes,
+                    'quantity' => 1,
                 ]);
             }
 
             foreach ($products as $product) {
                 $qty = $productsInput->firstWhere('id', $product->id)['quantity'] ?? 1;
                 $reservation->reservationItems()->create([
-                    'product_id' => $product->id,
-                    'product_name' => $product->name,
-                    'product_quantity' => $qty,
-                    'service_price' => $product->price * $qty, // We store total line price in service_price for sum logic
+                    'item_type' => 'product',
+                    'service_id' => null,
+                    'service_name' => $product->name,
+                    'service_price' => $product->price,
                     'service_duration' => 0,
+                    'quantity' => $qty,
                 ]);
             }
 
             foreach ($promotions as $promo) {
                 $reservation->reservationItems()->create([
-                    'promotion_id' => $promo->id,
-                    'promotion_name' => $promo->title,
-                    'service_price' => 0, // Assuming promo has no direct price add, but could be adjusted
+                    'item_type' => 'promotion',
+                    'service_id' => null,
+                    'service_name' => $promo->title,
+                    'service_price' => 0,
                     'service_duration' => 0,
+                    'quantity' => 1,
                 ]);
             }
 

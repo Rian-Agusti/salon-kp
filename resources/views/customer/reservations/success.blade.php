@@ -73,7 +73,7 @@
                     <div class="mb-10">
                         <h4
                             class="text-sm font-bold text-salon-text uppercase tracking-wider mb-4 border-b border-salon-beige pb-2">
-                            Layanan yang Dipesan</h4>
+                            Item Reservasi</h4>
                         @php $totalPrice = 0; @endphp
 
                         <!-- Desktop View (List) -->
@@ -83,7 +83,14 @@
                                     @php $totalPrice += $item->service_price; @endphp
                                     <li class="py-3 flex justify-between items-center group">
                                         <span
-                                            class="text-salon-textLight font-medium group-hover:text-salon-goldHover transition">{{ $item->service_name }}</span>
+                                            class="text-salon-textLight font-medium group-hover:text-salon-goldHover transition">
+                                            {{ $item->service_name }}
+                                            @if($item->item_type == 'product')
+                                                <span class="text-xs text-gray-500 font-normal ml-2">({{ $item->quantity }} pcs)</span>
+                                            @elseif($item->item_type == 'promotion')
+                                                <span class="text-xs text-gray-500 font-normal ml-2">(Promo)</span>
+                                            @endif
+                                        </span>
                                         <span class="font-bold text-salon-text">Rp
                                             {{ number_format($item->service_price, 0, ',', '.') }}</span>
                                     </li>
@@ -94,9 +101,15 @@
                         <!-- Mobile View (Card-like) -->
                         <div class="sm:hidden space-y-3">
                             @foreach($reservation->reservationItems as $item)
-                                <!-- we have to recount totalPrice since we are looping twice, but we already added in the first loop so let's reset it before the loop if needed? No, wait, if we only render one view based on CSS, we shouldn't recount. Let's just recount and store in variable outside. -->
                                 <div class="bg-gray-50 border border-salon-beige rounded-xl p-4 shadow-sm">
-                                    <p class="font-bold text-salon-text text-base mb-2">{{ $item->service_name }}</p>
+                                    <p class="font-bold text-salon-text text-base mb-2">
+                                        {{ $item->service_name }}
+                                        @if($item->item_type == 'product')
+                                            <span class="text-xs text-gray-500 font-normal ml-1">({{ $item->quantity }} pcs)</span>
+                                        @elseif($item->item_type == 'promotion')
+                                            <span class="text-xs text-gray-500 font-normal ml-1">(Promo)</span>
+                                        @endif
+                                    </p>
                                     <p class="text-salon-gold font-bold text-right">Rp
                                         {{ number_format($item->service_price, 0, ',', '.') }}</p>
                                 </div>
