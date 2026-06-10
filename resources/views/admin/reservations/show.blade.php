@@ -63,21 +63,15 @@
         $totalDuration += $item->service_duration;
                                     @endphp
                                     <tr>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 capitalize">{{ $item->type }}</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 capitalize">{{ $item->item_type }}</td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-salon-text">
-                                            @if($item->type == 'service')
-                                                {{ $item->service_name }}
-                                            @elseif($item->type == 'product')
-                                                {{ $item->product_name }}
-                                            @elseif($item->type == 'promotion')
-                                                {{ $item->promotion_name }}
-                                            @endif
+                                            {{ $item->service_name }}
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center">
-                                            @if($item->type == 'service')
+                                            @if($item->item_type == 'service')
                                                 {{ $item->service_duration }} menit
-                                            @elseif($item->type == 'product')
-                                                {{ $item->product_quantity }} pcs
+                                            @elseif($item->item_type == 'product')
+                                                {{ $item->quantity }} pcs
                                             @else
                                                 -
                                             @endif

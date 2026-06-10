@@ -52,46 +52,53 @@
         </div>
     </div>
 
-    <h3>Layanan yang Dipesan</h3>
+    <h3>Item Reservasi</h3>
     <table>
         <thead>
             <tr>
-                <th>Nama Layanan</th>
-                <th class="text-center">Durasi</th>
+                <th>Nama Item</th>
+                <th class="text-center">Tipe</th>
+                <th class="text-center">Qty / Durasi</th>
                 <th class="text-right">Harga</th>
             </tr>
         </thead>
         <tbody>
             @php
                 $totalPrice = 0;
-                $totalDuration = 0;
             @endphp
             @foreach($reservation->reservationItems as $item)
                 @php
                     $totalPrice += $item->service_price;
-                    $totalDuration += $item->service_duration;
                 @endphp
                 <tr>
                     <td>{{ $item->service_name }}</td>
-                    <td class="text-center">{{ $item->service_duration }} menit</td>
+                    <td class="text-center" style="text-transform: capitalize;">{{ $item->item_type }}</td>
+                    <td class="text-center">
+                        @if($item->item_type == 'service')
+                            {{ $item->service_duration }} menit
+                        @elseif($item->item_type == 'product')
+                            {{ $item->quantity }} pcs
+                        @else
+                            -
+                        @endif
+                    </td>
                     <td class="text-right">Rp {{ number_format($item->service_price, 0, ',', '.') }}</td>
                 </tr>
             @endforeach
         </tbody>
         <tfoot>
             <tr class="total-row">
-                <td class="text-right"><strong>Subtotal</strong></td>
-                <td class="text-center">{{ $totalDuration }} menit</td>
+                <td colspan="3" class="text-right"><strong>Subtotal</strong></td>
                 <td class="text-right">Rp {{ number_format($totalPrice, 0, ',', '.') }}</td>
             </tr>
             @if($reservation->discount_amount > 0)
             <tr>
-                <td colspan="2" class="text-right" style="color: #065f46;"><strong>Diskon Member</strong></td>
+                <td colspan="3" class="text-right" style="color: #065f46;"><strong>Diskon Member</strong></td>
                 <td class="text-right" style="color: #065f46;">- Rp {{ number_format($reservation->discount_amount, 0, ',', '.') }}</td>
             </tr>
             @endif
             <tr class="total-row">
-                <td colspan="2" class="text-right"><strong>Total Keseluruhan</strong></td>
+                <td colspan="3" class="text-right"><strong>Total Keseluruhan</strong></td>
                 <td class="text-right total-price">Rp {{ number_format($totalPrice - $reservation->discount_amount, 0, ',', '.') }}</td>
             </tr>
         </tfoot>

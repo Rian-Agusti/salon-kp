@@ -116,23 +116,22 @@
                                     @endphp
                                     <tr class="hover:bg-gray-50/50 transition">
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 capitalize">
-                                            {{ $item->type }}
+                                            {{ $item->item_type }}
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-salon-text">
-                                            @if($item->type == 'service')
-                                                {{ $item->service_name }}
-                                            @elseif($item->type == 'product')
-                                                {{ $item->product_name }}
-                                            @elseif($item->type == 'promotion')
-                                                {{ $item->promotion_name }}
+                                            {{ $item->service_name }}
+                                            @if($item->item_type == 'product')
+                                                <span class="text-xs text-gray-500 font-normal ml-2">(Produk)</span>
+                                            @elseif($item->item_type == 'promotion')
+                                                <span class="text-xs text-gray-500 font-normal ml-2">(Promo)</span>
                                             @endif
                                         </td>
                                         <td
                                             class="px-6 py-4 whitespace-nowrap text-sm text-salon-textLight text-center font-medium">
-                                            @if($item->type == 'service')
+                                            @if($item->item_type == 'service')
                                                 {{ $item->service_duration }} menit
-                                            @elseif($item->type == 'product')
-                                                {{ $item->product_quantity }} pcs
+                                            @elseif($item->item_type == 'product')
+                                                {{ $item->quantity }} pcs
                                             @else
                                                 -
                                             @endif
@@ -180,26 +179,25 @@
                         @foreach($reservation->reservationItems as $item)
                             <div class="bg-white p-4 rounded-xl border border-salon-beige shadow-sm">
                                 <h5 class="font-bold text-salon-text text-base mb-2">
-                                    @if($item->type == 'service')
-                                        {{ $item->service_name }}
-                                    @elseif($item->type == 'product')
-                                        {{ $item->product_name }}
-                                    @elseif($item->type == 'promotion')
-                                        {{ $item->promotion_name }}
+                                    {{ $item->service_name }}
+                                    @if($item->item_type == 'product')
+                                        <span class="text-xs text-gray-500 font-normal ml-2">(Produk)</span>
+                                    @elseif($item->item_type == 'promotion')
+                                        <span class="text-xs text-gray-500 font-normal ml-2">(Promo)</span>
                                     @endif
                                 </h5>
                                 <div class="flex justify-between items-center mt-2">
                                     <span class="text-sm text-gray-500 font-medium flex items-center gap-1">
-                                        @if($item->type == 'service')
+                                        @if($item->item_type == 'service')
                                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                                             </svg>
                                             {{ $item->service_duration }} Menit
-                                        @elseif($item->type == 'product')
+                                        @elseif($item->item_type == 'product')
                                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
                                             </svg>
-                                            {{ $item->product_quantity }} Pcs
+                                            {{ $item->quantity }} Pcs
                                         @endif
                                     </span>
                                     <span class="text-salon-text font-bold">
