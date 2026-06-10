@@ -5,6 +5,29 @@
 @section('content')
 <div class="bg-white rounded-2xl shadow-sm border border-salon-beige overflow-hidden" x-data="reservationForm()">
     <div class="p-6 sm:p-8 bg-white border-b border-salon-beige">
+
+        <div class="bg-gray-50 p-4 rounded-xl border border-salon-beige mb-8 flex justify-between items-center shadow-sm">
+            <div class="flex flex-col">
+                <span class="text-sm text-gray-500 font-medium">Status Keanggotaan Anda</span>
+                <div class="flex items-center gap-2 mt-1">
+                    @if(auth()->user()->member_until && auth()->user()->member_until->gte(today()))
+                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-green-100 text-green-800">
+                            Member
+                        </span>
+                        @if(auth()->user()->birth_date && \Carbon\Carbon::parse(auth()->user()->birth_date)->isBirthday())
+                            <span class="text-sm font-bold text-salon-goldHover">Diskon Spesial Ultah 50%</span>
+                        @else
+                            <span class="text-sm font-bold text-salon-goldHover">Diskon Member 5%</span>
+                        @endif
+                    @else
+                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-gray-200 text-gray-800">
+                            Bukan Member
+                        </span>
+                    @endif
+                </div>
+            </div>
+        </div>
+
         <form method="POST" action="{{ route('customer.reservations.store') }}">
             @csrf
 
@@ -95,8 +118,20 @@
                     </div>
 
                     <div class="flex justify-between items-center bg-white p-4 rounded-lg shadow-sm border border-salon-beige">
-                        <span class="text-salon-text font-bold text-lg">Total Perkiraan Harga:</span>
-                        <span class="text-salon-goldHover font-bold text-xl"><span x-text="formatCurrency(totalPrice)"></span></span>
+                        <span class="text-salon-text font-bold text-lg">Subtotal:</span>
+                        <span class="text-salon-text font-bold text-lg"><span x-text="formatCurrency(totalPrice)"></span></span>
+                    </div>
+
+                    <template x-if="discount > 0">
+                        <div class="flex justify-between items-center bg-green-50 p-4 rounded-lg shadow-sm border border-green-200 text-green-700">
+                            <span class="font-bold text-lg">Diskon Member:</span>
+                            <span class="font-bold text-lg">- <span x-text="formatCurrency(discount)"></span></span>
+                        </div>
+                    </template>
+
+                    <div class="flex justify-between items-center bg-white p-4 rounded-lg shadow-sm border border-salon-beige">
+                        <span class="text-salon-text font-bold text-lg">Total Akhir Perkiraan:</span>
+                        <span class="text-salon-goldHover font-bold text-xl"><span x-text="formatCurrency(finalPrice)"></span></span>
                     </div>
                 </div>
                 <p class="text-xs text-salon-goldHover/70 mt-4 font-medium flex items-start gap-1">
@@ -131,6 +166,10 @@
             selectedServices: {},
             totalPrice: 0,
             totalDuration: 0,
+            discount: 0,
+            finalPrice: 0,
+            isMember: {{ auth()->user()->member_until && auth()->user()->member_until->gte(today()) ? 'true' : 'false' }},
+            isBirthday: {{ auth()->user()->birth_date && \Carbon\Carbon::parse(auth()->user()->birth_date)->isBirthday() ? 'true' : 'false' }},
 
             toggleService(id, price, duration, isChecked) {
                 if (isChecked) {
@@ -144,6 +183,18 @@
             calculateTotals() {
                 this.totalPrice = Object.values(this.selectedServices).reduce((sum, service) => sum + service.price, 0);
                 this.totalDuration = Object.values(this.selectedServices).reduce((sum, service) => sum + service.duration, 0);
+
+                if (this.isMember) {
+                    if (this.isBirthday) {
+                        this.discount = this.totalPrice * 0.5;
+                    } else {
+                        this.discount = this.totalPrice * 0.05;
+                    }
+                } else {
+                    this.discount = 0;
+                }
+
+                this.finalPrice = this.totalPrice - this.discount;
             },
 
             formatCurrency(value) {

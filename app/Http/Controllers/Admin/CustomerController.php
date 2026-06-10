@@ -52,6 +52,8 @@ class CustomerController extends Controller
         $data = [
             'name' => $validated['name'],
             'phone' => $validated['phone'],
+            'birth_date' => $validated['birth_date'] ?? null,
+            'member_until' => $validated['member_until'] ?? null,
         ];
 
         if (! empty($validated['password'])) {

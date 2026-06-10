@@ -10,6 +10,7 @@
                 <tr>
                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Contact</th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status Member</th>
                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Joined At</th>
                     <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
                 </tr>
@@ -31,6 +32,17 @@
                             <div class="text-sm text-salon-text">{{ $customer->email }}</div>
                             <div class="text-sm text-gray-500">{{ $customer->phone ?? '-' }}</div>
                         </td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            @if($customer->member_until && $customer->member_until->gte(today()))
+                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                                    Member
+                                </span>
+                            @else
+                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-100 text-gray-800">
+                                    Bukan Member
+                                </span>
+                            @endif
+                        </td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                             {{ $customer->created_at->format('M d, Y') }}
                         </td>
@@ -41,7 +53,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="4" class="px-6 py-8 text-center text-gray-500">
+                        <td colspan="5" class="px-6 py-8 text-center text-gray-500">
                             No customers found.
                         </td>
                     </tr>

@@ -24,6 +24,12 @@
         </div>
 
         <div>
+            <x-input-label for="birth_date" value="Tanggal Lahir" />
+            <x-text-input id="birth_date" name="birth_date" type="date" class="mt-1 block w-full focus:border-salon-gold focus:ring-salon-gold" :value="old('birth_date', $user->birth_date ? $user->birth_date->format('Y-m-d') : '')" />
+            <x-input-error class="mt-2" :messages="$errors->get('birth_date')" />
+        </div>
+
+        <div>
             <x-input-label for="email" value="Email" />
             <x-text-input id="email" name="email" type="email" class="mt-1 block w-full focus:border-salon-gold focus:ring-salon-gold" :value="old('email', $user->email)" required autocomplete="username" />
             <x-input-error class="mt-2" :messages="$errors->get('email')" />

@@ -70,9 +70,19 @@
                             </tbody>
                             <tfoot class="bg-gray-50">
                                 <tr>
-                                    <th scope="row" class="px-6 py-4 text-right text-sm font-bold text-salon-text">Total</th>
-                                    <td class="px-6 py-4 text-center text-sm font-bold text-salon-text">{{ $totalDuration }} mins</td>
-                                    <td class="px-6 py-4 text-right text-lg font-bold text-salon-goldHover">Rp {{ number_format($totalPrice, 0, ',', '.') }}</td>
+                                    <th scope="row" class="px-6 py-3 text-right text-sm font-bold text-salon-text">Subtotal</th>
+                                    <td class="px-6 py-3 text-center text-sm font-bold text-salon-text">{{ $totalDuration }} mins</td>
+                                    <td class="px-6 py-3 text-right text-md font-bold text-salon-text">Rp {{ number_format($totalPrice, 0, ',', '.') }}</td>
+                                </tr>
+                                @if($reservation->discount_amount > 0)
+                                <tr class="bg-green-50 text-green-700 border-t border-gray-200">
+                                    <th scope="row" colspan="2" class="px-6 py-3 text-right text-sm font-bold">Diskon Member</th>
+                                    <td class="px-6 py-3 text-right text-md font-bold">- Rp {{ number_format($reservation->discount_amount, 0, ',', '.') }}</td>
+                                </tr>
+                                @endif
+                                <tr class="border-t border-gray-200">
+                                    <th scope="row" colspan="2" class="px-6 py-4 text-right text-sm font-bold text-salon-text">Total Keseluruhan</th>
+                                    <td class="px-6 py-4 text-right text-lg font-bold text-salon-goldHover">Rp {{ number_format($totalPrice - $reservation->discount_amount, 0, ',', '.') }}</td>
                                 </tr>
                             </tfoot>
                         </table>
