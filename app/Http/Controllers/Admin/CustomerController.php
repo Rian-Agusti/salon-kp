@@ -5,15 +5,61 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UpdateCustomerRequest;
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class CustomerController extends Controller
 {
     public function index()
     {
-        $customers = User::role('customer')->latest()->paginate(15);
+        $customers = User::role('customer')
+            ->withCount('reservations')
+            ->latest()
+            ->paginate(15);
+
+        // Calculate the accurate total spent for each customer
+        foreach ($customers as $customer) {
+            $customer->total_spent = $customer->reservations->sum(function ($reservation) {
+                return $reservation->reservationItems->sum('service_price') - $reservation->discount_amount;
+            });
+        }
 
         return view('admin.customers.index', compact('customers'));
+    }
+
+    public function create()
+    {
+        return view('admin.customers.create');
+    }
+
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'phone' => ['required', 'string', 'max:20'],
+            'email' => ['nullable', 'email', 'max:255', 'unique:users,email'],
+            'address' => ['nullable', 'string'],
+            'notes' => ['nullable', 'string'],
+        ]);
+
+        $email = $validated['email'] ?? 'walkin_' . Str::random(8) . '@example.com';
+
+        $customer = User::create([
+            'name' => $validated['name'],
+            'phone' => $validated['phone'],
+            'email' => $email,
+            'password' => Hash::make(Str::random(20)),
+            'type' => 'offline',
+            'address' => $validated['address'] ?? null,
+            'notes' => $validated['notes'] ?? null,
+            'is_active' => true,
+        ]);
+
+        $customer->assignRole('customer');
+
+        return redirect()->route('admin.customers.index')
+            ->with('success', 'Customer walk-in berhasil ditambahkan.');
     }
 
     public function show(User $customer)
@@ -23,11 +69,31 @@ class CustomerController extends Controller
             abort(404);
         }
 
-        $customer->load(['reservations' => function ($query) {
+        $customer->load(['reservations.reservationItems' => function ($query) {
             $query->latest();
         }]);
 
-        return view('admin.customers.show', compact('customer'));
+        $totalVisits = $customer->reservations->count();
+        $totalTransactions = $customer->reservations->count();
+
+        $totalSpent = $customer->reservations->sum(function ($reservation) {
+            return $reservation->reservationItems->sum('service_price') - $reservation->discount_amount;
+        });
+
+        // Favorite service
+        $favoriteService = null;
+        $serviceCounts = [];
+        foreach ($customer->reservations as $reservation) {
+            foreach ($reservation->reservationItems as $item) {
+                $serviceCounts[$item->service_name] = ($serviceCounts[$item->service_name] ?? 0) + 1;
+            }
+        }
+        if (!empty($serviceCounts)) {
+            arsort($serviceCounts);
+            $favoriteService = array_key_first($serviceCounts);
+        }
+
+        return view('admin.customers.show', compact('customer', 'totalVisits', 'totalTransactions', 'totalSpent', 'favoriteService'));
     }
 
     public function edit(User $customer)
@@ -54,6 +120,10 @@ class CustomerController extends Controller
             'phone' => $validated['phone'],
             'birth_date' => $validated['birth_date'] ?? null,
             'member_until' => $validated['member_until'] ?? null,
+            'address' => $validated['address'] ?? null,
+            'notes' => $validated['notes'] ?? null,
+            'type' => $validated['type'] ?? $customer->type,
+            'is_active' => $request->has('is_active'),
         ];
 
         if (! empty($validated['password'])) {

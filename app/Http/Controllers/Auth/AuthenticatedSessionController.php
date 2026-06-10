@@ -30,6 +30,11 @@ class AuthenticatedSessionController extends Controller
 
         $user = Auth::user();
 
+        if ($user->type === 'offline') {
+            Auth::logout();
+            return back()->withErrors(['email' => 'Akun ini tidak memiliki akses login.']);
+        }
+
         if ($user->hasRole('admin')) {
             return redirect()->route('admin.dashboard');
         } elseif ($user->hasRole('customer')) {

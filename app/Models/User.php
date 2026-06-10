@@ -26,6 +26,10 @@ class User extends Authenticatable
         'password',
         'member_until',
         'birth_date',
+        'type',
+        'address',
+        'notes',
+        'is_active',
     ];
 
     /**
@@ -56,5 +60,10 @@ class User extends Authenticatable
     public function reservations()
     {
         return $this->hasMany(Reservation::class);
+    }
+
+    public function reservationItems()
+    {
+        return $this->hasManyThrough(ReservationItem::class, Reservation::class);
     }
 }

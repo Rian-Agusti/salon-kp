@@ -143,6 +143,7 @@ class MembershipTest extends TestCase
             'phone' => '08123456789',
             'member_until' => $memberUntil,
             'birth_date' => $birthDate,
+            'type' => 'online',
         ]);
 
         $response->assertSessionHasNoErrors();
