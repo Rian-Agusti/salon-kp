@@ -29,6 +29,25 @@
                     @enderror
                 </div>
 
+                <!-- Birth Date -->
+                <div>
+                    <label for="birth_date" class="block font-medium text-sm text-gray-700">Tanggal Lahir</label>
+                    <input id="birth_date" class="block mt-1 w-full border-gray-300 focus:border-salon-gold focus:ring-salon-gold rounded-md shadow-sm" type="date" name="birth_date" value="{{ old('birth_date') }}" />
+                    @error('birth_date')
+                        <p class="text-sm text-red-600 mt-2">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <!-- Member Until -->
+                <div>
+                    <label for="member_until" class="block font-medium text-sm text-gray-700">Masa Berlaku Member (Kosongkan jika bukan member)</label>
+                    <input id="member_until" class="block mt-1 w-full border-gray-300 focus:border-salon-gold focus:ring-salon-gold rounded-md shadow-sm" type="date" name="member_until" value="{{ old('member_until') }}" />
+                    <p class="mt-1 text-xs text-gray-500">Isi tanggal untuk mengaktifkan member secara manual.</p>
+                    @error('member_until')
+                        <p class="text-sm text-red-600 mt-2">{{ $message }}</p>
+                    @enderror
+                </div>
+
                 <!-- Address -->
                 <div class="md:col-span-2">
                     <label for="address" class="block font-medium text-sm text-gray-700">Alamat</label>

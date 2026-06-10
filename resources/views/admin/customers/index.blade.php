@@ -1,8 +1,19 @@
 @extends('layouts.admin')
 
 @section('header')
-    <div class="flex justify-between items-center w-full">
+    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center w-full gap-4">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">Daftar Pelanggan</h2>
+        <div class="flex w-full sm:w-auto gap-2">
+            <form action="{{ route('admin.customers.index') }}" method="GET" class="flex-grow sm:flex-grow-0 flex items-center border border-gray-300 rounded-md overflow-hidden bg-white shadow-sm focus-within:ring-1 focus-within:ring-salon-gold focus-within:border-salon-gold">
+                <input type="text" name="search" value="{{ request('search') }}" placeholder="Cari nama, no. telp, atau email..." class="w-full border-none focus:ring-0 text-sm px-3 py-2">
+                <button type="submit" class="px-3 py-2 bg-gray-50 text-gray-600 hover:bg-gray-100 hover:text-gray-900 border-l border-gray-300">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                </button>
+            </form>
+            <a href="{{ route('admin.customers.create') }}" class="inline-flex items-center justify-center px-4 py-2 bg-salon-gold border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-yellow-600 focus:bg-yellow-600 active:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2 transition ease-in-out duration-150 whitespace-nowrap">
+                Tambah Walk-in
+            </a>
+        </div>
 
     </div>
 @endsection

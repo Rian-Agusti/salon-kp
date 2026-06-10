@@ -6,6 +6,8 @@ use App\Actions\Reservation\CalculateDiscount;
 use App\Actions\Reservation\GenerateReservationCode;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UpdateReservationStatusRequest;
+use App\Models\Product;
+use App\Models\Promotion;
 use App\Models\Reservation;
 use App\Models\Service;
 use App\Models\User;
@@ -36,8 +38,10 @@ class ReservationController extends Controller
     {
         $customers = User::role('customer')->orderBy('name')->get();
         $services = Service::where('is_active', true)->get();
+        $products = Product::where('is_active', true)->get();
+        $promotions = Promotion::where('is_active', true)->where('start_date', '<=', today())->where('end_date', '>=', today())->get();
 
-        return view('admin.reservations.create', compact('customers', 'services'));
+        return view('admin.reservations.create', compact('customers', 'services', 'products', 'promotions'));
     }
 
     public function store(Request $request, CalculateDiscount $calculateDiscount)
@@ -46,17 +50,35 @@ class ReservationController extends Controller
             'user_id' => 'required|exists:users,id',
             'booking_date' => 'required|date|after_or_equal:today',
             'booking_time' => 'required|date_format:H:i',
-            'services' => 'required|array|min:1',
+            'services' => 'nullable|array',
             'services.*' => 'exists:services,id',
+            'products' => 'nullable|array',
+            'products.*.id' => 'exists:products,id',
+            'products.*.quantity' => 'integer|min:1',
+            'promotions' => 'nullable|array',
+            'promotions.*' => 'exists:promotions,id',
             'notes' => 'nullable|string'
         ]);
+
+        if (empty($request->services) && empty($request->products) && empty($request->promotions)) {
+            return back()->withErrors(['general' => 'Harap pilih minimal satu layanan, produk, atau promo.'])->withInput();
+        }
 
         $user = User::findOrFail($request->user_id);
         $reservationCode = GenerateReservationCode::generate();
 
         $reservation = DB::transaction(function () use ($request, $user, $reservationCode, $calculateDiscount) {
-            $services = Service::whereIn('id', $request->services)->get();
+            $services = Service::whereIn('id', $request->services ?? [])->get();
+            $productsInput = collect($request->products ?? [])->filter(fn($p) => isset($p['id']) && $p['quantity'] > 0);
+            $products = Product::whereIn('id', $productsInput->pluck('id'))->get();
+            $promotions = Promotion::whereIn('id', $request->promotions ?? [])->get();
+
             $totalPrice = $services->sum('price');
+
+            foreach ($products as $product) {
+                $qty = $productsInput->firstWhere('id', $product->id)['quantity'] ?? 1;
+                $totalPrice += ($product->price * $qty);
+            }
 
             if ($totalPrice >= 100000) {
                 $user->member_until = now()->addYear();
@@ -71,7 +93,7 @@ class ReservationController extends Controller
                 'reservation_code' => $reservationCode,
                 'booking_date' => $request->booking_date,
                 'booking_time' => $request->booking_time,
-                'status' => 'confirmed', // Assuming offline reservations made by admin are pre-confirmed
+                'status' => 'completed', // Walk-in is instantly completed
                 'source' => 'offline',
                 'payment_status' => 'paid',
                 'discount_amount' => $discountAmount,
@@ -83,10 +105,33 @@ class ReservationController extends Controller
 
             foreach ($services as $service) {
                 $reservation->reservationItems()->create([
+                    'type' => 'service',
                     'service_id' => $service->id,
                     'service_name' => $service->name,
                     'service_price' => $service->price,
                     'service_duration' => $service->duration_minutes,
+                ]);
+            }
+
+            foreach ($products as $product) {
+                $qty = $productsInput->firstWhere('id', $product->id)['quantity'] ?? 1;
+                $reservation->reservationItems()->create([
+                    'type' => 'product',
+                    'product_id' => $product->id,
+                    'product_name' => $product->name,
+                    'product_quantity' => $qty,
+                    'service_price' => $product->price * $qty, // We store total line price in service_price for sum logic
+                    'service_duration' => 0,
+                ]);
+            }
+
+            foreach ($promotions as $promo) {
+                $reservation->reservationItems()->create([
+                    'type' => 'promotion',
+                    'promotion_id' => $promo->id,
+                    'promotion_name' => $promo->title,
+                    'service_price' => 0, // Assuming promo has no direct price add, but could be adjusted
+                    'service_duration' => 0,
                 ]);
             }
 

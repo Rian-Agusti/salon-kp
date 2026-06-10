@@ -96,10 +96,13 @@
                                 <tr>
                                     <th scope="col"
                                         class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">
-                                        Layanan</th>
+                                        Tipe</th>
+                                    <th scope="col"
+                                        class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">
+                                        Item</th>
                                     <th scope="col"
                                         class="px-6 py-4 text-center text-xs font-bold text-gray-500 uppercase tracking-wider">
-                                        Durasi</th>
+                                        Qty/Durasi</th>
                                     <th scope="col"
                                         class="px-6 py-4 text-right text-xs font-bold text-gray-500 uppercase tracking-wider">
                                         Harga</th>
@@ -112,12 +115,27 @@
         $totalDuration += $item->service_duration;
                                     @endphp
                                     <tr class="hover:bg-gray-50/50 transition">
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 capitalize">
+                                            {{ $item->type }}
+                                        </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-salon-text">
-                                            {{ $item->service_name }}
+                                            @if($item->type == 'service')
+                                                {{ $item->service_name }}
+                                            @elseif($item->type == 'product')
+                                                {{ $item->product_name }}
+                                            @elseif($item->type == 'promotion')
+                                                {{ $item->promotion_name }}
+                                            @endif
                                         </td>
                                         <td
                                             class="px-6 py-4 whitespace-nowrap text-sm text-salon-textLight text-center font-medium">
-                                            {{ $item->service_duration }} menit
+                                            @if($item->type == 'service')
+                                                {{ $item->service_duration }} menit
+                                            @elseif($item->type == 'product')
+                                                {{ $item->product_quantity }} pcs
+                                            @else
+                                                -
+                                            @endif
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-salon-text text-right">
                                             Rp {{ number_format($item->service_price, 0, ',', '.') }}
@@ -127,19 +145,16 @@
                             </tbody>
                             <tfoot class="bg-gray-50 border-t border-salon-beige">
                                 <tr>
-                                    <th scope="row"
+                                    <th scope="row" colspan="3"
                                         class="px-6 py-3 whitespace-nowrap text-sm font-bold text-salon-text text-right">Subtotal
                                     </th>
-                                    <td class="px-6 py-3 whitespace-nowrap text-sm font-bold text-salon-gold text-center">
-                                        {{ $totalDuration }} menit
-                                    </td>
                                     <td class="px-6 py-3 whitespace-nowrap text-md font-bold text-salon-text text-right">Rp
                                         {{ number_format($totalPrice, 0, ',', '.') }}
                                     </td>
                                 </tr>
                                 @if($reservation->discount_amount > 0)
                                 <tr class="bg-green-50 text-green-700">
-                                    <th scope="row" colspan="2"
+                                    <th scope="row" colspan="3"
                                         class="px-6 py-3 whitespace-nowrap text-sm font-bold text-right">Diskon Member
                                     </th>
                                     <td class="px-6 py-3 whitespace-nowrap text-md font-bold text-right">- Rp
@@ -148,7 +163,7 @@
                                 </tr>
                                 @endif
                                 <tr>
-                                    <th scope="row" colspan="2"
+                                    <th scope="row" colspan="3"
                                         class="px-6 py-5 whitespace-nowrap text-sm font-bold text-salon-text text-right border-t border-gray-200">Total
                                         Keseluruhan
                                     </th>
@@ -164,14 +179,28 @@
                     <div class="sm:hidden space-y-4">
                         @foreach($reservation->reservationItems as $item)
                             <div class="bg-white p-4 rounded-xl border border-salon-beige shadow-sm">
-                                <h5 class="font-bold text-salon-text text-base mb-2">{{ $item->service_name }}</h5>
+                                <h5 class="font-bold text-salon-text text-base mb-2">
+                                    @if($item->type == 'service')
+                                        {{ $item->service_name }}
+                                    @elseif($item->type == 'product')
+                                        {{ $item->product_name }}
+                                    @elseif($item->type == 'promotion')
+                                        {{ $item->promotion_name }}
+                                    @endif
+                                </h5>
                                 <div class="flex justify-between items-center mt-2">
                                     <span class="text-sm text-gray-500 font-medium flex items-center gap-1">
-                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                        </svg>
-                                        {{ $item->service_duration }} Menit
+                                        @if($item->type == 'service')
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                            </svg>
+                                            {{ $item->service_duration }} Menit
+                                        @elseif($item->type == 'product')
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
+                                            </svg>
+                                            {{ $item->product_quantity }} Pcs
+                                        @endif
                                     </span>
                                     <span class="text-salon-text font-bold">
                                         Rp {{ number_format($item->service_price, 0, ',', '.') }}
@@ -182,10 +211,6 @@
 
                         <!-- Mobile Total Card -->
                         <div class="bg-salon-cream p-4 rounded-xl border border-salon-gold/30 shadow-sm mt-4">
-                            <div class="flex justify-between items-center mb-2">
-                                <span class="text-sm font-bold text-salon-text">Total Durasi</span>
-                                <span class="text-sm font-bold text-salon-gold">{{ $totalDuration }} Menit</span>
-                            </div>
                             <div class="flex justify-between items-center pt-2 mt-2 border-t border-salon-beige/50">
                                 <span class="text-base font-bold text-salon-text">Subtotal</span>
                                 <span class="text-md font-bold text-salon-text">Rp {{ number_format($totalPrice, 0, ',', '.') }}</span>
