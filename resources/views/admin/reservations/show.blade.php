@@ -46,9 +46,8 @@
                         <table class="min-w-full divide-y divide-gray-200">
                             <thead class="bg-gray-50">
                                 <tr>
-                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Tipe</th>
                                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Item</th>
-                                    <th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase">Qty/Durasi</th>
+                                    <th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase">Durasi</th>
                                     <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">Harga</th>
                                 </tr>
                             </thead>
@@ -63,24 +62,11 @@
         $totalDuration += $item->service_duration;
                                     @endphp
                                     <tr>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 capitalize">{{ $item->type }}</td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-salon-text">
-                                            @if($item->type == 'service')
-                                                {{ $item->service_name }}
-                                            @elseif($item->type == 'product')
-                                                {{ $item->product_name }}
-                                            @elseif($item->type == 'promotion')
-                                                {{ $item->promotion_name }}
-                                            @endif
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-salon-text font-medium">
+                                            {{ $item->service_name }}
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center">
-                                            @if($item->type == 'service')
-                                                {{ $item->service_duration }} menit
-                                            @elseif($item->type == 'product')
-                                                {{ $item->product_quantity }} pcs
-                                            @else
-                                                -
-                                            @endif
+                                            {{ $item->service_duration }} menit
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-salon-text text-right">Rp {{ number_format($item->service_price, 0, ',', '.') }}</td>
                                     </tr>
