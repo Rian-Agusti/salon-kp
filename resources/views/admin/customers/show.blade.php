@@ -51,10 +51,12 @@
                         </span>
                     @endif
                 </div>
-                <div>
-                    <span class="text-xs text-gray-500 uppercase tracking-wider block">Email</span>
-                    <a href="mailto:{{ $customer->email }}" class="text-sm font-medium text-blue-600 hover:underline">{{ $customer->email }}</a>
-                </div>
+                @if($customer->type == 'online')
+                    <div>
+                        <span class="text-xs text-gray-500 uppercase tracking-wider block">Email</span>
+                        <a href="mailto:{{ $customer->email }}" class="text-sm font-medium text-blue-600 hover:underline">{{ $customer->email }}</a>
+                    </div>
+                @endif
                 <div>
                     <span class="text-xs text-gray-500 uppercase tracking-wider block">Telepon</span>
                     <span class="text-sm font-medium text-salon-text">{{ $customer->phone ?? '-' }}</span>
