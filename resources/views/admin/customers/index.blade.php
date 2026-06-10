@@ -1,3 +1,7 @@
+{{-- Future yang mungkin di butuhkan nanti Tambah daftar pelanggan yang Walk-in --}}
+{{-- blok saja kodingan yang di Nonaktif lalu klik ctrl + / untuk mengaktifkannya kembali --}}
+
+
 @extends('layouts.admin')
 
 @section('header')
@@ -21,10 +25,10 @@
             </button>
         </form>
     </div>
-        <a href="{{ route('admin.customers.create') }}"
+        {{-- <a href="{{ route('admin.customers.create') }}"
             class="inline-flex items-center px-4 py-2 mb-3 bg-salon-gold border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-yellow-600 focus:bg-yellow-600 active:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2 transition ease-in-out duration-150">
             Tambah Walk-in
-        </a>
+        </a> --}}
         <div class="bg-white rounded-lg shadow-sm overflow-hidden border border-gray-200">
             <div class="overflow-x-auto">
                 <table class="min-w-full divide-y divide-gray-200">
@@ -32,7 +36,7 @@
                         <tr>
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nama</th>
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Kontak</th>
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tipe</th>
+                            {{-- <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tipe</th> --}}
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status Member</th>
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Statistik</th>
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Bergabung</th>
@@ -63,13 +67,13 @@
                                     @endif
                                     <div class="text-sm text-gray-500">{{ $customer->phone ?? '-' }}</div>
                                 </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
+                                {{-- <td class="px-6 py-4 whitespace-nowrap">
                                     @if($customer->type == 'online')
                                         <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">Online</span>
                                     @else
                                         <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-purple-100 text-purple-800">Walk-in</span>
                                     @endif
-                                </td>
+                                </td> --}}
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     @if($customer->member_until && $customer->member_until->gte(today()))
                                         <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">

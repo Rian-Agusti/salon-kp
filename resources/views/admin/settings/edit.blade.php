@@ -15,7 +15,7 @@
 
                     <div class="space-y-4">
                         <div>
-                            <label for="salon_name" class="block text-sm font-medium text-gray-700 mb-1">Salon Name
+                            <label for="salon_name" class="block text-sm font-medium text-gray-700 mb-1">Nama Salon
                                 *</label>
                             <input type="text" name="salon_name" id="salon_name"
                                 value="{{ old('salon_name', $setting->salon_name) }}" required
@@ -32,8 +32,8 @@
 
                         <div class="grid grid-cols-2 gap-4">
                             <div>
-                                <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">WhatsApp
-                                    Phone</label>
+                                <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">Nomer
+                                    WhatsApp</label>
                                 <input type="text" name="phone" id="phone" value="{{ old('phone', $setting->phone) }}"
                                     placeholder="e.g. 6281234567890"
                                     class="w-full rounded-md border-gray-300 shadow-sm focus:border-salon-gold focus:ring focus:ring-salon-beige">
@@ -49,7 +49,7 @@
 
                         <div class="grid grid-cols-2 gap-4">
                             <div>
-                                <label for="opening_hour" class="block text-sm font-medium text-gray-700 mb-1">Opening Hour
+                                <label for="opening_hour" class="block text-sm font-medium text-gray-700 mb-1">Jam Buka
                                     *</label>
                                 <input type="time" name="opening_hour" id="opening_hour"
                                     value="{{ old('opening_hour', \Carbon\Carbon::parse($setting->opening_hour)->format('H:i')) }}"
@@ -59,7 +59,7 @@
                                 @enderror
                             </div>
                             <div>
-                                <label for="closing_hour" class="block text-sm font-medium text-gray-700 mb-1">Closing Hour
+                                <label for="closing_hour" class="block text-sm font-medium text-gray-700 mb-1">Jam Tutup
                                     *</label>
                                 <input type="time" name="closing_hour" id="closing_hour"
                                     value="{{ old('closing_hour', \Carbon\Carbon::parse($setting->closing_hour)->format('H:i')) }}"
