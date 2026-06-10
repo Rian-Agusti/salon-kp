@@ -76,9 +76,9 @@
                                     <a href="{{ route('customer.dashboard') }}"
                                         class="{{ request()->routeIs('customer.dashboard') ? 'bg-salon-gold text-white shadow-sm' : 'text-salon-textLight hover:bg-salon-bg hover:text-salon-text' }} block rounded-xl px-4 py-3 text-base font-medium transition">Dasboard
                                         Saya</a>
-                                    {{-- <a href="{{ route('customer.reservations.index') }}"
+                                    <a href="{{ route('customer.reservations.index') }}"
                                         class="{{ request()->routeIs('customer.reservations.*') ? 'bg-salon-gold text-white shadow-sm' : 'text-salon-textLight hover:bg-salon-bg hover:text-salon-text' }} block rounded-xl px-4 py-3 text-base font-medium transition">Riwayat
-                                        Reservasi</a> --}}
+                                        Reservasi</a>
                                     <a href="{{ route('profile.edit') }}"
                                         class="{{ request()->routeIs('profile.edit') ? 'bg-salon-gold text-white shadow-sm' : 'text-salon-textLight hover:bg-salon-bg hover:text-salon-text' }} block rounded-xl px-4 py-3 text-base font-medium transition">Pengaturan
                                         Profil</a>
@@ -121,9 +121,9 @@
                     <div class="hidden lg:ml-10 lg:flex lg:space-x-8">
                         <a href="{{ route('customer.dashboard') }}"
                             class="inline-flex items-center px-1 pt-1 border-b-2 {{ request()->routeIs('customer.dashboard') ? 'border-salon-gold text-salon-gold' : 'border-transparent text-salon-textLight hover:text-salon-gold hover:border-salon-beige' }} text-sm font-medium leading-5 transition">Dasboard</a>
-                        <a href="{{ route('customer.reservations.index') }}"
+                        {{-- <a href="{{ route('customer.reservations.index') }}"
                             class="inline-flex items-center px-1 pt-1 border-b-2 {{ request()->routeIs('customer.reservations.*') ? 'border-salon-gold text-salon-gold' : 'border-transparent text-salon-textLight hover:text-salon-gold hover:border-salon-beige' }} text-sm font-medium leading-5 transition">Reservasi
-                            Saya</a>
+                            Saya</a> --}}
                         <a href="{{ route('profile.edit') }}"
                             class="inline-flex items-center px-1 pt-1 border-b-2 {{ request()->routeIs('profile.edit') ? 'border-salon-gold text-salon-gold' : 'border-transparent text-salon-textLight hover:text-salon-gold hover:border-salon-beige' }} text-sm font-medium leading-5 transition">Profil</a>
                     </div>
