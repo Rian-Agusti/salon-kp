@@ -29,16 +29,6 @@
                     @enderror
                 </div>
 
-                <!-- Email -->
-                <div>
-                    <label for="email" class="block font-medium text-sm text-gray-700">Email (Opsional)</label>
-                    <input id="email" class="block mt-1 w-full border-gray-300 focus:border-salon-gold focus:ring-salon-gold rounded-md shadow-sm" type="email" name="email" value="{{ old('email') }}" />
-                    <p class="text-xs text-gray-500 mt-1">Biarkan kosong jika tidak ada email, sistem akan mengenerate email otomatis.</p>
-                    @error('email')
-                        <p class="text-sm text-red-600 mt-2">{{ $message }}</p>
-                    @enderror
-                </div>
-
                 <!-- Address -->
                 <div class="md:col-span-2">
                     <label for="address" class="block font-medium text-sm text-gray-700">Alamat</label>
