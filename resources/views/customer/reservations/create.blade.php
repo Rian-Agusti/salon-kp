@@ -89,65 +89,6 @@
             <div class="mb-8 border-b border-salon-beige pb-8">
                 <h4 class="text-lg font-serif font-bold text-salon-text mb-6 flex items-center gap-2">
                     <span class="bg-salon-beige text-salon-goldHover w-8 h-8 rounded-full flex items-center justify-center text-sm">2</span>
-                    Pilih Produk
-                </h4>
-
-                <div class="space-y-3 max-h-[400px] overflow-y-auto pr-2 custom-scrollbar bg-gray-50 p-4 rounded-xl border border-salon-beige grid grid-cols-1 md:grid-cols-2 gap-4">
-                    @foreach($products as $product)
-                        <div class="flex items-start p-4 border border-gray-200 rounded-xl hover:border-rose-300 hover:bg-salon-cream/50 transition bg-white group">
-                            <div class="flex items-center h-5 mt-1">
-                                <input type="checkbox" id="product_{{ $product->id }}_check" name="products[{{ $loop->index }}][id]" value="{{ $product->id }}"
-                                       class="w-5 h-5 text-salon-goldHover border-gray-300 rounded focus:ring-salon-gold"
-                                       @change="toggleProduct({{ $product->id }}, {{ $product->price }}, $event.target.checked)"
-                                       {{ isset(old('products', [])[$loop->index]['id']) ? 'checked' : '' }}>
-                            </div>
-                            <div class="ml-4 flex-1">
-                                <label for="product_{{ $product->id }}_check" class="font-bold text-salon-text text-base group-hover:text-salon-goldHover transition cursor-pointer block">
-                                    {{ $product->name }}
-                                </label>
-                                <p class="text-gray-500 mb-2 mt-1 font-medium">Rp {{ number_format($product->price, 0, ',', '.') }}</p>
-                                <div class="flex items-center">
-                                    <label for="product_{{ $product->id }}_qty" class="mr-2 text-xs text-gray-500 font-bold uppercase">Qty:</label>
-                                    <input type="number" id="product_{{ $product->id }}_qty" name="products[{{ $loop->index }}][quantity]"
-                                           value="{{ old('products.' . $loop->index . '.quantity', 1) }}" min="1"
-                                           class="w-16 h-8 text-sm border-gray-300 focus:border-salon-gold focus:ring-salon-gold rounded-md shadow-sm"
-                                           @change="updateProductQty({{ $product->id }}, {{ $product->price }}, $event.target.value)"
-                                           x-bind:disabled="!isProductChecked({{ $product->id }})">
-                                </div>
-                            </div>
-                        </div>
-                    @endforeach
-                </div>
-            </div>
-
-            @if($promotions->isNotEmpty())
-            <div class="mb-8 border-b border-salon-beige pb-8">
-                <h4 class="text-lg font-serif font-bold text-salon-text mb-6 flex items-center gap-2">
-                    <span class="bg-salon-beige text-salon-goldHover w-8 h-8 rounded-full flex items-center justify-center text-sm">3</span>
-                    Pilih Promo
-                </h4>
-
-                <div class="space-y-3 max-h-[400px] overflow-y-auto pr-2 custom-scrollbar bg-gray-50 p-4 rounded-xl border border-salon-beige">
-                    @foreach($promotions as $promo)
-                        <label class="flex items-start p-4 border border-gray-200 rounded-xl cursor-pointer hover:border-rose-300 hover:bg-salon-cream/50 transition has-[:checked]:border-salon-gold has-[:checked]:bg-salon-cream has-[:checked]:ring-1 has-[:checked]:ring-salon-gold bg-white group">
-                            <div class="flex items-center h-5 mt-1">
-                                <input type="checkbox" name="promotions[]" value="{{ $promo->id }}"
-                                       class="focus:ring-salon-gold h-5 w-5 text-salon-goldHover border-gray-300 rounded transition"
-                                       {{ (is_array(old('promotions')) && in_array($promo->id, old('promotions'))) ? 'checked' : '' }}>
-                            </div>
-                            <div class="ml-4 flex-1">
-                                <span class="font-bold text-salon-text text-base group-hover:text-salon-goldHover transition">{{ $promo->title }}</span>
-                                <p class="text-gray-500 mt-2 leading-relaxed text-sm">{{ $promo->description }}</p>
-                            </div>
-                        </label>
-                    @endforeach
-                </div>
-            </div>
-            @endif
-
-            <div class="mb-8 border-b border-salon-beige pb-8">
-                <h4 class="text-lg font-serif font-bold text-salon-text mb-6 flex items-center gap-2">
-                    <span class="bg-salon-beige text-salon-goldHover w-8 h-8 rounded-full flex items-center justify-center text-sm">4</span>
                     Detail Jadwal
                 </h4>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 bg-gray-50 p-6 rounded-xl border border-salon-beige">
@@ -172,7 +113,7 @@
 
             <div class="mb-8 border-b border-salon-beige pb-8">
                 <h4 class="text-lg font-serif font-bold text-salon-text mb-6 flex items-center gap-2">
-                    <span class="bg-salon-beige text-salon-goldHover w-8 h-8 rounded-full flex items-center justify-center text-sm">5</span>
+                    <span class="bg-salon-beige text-salon-goldHover w-8 h-8 rounded-full flex items-center justify-center text-sm">3</span>
                     Catatan (Opsional)
                 </h4>
                 <label for="notes" class="sr-only">Catatan Khusus</label>
@@ -240,7 +181,6 @@
     function reservationForm() {
         return {
             selectedServices: {},
-            selectedProducts: {},
             totalPrice: 0,
             totalDuration: 0,
             discount: 0,
@@ -257,35 +197,10 @@
                 this.calculateTotals();
             },
 
-            isProductChecked(id) {
-                return this.selectedProducts[id] !== undefined;
-            },
-
-            toggleProduct(id, price, isChecked) {
-                let qtyInput = document.getElementById('product_' + id + '_qty');
-                if (isChecked) {
-                    let qty = parseInt(qtyInput.value) || 1;
-                    this.selectedProducts[id] = { price: parseFloat(price), quantity: qty };
-                    qtyInput.disabled = false;
-                } else {
-                    delete this.selectedProducts[id];
-                    qtyInput.disabled = true;
-                }
-                this.calculateTotals();
-            },
-
-            updateProductQty(id, price, qty) {
-                if (this.selectedProducts[id]) {
-                    this.selectedProducts[id] = { price: parseFloat(price), quantity: parseInt(qty) || 1 };
-                    this.calculateTotals();
-                }
-            },
-
             calculateTotals() {
                 let servicesPrice = Object.values(this.selectedServices).reduce((sum, service) => sum + service.price, 0);
-                let productsPrice = Object.values(this.selectedProducts).reduce((sum, product) => sum + (product.price * product.quantity), 0);
 
-                this.totalPrice = servicesPrice + productsPrice;
+                this.totalPrice = servicesPrice;
                 this.totalDuration = Object.values(this.selectedServices).reduce((sum, service) => sum + service.duration, 0);
 
                 if (this.isMember) {

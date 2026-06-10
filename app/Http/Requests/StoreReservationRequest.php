@@ -35,6 +35,10 @@ class StoreReservationRequest extends FormRequest
             $promotions = $this->input('promotions', []);
 
             if (empty($services) && empty($products) && empty($promotions)) {
+                // If it's a customer (not an admin creating it for them), we might want to say "layanan" only,
+                // but the prompt asked to keep it flexible for admin. So we just ensure at least one is selected.
+                // However, since we removed products and promotions from customer view,
+                // if they submit nothing, it means they didn't select a service.
                 $validator->errors()->add('general', 'Harap pilih minimal satu layanan, produk, atau promo.');
             }
         });
