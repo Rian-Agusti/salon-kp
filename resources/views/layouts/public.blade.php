@@ -66,9 +66,9 @@
                                 <div class="mt-8 pt-8 border-t border-salon-beige">
                                     @auth
                                         @role('admin')
-                                            <a href="{{ route('admin.dashboard') }}" class="block w-full text-center rounded-lg bg-salon-gold px-4 py-3 text-base font-medium text-white shadow-sm hover:bg-salon-goldHover transition">Dasboard Admin</a>
+                                            <a href="{{ route('admin.dashboard') }}" class="block w-full text-center rounded-lg bg-salon-gold px-4 py-3 text-base font-medium text-white shadow-sm hover:bg-salon-goldHover transition">Dasbor Admin</a>
                                         @else
-                                            <a href="{{ route('customer.dashboard') }}" class="block w-full text-center rounded-lg bg-salon-gold px-4 py-3 text-base font-medium text-white shadow-sm hover:bg-salon-goldHover transition">Dasboard Saya</a>
+                                            <a href="{{ route('customer.dashboard') }}" class="block w-full text-center rounded-lg bg-salon-gold px-4 py-3 text-base font-medium text-white shadow-sm hover:bg-salon-goldHover transition">Dasbor Saya</a>
                                         @endrole
                                     @else
                                         <div class="space-y-4">
@@ -112,9 +112,9 @@
                 <div class="hidden lg:flex lg:items-center gap-4">
                     @auth
                         @role('admin')
-                            <a href="{{ route('admin.dashboard') }}" class="text-sm font-medium text-salon-gold hover:text-salon-goldHover transition">Dasboard Admin</a>
+                            <a href="{{ route('admin.dashboard') }}" class="text-sm font-medium text-salon-gold hover:text-salon-goldHover transition">Dasbor Admin</a>
                         @else
-                            <a href="{{ route('customer.dashboard') }}" class="text-sm font-medium text-salon-gold hover:text-salon-goldHover transition">Dasboard Saya</a>
+                            <a href="{{ route('customer.dashboard') }}" class="text-sm font-medium text-salon-gold hover:text-salon-goldHover transition">Dasbor Saya</a>
                         @endrole
                     @else
                         <a href="{{ route('login') }}" class="text-sm font-medium text-salon-textLight hover:text-salon-gold transition">Masuk</a>
