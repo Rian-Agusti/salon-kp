@@ -18,6 +18,9 @@ class Reservation extends Model
         'customer_name',
         'customer_email',
         'customer_phone',
+        'payment_status',
+        'source',
+        'is_active',
     ];
 
     protected function casts(): array

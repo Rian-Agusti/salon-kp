@@ -9,10 +9,16 @@ class ReservationItem extends Model
 {
     protected $fillable = [
         'reservation_id',
+        'item_type',
         'service_id',
         'service_name',
         'service_price',
         'service_duration',
+        'product_id',
+        'product_name',
+        'product_quantity',
+        'promotion_id',
+        'promotion_name',
     ];
 
     protected $casts = [
