@@ -41,14 +41,15 @@
                 </div>
 
                 <div class="border-t border-salon-beige pt-6">
-                    <h3 class="text-lg font-bold text-salon-text mb-4">Services Booked</h3>
+                    <h3 class="text-lg font-bold text-salon-text mb-4">Item Transaksi</h3>
                     <div class="border border-gray-200 rounded-md overflow-x-auto">
                         <table class="min-w-full divide-y divide-gray-200">
                             <thead class="bg-gray-50">
                                 <tr>
-                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Service</th>
-                                    <th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase">Duration</th>
-                                    <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">Price</th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Tipe</th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Item</th>
+                                    <th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase">Qty/Durasi</th>
+                                    <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">Harga</th>
                                 </tr>
                             </thead>
                             <tbody class="bg-white divide-y divide-gray-200">
@@ -62,26 +63,42 @@
         $totalDuration += $item->service_duration;
                                     @endphp
                                     <tr>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-salon-text">{{ $item->service_name }}</td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center">{{ $item->service_duration }} mins</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 capitalize">{{ $item->type }}</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-salon-text">
+                                            @if($item->type == 'service')
+                                                {{ $item->service_name }}
+                                            @elseif($item->type == 'product')
+                                                {{ $item->product_name }}
+                                            @elseif($item->type == 'promotion')
+                                                {{ $item->promotion_name }}
+                                            @endif
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center">
+                                            @if($item->type == 'service')
+                                                {{ $item->service_duration }} menit
+                                            @elseif($item->type == 'product')
+                                                {{ $item->product_quantity }} pcs
+                                            @else
+                                                -
+                                            @endif
+                                        </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-salon-text text-right">Rp {{ number_format($item->service_price, 0, ',', '.') }}</td>
                                     </tr>
                                 @endforeach
                             </tbody>
                             <tfoot class="bg-gray-50">
                                 <tr>
-                                    <th scope="row" class="px-6 py-3 text-right text-sm font-bold text-salon-text">Subtotal</th>
-                                    <td class="px-6 py-3 text-center text-sm font-bold text-salon-text">{{ $totalDuration }} mins</td>
+                                    <th scope="row" colspan="3" class="px-6 py-3 text-right text-sm font-bold text-salon-text">Subtotal</th>
                                     <td class="px-6 py-3 text-right text-md font-bold text-salon-text">Rp {{ number_format($totalPrice, 0, ',', '.') }}</td>
                                 </tr>
                                 @if($reservation->discount_amount > 0)
                                 <tr class="bg-green-50 text-green-700 border-t border-gray-200">
-                                    <th scope="row" colspan="2" class="px-6 py-3 text-right text-sm font-bold">Diskon Member</th>
+                                    <th scope="row" colspan="3" class="px-6 py-3 text-right text-sm font-bold">Diskon Member</th>
                                     <td class="px-6 py-3 text-right text-md font-bold">- Rp {{ number_format($reservation->discount_amount, 0, ',', '.') }}</td>
                                 </tr>
                                 @endif
                                 <tr class="border-t border-gray-200">
-                                    <th scope="row" colspan="2" class="px-6 py-4 text-right text-sm font-bold text-salon-text">Total Keseluruhan</th>
+                                    <th scope="row" colspan="3" class="px-6 py-4 text-right text-sm font-bold text-salon-text">Total Keseluruhan</th>
                                     <td class="px-6 py-4 text-right text-lg font-bold text-salon-goldHover">Rp {{ number_format($totalPrice - $reservation->discount_amount, 0, ',', '.') }}</td>
                                 </tr>
                             </tfoot>

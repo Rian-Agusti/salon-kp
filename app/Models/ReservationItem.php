@@ -9,10 +9,16 @@ class ReservationItem extends Model
 {
     protected $fillable = [
         'reservation_id',
+        'type',
         'service_id',
         'service_name',
         'service_price',
         'service_duration',
+        'product_id',
+        'product_name',
+        'product_quantity',
+        'promotion_id',
+        'promotion_name',
     ];
 
     protected $casts = [
@@ -28,5 +34,15 @@ class ReservationItem extends Model
     public function service(): BelongsTo
     {
         return $this->belongsTo(Service::class);
+    }
+
+    public function product(): BelongsTo
+    {
+        return $this->belongsTo(Product::class);
+    }
+
+    public function promotion(): BelongsTo
+    {
+        return $this->belongsTo(Promotion::class);
     }
 }

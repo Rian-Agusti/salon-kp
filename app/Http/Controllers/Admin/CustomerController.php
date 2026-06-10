@@ -11,12 +11,23 @@ use Illuminate\Support\Str;
 
 class CustomerController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $customers = User::role('customer')
+        $query = User::role('customer')
+            ->with(['reservations.reservationItems'])
             ->withCount('reservations')
-            ->latest()
-            ->paginate(15);
+            ->latest();
+
+        if ($request->filled('search')) {
+            $search = $request->input('search');
+            $query->where(function ($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%")
+                  ->orWhere('phone', 'like', "%{$search}%")
+                  ->orWhere('email', 'like', "%{$search}%");
+            });
+        }
+
+        $customers = $query->paginate(15);
 
         // Calculate the accurate total spent for each customer
         foreach ($customers as $customer) {
@@ -41,6 +52,8 @@ class CustomerController extends Controller
             'email' => ['nullable', 'email', 'max:255', 'unique:users,email'],
             'address' => ['nullable', 'string'],
             'notes' => ['nullable', 'string'],
+            'birth_date' => ['nullable', 'date'],
+            'member_until' => ['nullable', 'date'],
         ]);
 
         $email = $validated['email'] ?? 'walkin_' . Str::random(8) . '@example.com';
@@ -53,6 +66,8 @@ class CustomerController extends Controller
             'type' => 'offline',
             'address' => $validated['address'] ?? null,
             'notes' => $validated['notes'] ?? null,
+            'birth_date' => $validated['birth_date'] ?? null,
+            'member_until' => $validated['member_until'] ?? null,
             'is_active' => true,
         ]);
 

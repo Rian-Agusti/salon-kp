@@ -54,11 +54,28 @@
                 </div>
             </div>
 
+            @error('general')
+                <div class="bg-red-50 border-l-4 border-red-400 p-4 mb-6">
+                    <div class="flex">
+                        <div class="flex-shrink-0">
+                            <svg class="h-5 w-5 text-red-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+                            </svg>
+                        </div>
+                        <div class="ml-3">
+                            <p class="text-sm text-red-700">
+                                {{ $message }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            @enderror
+
             <h3 class="text-lg font-bold text-salon-text mb-4 border-b pb-2">Pilih Layanan</h3>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
                 @foreach($services as $service)
                     <label class="flex items-start p-3 border rounded-lg cursor-pointer hover:bg-gray-50 transition">
-                        <div class="flex items-center h-5">
+                        <div class="flex items-center h-5 mt-1">
                             <input type="checkbox" name="services[]" value="{{ $service->id }}" class="w-4 h-4 text-salon-gold border-gray-300 rounded focus:ring-salon-gold" {{ in_array($service->id, old('services', [])) ? 'checked' : '' }}>
                         </div>
                         <div class="ml-3 text-sm">
@@ -68,9 +85,42 @@
                     </label>
                 @endforeach
             </div>
-            @error('services')
-                <p class="text-sm text-red-600 mt-2 mb-6">{{ $message }}</p>
-            @enderror
+
+            <h3 class="text-lg font-bold text-salon-text mb-4 border-b pb-2">Pilih Produk</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
+                @foreach($products as $product)
+                    <div class="flex items-start p-3 border rounded-lg hover:bg-gray-50 transition">
+                        <div class="flex items-center h-5 mt-1">
+                            <input type="checkbox" id="product_{{ $product->id }}_check" name="products[{{ $loop->index }}][id]" value="{{ $product->id }}" class="w-4 h-4 text-salon-gold border-gray-300 rounded focus:ring-salon-gold" {{ isset(old('products', [])[$loop->index]['id']) ? 'checked' : '' }} onchange="document.getElementById('product_{{ $product->id }}_qty').disabled = !this.checked; if(this.checked && document.getElementById('product_{{ $product->id }}_qty').value === '') document.getElementById('product_{{ $product->id }}_qty').value = 1;">
+                        </div>
+                        <div class="ml-3 text-sm flex-grow">
+                            <label for="product_{{ $product->id }}_check" class="font-medium text-gray-900 cursor-pointer block">{{ $product->name }}</label>
+                            <p class="text-gray-500 mb-2">Rp {{ number_format($product->price, 0, ',', '.') }}</p>
+                            <div class="flex items-center">
+                                <label for="product_{{ $product->id }}_qty" class="mr-2 text-xs text-gray-500">Qty:</label>
+                                <input type="number" id="product_{{ $product->id }}_qty" name="products[{{ $loop->index }}][quantity]" value="{{ old('products.' . $loop->index . '.quantity', 1) }}" min="1" class="w-16 h-8 text-sm border-gray-300 focus:border-salon-gold focus:ring-salon-gold rounded-md shadow-sm" {{ isset(old('products', [])[$loop->index]['id']) ? '' : 'disabled' }}>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+
+            @if($promotions->isNotEmpty())
+            <h3 class="text-lg font-bold text-salon-text mb-4 border-b pb-2">Pilih Promo / Paket</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
+                @foreach($promotions as $promo)
+                    <label class="flex items-start p-3 border rounded-lg cursor-pointer hover:bg-gray-50 transition">
+                        <div class="flex items-center h-5 mt-1">
+                            <input type="checkbox" name="promotions[]" value="{{ $promo->id }}" class="w-4 h-4 text-salon-gold border-gray-300 rounded focus:ring-salon-gold" {{ in_array($promo->id, old('promotions', [])) ? 'checked' : '' }}>
+                        </div>
+                        <div class="ml-3 text-sm">
+                            <span class="font-medium text-gray-900">{{ $promo->title }}</span>
+                            <p class="text-gray-500 text-xs mt-1">{{ Str::limit($promo->description, 50) }}</p>
+                        </div>
+                    </label>
+                @endforeach
+            </div>
+            @endif
 
             <h3 class="text-lg font-bold text-salon-text mb-4 border-b pb-2">Catatan Tambahan</h3>
             <div>
