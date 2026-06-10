@@ -25,10 +25,10 @@
             </button>
         </form>
     </div>
-        {{-- <a href="{{ route('admin.customers.create') }}"
+        <a href="{{ route('admin.customers.create') }}"
             class="inline-flex items-center px-4 py-2 mb-3 bg-salon-gold border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-yellow-600 focus:bg-yellow-600 active:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2 transition ease-in-out duration-150">
-            Tambah Walk-in
-        </a> --}}
+            Tambah Member
+        </a>
         <div class="bg-white rounded-lg shadow-sm overflow-hidden border border-gray-200">
             <div class="overflow-x-auto">
                 <table class="min-w-full divide-y divide-gray-200">
