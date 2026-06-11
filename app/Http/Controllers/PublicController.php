@@ -14,12 +14,15 @@ class PublicController extends Controller
     public function home()
     {
         $services = Cache::remember('public.home.services', 600, function () {
-            return Service::where('is_active', true)->take(6)->get();
+            return Service::where('is_active', true)->take(6)->get()->toArray();
         });
 
         $promotions = Cache::remember('public.home.promotions', 600, function () {
-            return Promotion::where('is_active', true)->whereDate('end_date', '>=', now())->take(3)->get();
+            return Promotion::where('is_active', true)->whereDate('end_date', '>=', now())->take(3)->get()->toArray();
         });
+
+        $services = collect($services)->map(fn($item) => (object) $item);
+        $promotions = collect($promotions)->map(fn($item) => (object) $item);
 
         return view('home', compact('services', 'promotions'));
     }
@@ -27,8 +30,10 @@ class PublicController extends Controller
     public function services()
     {
         $services = Cache::remember('public.services', 600, function () {
-            return Service::where('is_active', true)->get();
+            return Service::where('is_active', true)->get()->toArray();
         });
+
+        $services = collect($services)->map(fn($item) => (object) $item);
 
         return view('services', compact('services'));
     }
@@ -36,8 +41,10 @@ class PublicController extends Controller
     public function products()
     {
         $products = Cache::remember('public.products', 600, function () {
-            return Product::where('is_active', true)->get();
+            return Product::where('is_active', true)->get()->toArray();
         });
+
+        $products = collect($products)->map(fn($item) => (object) $item);
 
         return view('products', compact('products'));
     }
@@ -45,8 +52,10 @@ class PublicController extends Controller
     public function promotions()
     {
         $promotions = Cache::remember('public.promotions', 600, function () {
-            return Promotion::where('is_active', true)->whereDate('end_date', '>=', now())->get();
+            return Promotion::where('is_active', true)->whereDate('end_date', '>=', now())->get()->toArray();
         });
+
+        $promotions = collect($promotions)->map(fn($item) => (object) $item);
 
         return view('promotions', compact('promotions'));
     }
@@ -54,8 +63,10 @@ class PublicController extends Controller
     public function gallery()
     {
         $galleries = Cache::remember('public.gallery', 600, function () {
-            return Gallery::all();
+            return Gallery::all()->toArray();
         });
+
+        $galleries = collect($galleries)->map(fn($item) => (object) $item);
 
         return view('gallery', compact('galleries'));
     }
