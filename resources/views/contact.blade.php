@@ -31,8 +31,7 @@
                                 <div class="ml-5">
                                     <h4 class="font-bold text-salon-text">Alamat</h4>
                                     <p class="text-salon-textLight mt-2 leading-relaxed">
-                                        {{ $setting->address ?? 'Belum diatur' }}
-                                    </p>
+                                        {{ $setting->address ?? 'Belum diatur' }}</p>
                                 </div>
                             </div>
 
@@ -69,9 +68,9 @@
                                             $message = urlencode($textMessage);
 
                                             // 6. Gabungkan menjadi link wa.me yang valid (sudah ditambahkan tanda / setelah wa.me)
-                                            $waUrl = "https://wa.me{$cleanPhone}?text={$message}";
+                                            $waUrl = "https://wa.me/{$cleanPhone}?text={$message}";
                                         @endphp
-                                        <a href="https://wa.me/{{ $phoneInput }}" target="_blank"
+                                        <a href="{{ $waUrl }}" target="_blank"
                                             class="mt-3 inline-flex items-center text-sm font-medium text-green-600 hover:text-green-700 bg-green-50 px-3 py-1.5 rounded-full transition">
                                             <svg class="h-4 w-4 mr-2" fill="currentColor" viewBox="0 0 24 24">
                                                 <path
@@ -110,8 +109,7 @@
                                     <h4 class="font-bold text-salon-text">Jam Operasional</h4>
                                     <p class="text-salon-textLight mt-2">Senin - Minggu:
                                         {{ \Carbon\Carbon::parse($setting->opening_hour ?? '09:00')->format('H:i') }} -
-                                        {{ \Carbon\Carbon::parse($setting->closing_hour ?? '19:00')->format('H:i') }}
-                                    </p>
+                                        {{ \Carbon\Carbon::parse($setting->closing_hour ?? '19:00')->format('H:i') }}</p>
                                 </div>
                             </div>
                         </div>
