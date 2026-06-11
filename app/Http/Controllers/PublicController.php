@@ -62,10 +62,6 @@ class PublicController extends Controller
 
     public function contact()
     {
-        $setting = Cache::rememberForever('public.setting', function () {
-            return Setting::first();
-        });
-
-        return view('contact', compact('setting'));
+        return view('contact');
     }
 }

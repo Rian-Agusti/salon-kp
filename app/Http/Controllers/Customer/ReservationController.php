@@ -114,10 +114,7 @@ class ReservationController extends Controller
             abort(403);
         }
         $reservation->load('reservationItems');
-        $setting = \Illuminate\Support\Facades\Cache::rememberForever('public.setting', function () {
-            return Setting::first();
-        });
 
-        return view('customer.reservations.success', compact('reservation', 'setting'));
+        return view('customer.reservations.success', compact('reservation'));
     }
 }
