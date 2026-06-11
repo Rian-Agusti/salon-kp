@@ -10,9 +10,7 @@ class SettingController extends Controller
 {
     public function edit()
     {
-        $setting = Setting::firstOrCreate(['id' => 1]);
-
-        return view('admin.settings.edit', compact('setting'));
+        return view('admin.settings.edit');
     }
 
     public function update(UpdateSettingRequest $request)
