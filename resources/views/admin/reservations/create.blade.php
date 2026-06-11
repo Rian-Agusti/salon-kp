@@ -159,14 +159,14 @@
             },
             selectedId: '{{ old('user_id', '') }}',
             selectedName: '',
-            customers: @json($customers->map(function($c) {
+            customers: <?php echo json_encode($customers->map(function($c) {
                 return [
                     'id' => $c->id,
                     'name' => $c->name,
                     'phone' => $c->phone,
                     'type' => $c->type
                 ];
-            })),
+            })) ?>,
 
             init() {
                 if (this.selectedId) {
