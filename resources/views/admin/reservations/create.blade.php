@@ -18,16 +18,57 @@
             <h3 class="text-lg font-bold text-salon-text mb-4 border-b pb-2">Informasi Pelanggan & Waktu</h3>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                 <!-- Customer Selection -->
-                <div>
+                <div x-data="customerDropdown()" class="relative">
                     <label for="user_id" class="block font-medium text-sm text-gray-700">Pelanggan <span class="text-red-500">*</span></label>
-                    <select id="user_id" name="user_id" class="block mt-1 w-full border-gray-300 focus:border-salon-gold focus:ring-salon-gold rounded-md shadow-sm" required>
-                        <option value="">-- Pilih Pelanggan --</option>
-                        @foreach($customers as $customer)
-                            <option value="{{ $customer->id }}" {{ old('user_id') == $customer->id ? 'selected' : '' }}>
-                                {{ $customer->name }} ({{ $customer->phone ?? 'Tanpa nomor' }}) - {{ ucfirst($customer->type) }}
-                            </option>
-                        @endforeach
-                    </select>
+                    <input type="hidden" name="user_id" id="user_id" x-model="selectedId">
+
+                    <button type="button" @click="open = !open" @click.away="open = false"
+                            class="relative w-full bg-white border border-gray-300 rounded-md shadow-sm pl-3 pr-10 py-2 text-left cursor-default focus:outline-none focus:ring-1 focus:ring-salon-gold focus:border-salon-gold sm:text-sm mt-1">
+                        <span class="block truncate" x-text="selectedName || '-- Pilih Pelanggan --'"></span>
+                        <span class="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
+                            <svg class="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                <path fill-rule="evenodd" d="M10 3a1 1 0 01.707.293l3 3a1 1 0 01-1.414 1.414L10 5.414 7.707 7.707a1 1 0 01-1.414-1.414l3-3A1 1 0 0110 3zm-3.707 9.293a1 1 0 011.414 0L10 14.586l2.293-2.293a1 1 0 011.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" />
+                            </svg>
+                        </span>
+                    </button>
+
+                    <div x-show="open"
+                         x-transition:leave="transition ease-in duration-100"
+                         x-transition:leave-start="opacity-100"
+                         x-transition:leave-end="opacity-0"
+                         class="absolute z-10 mt-1 w-full bg-white shadow-lg rounded-md border border-gray-200"
+                         style="display: none;">
+
+                        <div class="p-2 border-b border-gray-100">
+                            <input type="text" x-model="search" placeholder="Cari nama atau no. HP..."
+                                   class="w-full text-sm border-gray-300 focus:border-salon-gold focus:ring-salon-gold rounded-md mb-2">
+                            <div class="flex items-center space-x-4 text-sm">
+                                <label class="inline-flex items-center">
+                                    <input type="checkbox" x-model="filters.online" class="rounded border-gray-300 text-salon-gold focus:ring-salon-gold">
+                                    <span class="ml-2">Online</span>
+                                </label>
+                                <label class="inline-flex items-center">
+                                    <input type="checkbox" x-model="filters.offline" class="rounded border-gray-300 text-salon-gold focus:ring-salon-gold">
+                                    <span class="ml-2">Offline</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <ul class="max-h-52 overflow-y-auto py-1 text-base sm:text-sm">
+                            <template x-for="customer in filteredCustomers" :key="customer.id">
+                                <li @click="selectCustomer(customer)"
+                                    class="text-gray-900 cursor-default select-none relative py-2 pl-3 pr-9 hover:bg-salon-gold hover:text-white group">
+                                    <span class="block truncate font-medium" x-text="customer.name"></span>
+                                    <span class="block truncate text-xs text-gray-500 group-hover:text-gray-200"
+                                          x-text="(customer.phone || 'Tanpa nomor') + ' - ' + customer.type.charAt(0).toUpperCase() + customer.type.slice(1)"></span>
+                                </li>
+                            </template>
+                            <li x-show="filteredCustomers.length === 0" class="text-gray-500 cursor-default select-none relative py-2 pl-3 pr-9 text-sm">
+                                Tidak ada pelanggan ditemukan.
+                            </li>
+                        </ul>
+                    </div>
+
                     @error('user_id')
                         <p class="text-sm text-red-600 mt-2">{{ $message }}</p>
                     @enderror
@@ -106,4 +147,59 @@
         </div>
     </form>
 </div>
+
+<script>
+    document.addEventListener('alpine:init', () => {
+        Alpine.data('customerDropdown', () => ({
+            open: false,
+            search: '',
+            filters: {
+                online: true,
+                offline: true
+            },
+            selectedId: '{{ old('user_id', '') }}',
+            selectedName: '',
+            customers: @json($customers->map(function($c) {
+                return [
+                    'id' => $c->id,
+                    'name' => $c->name,
+                    'phone' => $c->phone,
+                    'type' => $c->type
+                ];
+            })),
+
+            init() {
+                if (this.selectedId) {
+                    const cust = this.customers.find(c => c.id == this.selectedId);
+                    if (cust) {
+                        this.selectedName = cust.name;
+                    }
+                }
+            },
+
+            get filteredCustomers() {
+                return this.customers.filter(customer => {
+                    // Filter by type
+                    if (!this.filters.online && customer.type === 'online') return false;
+                    if (!this.filters.offline && customer.type === 'offline') return false;
+
+                    // Filter by search
+                    if (this.search === '') return true;
+
+                    const searchLower = this.search.toLowerCase();
+                    const nameMatch = customer.name.toLowerCase().includes(searchLower);
+                    const phoneMatch = (customer.phone || '').toLowerCase().includes(searchLower);
+
+                    return nameMatch || phoneMatch;
+                });
+            },
+
+            selectCustomer(customer) {
+                this.selectedId = customer.id;
+                this.selectedName = customer.name;
+                this.open = false;
+            }
+        }));
+    });
+</script>
 @endsection
