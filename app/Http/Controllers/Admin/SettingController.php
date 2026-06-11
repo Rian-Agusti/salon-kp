@@ -25,6 +25,8 @@ class SettingController extends Controller
 
         $setting->update($data);
 
+        \Illuminate\Support\Facades\Cache::forget('public.setting');
+
         return redirect()->route('admin.settings.edit')->with('success', 'Settings updated successfully.');
     }
 }

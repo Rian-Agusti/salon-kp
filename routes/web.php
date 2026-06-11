@@ -24,7 +24,8 @@ Route::middleware('auth')->group(function () {
 // Customer routes
 Route::middleware(['auth', 'role:customer'])->prefix('customer')->name('customer.')->group(function () {
     Route::get('/dashboard', [Customer\ReservationController::class, 'index'])->name('dashboard');
-    Route::resource('reservations', Customer\ReservationController::class)->only(['create', 'store', 'index', 'show']);
+    Route::resource('reservations', Customer\ReservationController::class)->only(['create', 'index', 'show']);
+    Route::post('reservations', [Customer\ReservationController::class, 'store'])->name('reservations.store')->middleware('throttle:reservation-store');
     Route::get('reservations/{reservation}/success', [Customer\ReservationController::class, 'success'])->name('reservations.success');
 });
 
