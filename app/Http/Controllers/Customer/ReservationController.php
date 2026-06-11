@@ -20,19 +20,22 @@ class ReservationController extends Controller
     {
         $user = Auth::user();
 
-        $activeReservations = Reservation::where('user_id', $user->id)
+        $activeReservations = Reservation::with('reservationItems')
+            ->where('user_id', $user->id)
             ->whereIn('status', ['pending', 'confirmed'])
             ->orderBy('created_at', 'desc')
             ->take(5)
             ->get();
 
-        $completedReservations = Reservation::where('user_id', $user->id)
+        $completedReservations = Reservation::with('reservationItems')
+            ->where('user_id', $user->id)
             ->where('status', 'completed')
             ->orderBy('created_at', 'desc')
             ->take(5)
             ->get();
 
-        $latestReservation = Reservation::where('user_id', $user->id)
+        $latestReservation = Reservation::with('reservationItems')
+            ->where('user_id', $user->id)
             ->orderBy('created_at', 'desc')
             ->first();
 
@@ -111,7 +114,9 @@ class ReservationController extends Controller
             abort(403);
         }
         $reservation->load('reservationItems');
-        $setting = Setting::first();
+        $setting = \Illuminate\Support\Facades\Cache::rememberForever('public.setting', function () {
+            return Setting::first();
+        });
 
         return view('customer.reservations.success', compact('reservation', 'setting'));
     }

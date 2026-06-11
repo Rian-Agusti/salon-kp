@@ -21,7 +21,15 @@ class UpdateSettingRequest extends FormRequest
             'instagram' => ['nullable', 'string', 'max:100'],
             'facebook' => ['nullable', 'string', 'max:100'],
             'tiktok' => ['nullable', 'string', 'max:100'],
-            'google_maps' => ['nullable', 'string'],
+            'google_maps' => [
+                'nullable',
+                'string',
+                function ($attribute, $value, $fail) {
+                    if ($value && !preg_match('/^<iframe\s/', $value)) {
+                        $fail('The '.$attribute.' must be a valid iframe embed code.');
+                    }
+                },
+            ],
             'opening_hour' => ['required', 'date_format:H:i'],
             'closing_hour' => ['required', 'date_format:H:i'],
         ];
