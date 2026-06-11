@@ -35,8 +35,8 @@
                             </span>
                         </div>
                         <p class="text-sm text-salon-textLight flex-1 leading-relaxed mb-6">{{ $service->description }}</p>
-                        <a href="{{ route('customer.reservations.create', ['service_id' => $service->id]) }}" class="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-salon-gold hover:bg-salon-goldHover transition duration-300 {{ !$service->is_available ? 'opacity-50 cursor-not-allowed pointer-events-none' : '' }}">
-                            {{ $service->is_available ? 'Pesan Layanan Ini' : 'Tidak Tersedia' }}
+                        <a href="{{ route('customer.reservations.create', ['service_id' => $service->id]) }}" class="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-salon-gold hover:bg-salon-goldHover transition duration-300 {{ !$service->is_active ? 'opacity-50 cursor-not-allowed pointer-events-none' : '' }}">
+                            {{ $service->is_active ? 'Pesan Layanan Ini' : 'Tidak Tersedia' }}
                         </a>
                     </div>
                 </div>
