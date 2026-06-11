@@ -27,14 +27,6 @@
                         </div>
                         <h3 class="mt-1 text-2xl font-serif font-bold text-salon-text">{{ $promotion->title }}</h3>
                         <p class="mt-4 text-salon-textLight leading-relaxed">{{ $promotion->description }}</p>
-                        @if($promotion->discount_amount)
-                            <div class="mt-4">
-                                <span class="inline-flex items-center gap-2 text-salon-goldHover font-bold text-lg">
-                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                                    Diskon Rp {{ number_format($promotion->discount_amount, 0, ',', '.') }}
-                                </span>
-                            </div>
-                        @endif
                         <div class="mt-8">
                             <a href="{{ route('customer.reservations.create') }}" class="inline-flex justify-center w-full sm:w-auto items-center px-6 py-3 border border-transparent text-base font-medium rounded-lg shadow-sm text-white bg-salon-gold hover:bg-salon-goldHover transition duration-300">
                                 Pesan Sekarang
