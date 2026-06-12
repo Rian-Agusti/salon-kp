@@ -76,7 +76,7 @@ class CustomerController extends Controller
         $customer->assignRole('customer');
 
         return redirect()->route('admin.customers.index')
-            ->with('success', 'Customer walk-in berhasil ditambahkan.');
+            ->with('success', 'Member berhasil ditambahkan.');
     }
 
     public function show(User $customer)
