@@ -61,18 +61,14 @@
                                                 $cleanPhone = '62' . substr($cleanPhone, 1);
                                             }
 
-                                            // 4. Ambil kode booking secara aman (beri fallback 'DRAFT' jika null)
-                                            $bookingCode = $reservation->reservation_code ?? 'DRAFT';
-
-                                            // 5. Buat template teks dan encode agar aman dibaca oleh browser URL
-                                            $textMessage = "Halo Admin Eeva Salon, Saya sudah melakukan reservasi melalui website dengan kode booking [{$bookingCode}].";
+                                            // 4. Buat template teks dan encode agar aman dibaca oleh browser URL
+                                            $textMessage = "Halo Admin Eeva Salon, saya ingin bertanya tentang layanan Anda.";
                                             $message = urlencode($textMessage);
 
-                                            // 6. Gabungkan menjadi link wa.me yang valid (sudah ditambahkan tanda / setelah wa.me)
+                                            // 5. Gabungkan menjadi link wa.me yang valid
                                             $waUrl = "https://wa.me/{$cleanPhone}?text={$message}";
                                         @endphp
-                                        <a href="https://wa.me/{{ $phoneInput }}" target="_blank"
-                                         href="{{ $waUrl }}" target="_blank"
+                                        <a href="{{ $waUrl }}" target="_blank"
                                             class="mt-3 inline-flex items-center text-sm font-medium text-green-600 hover:text-green-700 bg-green-50 px-3 py-1.5 rounded-full transition">
                                             <svg class="h-4 w-4 mr-2" fill="currentColor" viewBox="0 0 24 24">
                                                 <path

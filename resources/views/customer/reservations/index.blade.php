@@ -20,10 +20,13 @@
                     }
 
                     // 4. Ambil kode booking secara aman (beri fallback 'DRAFT' jika null)
-                    $bookingCode = $reservation->reservation_code ?? 'DRAFT';
+                    $bookingCode = $latestReservation->reservation_code ?? 'DRAFT';
 
                     // 5. Buat template teks dan encode agar aman dibaca oleh browser URL
-                    $textMessage = "Halo Admin Eeva Salon, Saya sudah melakukan reservasi melalui website dengan kode booking [{$bookingCode}].";
+                    $textMessage = "Halo Admin Eeva Salon, saya ingin bertanya tentang reservasi saya.";
+                    if ($bookingCode !== 'DRAFT') {
+                        $textMessage = "Halo Admin Eeva Salon, Saya sudah melakukan reservasi melalui website dengan kode booking [{$bookingCode}].";
+                    }
                     $message = urlencode($textMessage);
 
                     // 6. Gabungkan menjadi link wa.me yang valid (sudah ditambahkan tanda / setelah wa.me)
