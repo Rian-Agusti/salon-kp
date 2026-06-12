@@ -37,7 +37,7 @@ class AppServiceProvider extends ServiceProvider
             return Limit::perHour(10)->by($request->user()?->id ?: $request->ip());
         });
 
-        View::composer(['layouts.public', 'layouts.admin', 'layouts.customer', 'contact', 'customer.reservations.success', 'customer.reservations.show', 'admin.settings.edit'], function ($view) {
+        View::composer(['layouts.public', 'layouts.admin', 'layouts.customer', 'contact', 'customer.reservations.index', 'customer.reservations.success', 'customer.reservations.show', 'admin.settings.edit'], function ($view) {
             $settingArray = Cache::rememberForever('public.setting', function () {
                 $setting = Setting::first();
                 return $setting ? $setting->toArray() : [];
