@@ -25,6 +25,7 @@ class UpdateCustomerRequest extends FormRequest
         return [
             'name' => ['required', 'string', 'max:255'],
             'phone' => ['required', 'string', 'max:20'],
+            'email' => ['nullable', 'email', 'max:255', 'unique:users,email,'.$this->route('customer')->id],
             'password' => ['nullable', 'string', 'min:8', 'confirmed'],
             'birth_date' => ['nullable', 'date'],
             'member_until' => ['nullable', 'date'],

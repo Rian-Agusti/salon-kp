@@ -11,16 +11,28 @@
 </div>
 
 <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6 lg:w-2/3 xl:w-1/2">
-    <form action="{{ route('admin.customers.update', $customer) }}" method="POST">
+    <form action="{{ route('admin.customers.update', $customer) }}" method="POST" autocomplete="off" novalidate>
         @csrf
         @method('PUT')
+        <!-- Hidden fields to catch browser-saved credentials and prevent them autofilling visible fields -->
+        <input type="email" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;opacity:0;border:0;padding:0;margin:0;" autocomplete="username">
+        <input type="password" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;opacity:0;border:0;padding:0;margin:0;" autocomplete="current-password">
 
         <div class="space-y-4">
             <!-- Name -->
             <div>
                 <label for="name" class="block text-sm font-medium text-salon-text">Nama Lengkap</label>
-                <input type="text" name="name" id="name" value="{{ old('name', $customer->name) }}" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-salon-gold focus:ring focus:ring-salon-gold focus:ring-opacity-50" required>
+                <input type="text" name="name" id="name" value="{{ old('name', $customer->name) }}" autocomplete="name" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-salon-gold focus:ring focus:ring-salon-gold focus:ring-opacity-50" required>
                 @error('name')
+                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                @enderror
+            </div>
+
+            <!-- Email -->
+            <div>
+                <label for="email" class="block text-sm font-medium text-salon-text">Alamat Email</label>
+                <input type="email" name="email" id="email" value="{{ old('email', $customer->email) }}" autocomplete="email" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-salon-gold focus:ring focus:ring-salon-gold focus:ring-opacity-50" required>
+                @error('email')
                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                 @enderror
             </div>
@@ -28,7 +40,7 @@
             <!-- Phone -->
             <div>
                 <label for="phone" class="block text-sm font-medium text-salon-text">Nomor Telepon</label>
-                <input type="text" name="phone" id="phone" value="{{ old('phone', $customer->phone) }}" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-salon-gold focus:ring focus:ring-salon-gold focus:ring-opacity-50" required>
+                <input type="tel" name="phone" id="phone" value="{{ old('phone', $customer->phone) }}" autocomplete="tel" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-salon-gold focus:ring focus:ring-salon-gold focus:ring-opacity-50" required>
                 @error('phone')
                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                 @enderror
@@ -38,7 +50,7 @@
                 <!-- New Password -->
                 <div>
                     <label for="password" class="block text-sm font-medium text-salon-text">Password Baru (kosongkan jika tidak ingin mengubah)</label>
-                    <input type="password" name="password" id="password" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-salon-gold focus:ring focus:ring-salon-gold focus:ring-opacity-50">
+                    <input type="password" name="password" id="password" autocomplete="new-password" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-salon-gold focus:ring focus:ring-salon-gold focus:ring-opacity-50">
                     @error('password')
                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                     @enderror
@@ -47,14 +59,14 @@
                 <!-- Confirm New Password -->
                 <div>
                     <label for="password_confirmation" class="block text-sm font-medium text-salon-text">Konfirmasi Password Baru</label>
-                    <input type="password" name="password_confirmation" id="password_confirmation" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-salon-gold focus:ring focus:ring-salon-gold focus:ring-opacity-50">
+                    <input type="password" name="password_confirmation" id="password_confirmation" autocomplete="new-password" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-salon-gold focus:ring focus:ring-salon-gold focus:ring-opacity-50">
                 </div>
             </div>
 
             <!-- Birth Date -->
             <div>
                 <label for="birth_date" class="block text-sm font-medium text-salon-text">Tanggal Lahir</label>
-                <input type="date" name="birth_date" id="birth_date" value="{{ old('birth_date', $customer->birth_date ? $customer->birth_date->format('Y-m-d') : '') }}" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-salon-gold focus:ring focus:ring-salon-gold focus:ring-opacity-50">
+                <input type="date" name="birth_date" id="birth_date" value="{{ old('birth_date', $customer->birth_date ? $customer->birth_date->format('Y-m-d') : '') }}" autocomplete="bday" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-salon-gold focus:ring focus:ring-salon-gold focus:ring-opacity-50">
                 @error('birth_date')
                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                 @enderror
@@ -93,7 +105,7 @@
             <!-- Address -->
             <div>
                 <label for="address" class="block text-sm font-medium text-salon-text">Alamat</label>
-                <textarea id="address" name="address" rows="2" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-salon-gold focus:ring focus:ring-salon-gold focus:ring-opacity-50">{{ old('address', $customer->address) }}</textarea>
+                <textarea id="address" name="address" rows="2" autocomplete="street-address" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-salon-gold focus:ring focus:ring-salon-gold focus:ring-opacity-50">{{ old('address', $customer->address) }}</textarea>
                 @error('address')
                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                 @enderror

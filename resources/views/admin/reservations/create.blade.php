@@ -22,12 +22,12 @@
                 <h3 class="text-lg font-bold text-salon-text mb-4 border-b pb-2">Informasi Pelanggan & Waktu</h3>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                     <!-- Customer Selection -->
-                    <div x-data="customerDropdown()" class="relative">
+                    <div x-data="customerDropdown()" class="relative" @click.away="open = false">
                         <label for="user_id" class="block font-medium text-sm text-gray-700">Pelanggan <span
                                 class="text-red-500">*</span></label>
                         <input type="hidden" name="user_id" id="user_id" x-model="selectedId">
 
-                        <button type="button" @click="open = !open" @click.away="open = false"
+                        <button type="button" @click="open = !open"
                             class="relative w-full bg-white border border-gray-300 rounded-md shadow-sm pl-3 pr-10 py-2 text-left cursor-default focus:outline-none focus:ring-1 focus:ring-salon-gold focus:border-salon-gold sm:text-sm mt-1">
                             <span class="block truncate" x-text="selectedName || '-- Pilih Pelanggan --'"></span>
                             <span class="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">

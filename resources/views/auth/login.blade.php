@@ -37,13 +37,13 @@
                     class="rounded border-gray-300 text-salon-gold shadow-sm focus:ring-salon-gold" name="remember">
                 <span class="ms-2 text-sm text-salon-textLight">Ingat Saya</span>
             </label>
-
+            {{--
             @if (Route::has('password.request'))
-                <a class="text-sm text-salon-gold hover:text-salon-goldHover transition"
-                    href="{{ route('password.request') }}">
-                    Lupa kata sandi?
-                </a>
-            @endif
+            <a class="text-sm text-salon-gold hover:text-salon-goldHover transition"
+                href="{{ route('password.request') }}">
+                Lupa kata sandi?
+            </a>
+            @endif --}}
         </div>
 
         <div class="mt-6">

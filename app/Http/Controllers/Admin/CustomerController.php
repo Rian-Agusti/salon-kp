@@ -135,6 +135,7 @@ class CustomerController extends Controller
         $data = [
             'name' => $validated['name'],
             'phone' => $validated['phone'],
+            'email' => $validated['email'] ?? $customer->email,
             'birth_date' => $validated['birth_date'] ?? null,
             'member_until' => $validated['member_until'] ?? null,
             'address' => $validated['address'] ?? null,
