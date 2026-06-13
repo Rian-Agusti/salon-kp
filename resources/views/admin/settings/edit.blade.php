@@ -35,10 +35,12 @@
                                 <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">Nomer
                                     WhatsApp</label>
                                 <input type="text" name="phone" id="phone" value="{{ old('phone', $setting->phone) }}"
-                                    placeholder="e.g. 6281234567890"
+                                    placeholder="Contoh: 081234567890"
                                     class="w-full rounded-md border-gray-300 shadow-sm focus:border-salon-gold focus:ring focus:ring-salon-beige">
-                                <div class="mt-2 bg-blue-50 border-l-4 border-blue-400 p-2 text-xs text-blue-700 rounded-r-md">
-                                    <p class="font-medium">Nomor ini akan digunakan untuk tombol Hubungi Admin di halaman sukses reservasi dan halaman kontak publik.</p>
+                                <div
+                                    class="mt-2 bg-blue-50 border-l-4 border-blue-400 p-2 text-xs text-blue-700 rounded-r-md">
+                                    <p class="font-medium">Nomor ini akan digunakan untuk tombol Hubungi Admin di halaman
+                                        sukses reservasi dan halaman kontak publik.</p>
                                 </div>
                                 @error('phone') <span class="text-red-500 text-xs mt-1">{{ $message }}</span> @enderror
                             </div>
