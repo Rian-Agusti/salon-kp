@@ -40,7 +40,16 @@ class AppServiceProvider extends ServiceProvider
         View::composer(['layouts.public', 'layouts.admin', 'layouts.customer', 'contact', 'customer.reservations.index', 'customer.reservations.success', 'customer.reservations.show', 'admin.settings.edit'], function ($view) {
             $settingArray = Cache::rememberForever('public.setting', function () {
                 $setting = Setting::firstOrCreate(['id' => 1]);
-                return $setting->toArray();
+                return array_merge([
+                    'phone' => '',
+                    'email' => '',
+                    'address' => '',
+                    'salon_name' => '',
+                    'instagram' => '',
+                    'facebook' => '',
+                    'tiktok' => '',
+                    'google_maps' => '',
+                ], $setting->toArray());
             });
             $view->with('setting', (object) $settingArray);
         });
