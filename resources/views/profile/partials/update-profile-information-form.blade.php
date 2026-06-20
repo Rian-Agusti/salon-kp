@@ -24,6 +24,20 @@
         </div>
 
         <div>
+            <x-input-label for="phone" value="Nomor Telepon" />
+            <x-text-input id="phone" name="phone" type="text" class="mt-1 block w-full focus:border-salon-gold focus:ring-salon-gold" :value="old('phone', $user->phone)" required autocomplete="tel" />
+            <x-input-error class="mt-2" :messages="$errors->get('phone')" />
+        </div>
+
+        <div>
+            <x-input-label for="birth_date" value="Tanggal Lahir" />
+            <div class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-gray-50 text-gray-500 rounded-md shadow-sm sm:text-sm">
+                {{ $user->birth_date ? $user->birth_date->format('d/m/Y') : 'Belum diatur oleh admin' }}
+            </div>
+            <p class="mt-1 text-xs text-salon-textLight">Tanggal lahir tidak dapat diubah oleh customer. Silakan hubungi admin.</p>
+        </div>
+
+        <div>
             <x-input-label for="email" value="Email" />
             <x-text-input id="email" name="email" type="email" class="mt-1 block w-full focus:border-salon-gold focus:ring-salon-gold" :value="old('email', $user->email)" required autocomplete="username" />
             <x-input-error class="mt-2" :messages="$errors->get('email')" />

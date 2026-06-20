@@ -73,6 +73,8 @@ class ReservationController extends Controller
                 'booking_date' => $request->booking_date,
                 'booking_time' => $request->booking_time,
                 'status' => 'pending',
+                'payment_status' => 'unpaid',
+                'source' => 'online',
                 'discount_amount' => $discountAmount,
                 'notes' => $request->notes,
                 'customer_name' => $user->name,

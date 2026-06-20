@@ -150,13 +150,30 @@
                     </div>
                     <div class="flex items-start">
                         <svg class="w-5 h-5 text-gray-400 mr-3 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                        <div>
-                            <p class="text-xs text-gray-500 uppercase">Status Pembayaran</p>
+                        <div class="w-full">
+                            <p class="text-xs text-gray-500 uppercase flex justify-between items-center">
+                                Status Pembayaran
+                                <button type="button" onclick="document.getElementById('payment-status-form').classList.toggle('hidden')" class="text-[10px] text-blue-600 hover:text-blue-800 font-bold ml-2">UBAH</button>
+                            </p>
                             @if($reservation->payment_status == 'paid')
                                 <span class="px-2 mt-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Lunas</span>
                             @else
                                 <span class="px-2 mt-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">Belum Lunas</span>
                             @endif
+
+                            <form id="payment-status-form" action="{{ route('admin.reservations.updatePaymentStatus', $reservation) }}" method="POST" class="hidden mt-3 pt-3 border-t border-gray-100">
+                                @csrf
+                                @method('PATCH')
+                                <div class="flex flex-col space-y-2">
+                                    <select name="payment_status" class="w-full text-sm rounded-md border-gray-300 shadow-sm focus:border-salon-gold focus:ring focus:ring-salon-beige" required>
+                                        <option value="paid" {{ $reservation->payment_status == 'paid' ? 'selected' : '' }}>Lunas</option>
+                                        <option value="unpaid" {{ $reservation->payment_status == 'unpaid' ? 'selected' : '' }}>Belum Lunas</option>
+                                    </select>
+                                    <button type="submit" class="w-full bg-salon-gold hover:bg-salon-goldHover text-white text-xs font-medium py-1.5 px-3 rounded shadow-sm">
+                                        Simpan
+                                    </button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
