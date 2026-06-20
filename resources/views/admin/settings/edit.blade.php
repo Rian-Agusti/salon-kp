@@ -18,7 +18,7 @@
                             <label for="salon_name" class="block text-sm font-medium text-gray-700 mb-1">Nama Salon
                                 *</label>
                             <input type="text" name="salon_name" id="salon_name"
-                                value="{{ old('salon_name', $setting->salon_name) }}" required
+                                value="{{ old('salon_name', data_get($setting, 'salon_name')) }}" required
                                 class="w-full rounded-md border-gray-300 shadow-sm focus:border-salon-gold focus:ring focus:ring-salon-beige">
                             @error('salon_name') <span class="text-red-500 text-xs mt-1">{{ $message }}</span> @enderror
                         </div>
@@ -26,7 +26,7 @@
                         <div>
                             <label for="address" class="block text-sm font-medium text-gray-700 mb-1">Address</label>
                             <textarea name="address" id="address" rows="3"
-                                class="w-full rounded-md border-gray-300 shadow-sm focus:border-salon-gold focus:ring focus:ring-salon-beige">{{ old('address', $setting->address) }}</textarea>
+                                class="w-full rounded-md border-gray-300 shadow-sm focus:border-salon-gold focus:ring focus:ring-salon-beige">{{ old('address', data_get($setting, 'address')) }}</textarea>
                             @error('address') <span class="text-red-500 text-xs mt-1">{{ $message }}</span> @enderror
                         </div>
 
