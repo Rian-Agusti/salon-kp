@@ -18,7 +18,11 @@
                             <label for="salon_name" class="block text-sm font-medium text-gray-700 mb-1">Nama Salon
                                 *</label>
                             <input type="text" name="salon_name" id="salon_name"
+<<<<<<< HEAD
                                 value="{{ old('salon_name', data_get($setting, 'salon_name')) }}" required
+=======
+                                value="{{ old('salon_name', $setting->salon_name ?? '') }}" required
+>>>>>>> 37c75a45fc6da0388c4f39635527e277e20ae671
                                 class="w-full rounded-md border-gray-300 shadow-sm focus:border-salon-gold focus:ring focus:ring-salon-beige">
                             @error('salon_name') <span class="text-red-500 text-xs mt-1">{{ $message }}</span> @enderror
                         </div>
@@ -26,7 +30,11 @@
                         <div>
                             <label for="address" class="block text-sm font-medium text-gray-700 mb-1">Address</label>
                             <textarea name="address" id="address" rows="3"
+<<<<<<< HEAD
                                 class="w-full rounded-md border-gray-300 shadow-sm focus:border-salon-gold focus:ring focus:ring-salon-beige">{{ old('address', data_get($setting, 'address')) }}</textarea>
+=======
+                                class="w-full rounded-md border-gray-300 shadow-sm focus:border-salon-gold focus:ring focus:ring-salon-beige">{{ old('address', $setting->address ?? '') }}</textarea>
+>>>>>>> 37c75a45fc6da0388c4f39635527e277e20ae671
                             @error('address') <span class="text-red-500 text-xs mt-1">{{ $message }}</span> @enderror
                         </div>
 
@@ -34,7 +42,7 @@
                             <div>
                                 <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">Nomer
                                     WhatsApp</label>
-                                <input type="text" name="phone" id="phone" value="{{ old('phone', $setting->phone) }}"
+                                <input type="text" name="phone" id="phone" value="{{ old('phone', $setting->phone ?? '') }}"
                                     placeholder="Contoh: 081234567890"
                                     class="w-full rounded-md border-gray-300 shadow-sm focus:border-salon-gold focus:ring focus:ring-salon-beige">
                                 <div
@@ -46,7 +54,7 @@
                             </div>
                             <div>
                                 <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
-                                <input type="email" name="email" id="email" value="{{ old('email', $setting->email) }}"
+                                <input type="email" name="email" id="email" value="{{ old('email', $setting->email ?? '') }}"
                                     class="w-full rounded-md border-gray-300 shadow-sm focus:border-salon-gold focus:ring focus:ring-salon-beige">
                                 @error('email') <span class="text-red-500 text-xs mt-1">{{ $message }}</span> @enderror
                             </div>
@@ -57,7 +65,7 @@
                                 <label for="opening_hour" class="block text-sm font-medium text-gray-700 mb-1">Jam Buka
                                     *</label>
                                 <input type="time" name="opening_hour" id="opening_hour"
-                                    value="{{ old('opening_hour', \Carbon\Carbon::parse($setting->opening_hour)->format('H:i')) }}"
+                                    value="{{ old('opening_hour', isset($setting->opening_hour) ? \Carbon\Carbon::parse($setting->opening_hour)->format('H:i') : '') }}"
                                     required
                                     class="w-full rounded-md border-gray-300 shadow-sm focus:border-salon-gold focus:ring focus:ring-salon-beige">
                                 @error('opening_hour') <span class="text-red-500 text-xs mt-1">{{ $message }}</span>
@@ -67,7 +75,7 @@
                                 <label for="closing_hour" class="block text-sm font-medium text-gray-700 mb-1">Jam Tutup
                                     *</label>
                                 <input type="time" name="closing_hour" id="closing_hour"
-                                    value="{{ old('closing_hour', \Carbon\Carbon::parse($setting->closing_hour)->format('H:i')) }}"
+                                    value="{{ old('closing_hour', isset($setting->closing_hour) ? \Carbon\Carbon::parse($setting->closing_hour)->format('H:i') : '') }}"
                                     required
                                     class="w-full rounded-md border-gray-300 shadow-sm focus:border-salon-gold focus:ring focus:ring-salon-beige">
                                 @error('closing_hour') <span class="text-red-500 text-xs mt-1">{{ $message }}</span>
@@ -86,7 +94,7 @@
                             <label for="instagram" class="block text-sm font-medium text-gray-700 mb-1">Instagram
                                 URL</label>
                             <input type="url" name="instagram" id="instagram"
-                                value="{{ old('instagram', $setting->instagram) }}" placeholder="https://instagram.com/..."
+                                value="{{ old('instagram', $setting->instagram ?? '') }}" placeholder="https://instagram.com/..."
                                 class="w-full rounded-md border-gray-300 shadow-sm focus:border-salon-gold focus:ring focus:ring-salon-beige">
                             @error('instagram') <span class="text-red-500 text-xs mt-1">{{ $message }}</span> @enderror
                         </div>
@@ -94,14 +102,14 @@
                         <div>
                             <label for="facebook" class="block text-sm font-medium text-gray-700 mb-1">Facebook URL</label>
                             <input type="url" name="facebook" id="facebook"
-                                value="{{ old('facebook', $setting->facebook) }}" placeholder="https://facebook.com/..."
+                                value="{{ old('facebook', $setting->facebook ?? '') }}" placeholder="https://facebook.com/..."
                                 class="w-full rounded-md border-gray-300 shadow-sm focus:border-salon-gold focus:ring focus:ring-salon-beige">
                             @error('facebook') <span class="text-red-500 text-xs mt-1">{{ $message }}</span> @enderror
                         </div>
 
                         <div>
                             <label for="tiktok" class="block text-sm font-medium text-gray-700 mb-1">TikTok URL</label>
-                            <input type="url" name="tiktok" id="tiktok" value="{{ old('tiktok', $setting->tiktok) }}"
+                            <input type="url" name="tiktok" id="tiktok" value="{{ old('tiktok', $setting->tiktok ?? '') }}"
                                 placeholder="https://tiktok.com/@..."
                                 class="w-full rounded-md border-gray-300 shadow-sm focus:border-salon-gold focus:ring focus:ring-salon-beige">
                             @error('tiktok') <span class="text-red-500 text-xs mt-1">{{ $message }}</span> @enderror

@@ -37,6 +37,7 @@
                     class="rounded border-gray-300 text-salon-gold shadow-sm focus:ring-salon-gold" name="remember">
                 <span class="ms-2 text-sm text-salon-textLight">Ingat Saya</span>
             </label>
+<<<<<<< HEAD
 
             @if (Route::has('password.request'))
                 <a class="text-sm text-salon-gold hover:text-salon-goldHover transition"
@@ -44,6 +45,8 @@
                     Lupa kata sandi?
                 </a>
             @endif
+=======
+>>>>>>> 37c75a45fc6da0388c4f39635527e277e20ae671
         </div>
 
         <div class="mt-6">
