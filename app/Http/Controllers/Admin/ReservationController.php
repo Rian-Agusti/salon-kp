@@ -160,6 +160,19 @@ class ReservationController extends Controller
         return redirect()->back()->with('success', 'Reservation status updated successfully.');
     }
 
+    public function updatePaymentStatus(Request $request, Reservation $reservation)
+    {
+        $request->validate([
+            'payment_status' => ['required', 'in:paid,unpaid'],
+        ]);
+
+        $reservation->update([
+            'payment_status' => $request->payment_status,
+        ]);
+
+        return redirect()->back()->with('success', 'Status pembayaran berhasil diperbarui.');
+    }
+
     public function pdf(Reservation $reservation)
     {
         $reservation->load(['user', 'reservationItems']);

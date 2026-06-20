@@ -39,6 +39,7 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
 
     Route::resource('reservations', Admin\ReservationController::class)->except(['edit', 'update']);
     Route::patch('reservations/{reservation}/status', [Admin\ReservationController::class, 'updateStatus'])->name('reservations.updateStatus');
+    Route::patch('reservations/{reservation}/payment-status', [Admin\ReservationController::class, 'updatePaymentStatus'])->name('reservations.updatePaymentStatus');
     Route::get('reservations/{reservation}/pdf', [Admin\ReservationController::class, 'pdf'])->name('reservations.pdf');
 
     Route::resource('customers', Admin\CustomerController::class)->except(['destroy']);
